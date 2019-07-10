@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "wolvm": {
+      "commandName": "Project",
+      "workingDirectory": "C:\\Users\\User\\Desktop\\Sashino\\wol-projects\\wol\\vm\\wolvm"
+    }
+  }
+}

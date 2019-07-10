@@ -1,0 +1,79 @@
+_loads {
+	System
+}
+main {
+	#_loads : <System:string>;
+	Beep;
+	Plus : <12:double>, <10:double>, <678:double>;
+}
+stack {
+	class {
+		Tuzik = DEFAULT PUBLIC (void): 
+		constructor [
+			Tuzik = PUBLIC : [
+				&this.age#set : <null:void>;
+				&this.name#set : <null:void>;
+			]
+		],
+		func [
+			toString = PUBLIC string : [
+				Return : <Tuzik:string>;
+			],
+			greet = PUBLIC void (text: string) [
+				#print :(AddString : <Hello, :string>, @text );
+			]
+		],
+		var [
+			age = PUBLIC int set (age: int) [
+				Set : &this.age , @thisargs.age ;
+			]
+			PUBLIC get [
+				Return : @this.age ;
+			], 
+			name = string PUBLIC set (name: string) [
+				Set : &this.name , @thisargs.name ;
+				System.Print : (AddString : <Your new name is :string>,  @this.name );
+			]
+			PUBLIC get [
+				System.Print : (AddString : <Your name is\u003A:string>, @this.name );
+				Return : @this.name ;
+			]
+		];
+		, BaseType = ENUM PUBLIC (int): const [
+			VOID = 0,
+			BOOL = 1,
+			BYTE = 2,
+			CHAR = 3,
+			INT = 4,
+			FLOAT = 5,
+			STRING = 6,
+			LONG = 7,
+			DOUBLE = 8,
+			SHORT = 12
+		];
+	};
+	func {
+		_loads = PRIVATE void (fwname: string): [
+			Loads : @thisargs.fwname ;
+		],
+		print = PRIVATE void (text: string): [
+			System.Print : @thisargs.text ;
+		],
+		+ = PRIVATE int (a: int, b: int): [
+			Return : ( Plus : @thisargs.a , @thisargs.b ) ;
+		]
+	};
+	var {
+		sum = int PRIVATE set (sum: int) [
+			Set : &sum , @thisargs.sum ;
+		]
+		PRIVATE get [
+			Return : @sum ;
+		]
+	};
+}
+main {
+	&sum#set : (#+ : <12:int>, <13:int> ) ;
+	#print : ( i2s : @sum )  ;
+}
+end 

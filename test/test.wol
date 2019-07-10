@@ -1,0 +1,45 @@
+import std; //подключаем платформу std
+_loads("System"); //загружаем библиотеку виртуальной машины System используя встренную функцию из платформы std
+Virtual {
+	Beep;
+	HelloWorld;
+	HelloWorld;
+	Plus : <12:double>, <10:double>, <678:double>;
+} //Virtual`ом задаём скрипт
+class public Tuzik {
+	function public string toString() => "Tuzik"; //оператор => возвращает значение. После значения всегда ставится ;
+	function public greet(string text) -> print("Hello, " + text);
+	var public int age;
+	var public string name = set (string name) {
+		Virtual {
+			Set : &this.name , @thisargs.name ;
+			System.Print : (AddString : <Your name is :string>, @this.name );
+		}
+	}
+	get {
+		Virtual {
+			System.Print : (AddString : <Your name is\u003A:string>, @this.name );
+			Return : @this.name ;
+		}
+	};
+}
+
+enum public BaseType {
+	VOID,
+	BOOL,
+	BYTE,
+	CHAR,
+	INT,
+	FLOAT,
+	STRING,
+	LONG,
+	DOUBLE,
+	SHORT(12)
+}
+
+function print(string text) -> Virtual { System.Print : @thisargs.text ; }; //а оператор -> просто выпоняет действие. После выражения всегда ставится ;
+
+operator int +(left int a, right int b) => Virtual { Return : ( Plus : @thisargs.a , @thisargs.b ) ; };
+
+var int sum = 12 + 13 ;
+print((string) sum);
