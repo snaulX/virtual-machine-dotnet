@@ -12,25 +12,22 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <OutputPath>C:\Users\User\Desktop\Sashino\wol-projects\wol\vm\wolvm\bin\</OutputPath>
+    <OutputPath>bin\</OutputPath>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Optimize>false</Optimize>
+    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">
-    <OutputPath>C:\Users\User\Desktop\Sashino\wol-projects\wol\vm\wolvm\bin\</OutputPath>
+    <OutputPath>bin\x86</OutputPath>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Optimize>false</Optimize>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutputPath>C:\Users\User\Desktop\Sashino\wol-projects\wol\vm\wolvm\bin\</OutputPath>
+    <OutputPath>bin\x64</OutputPath>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Optimize>false</Optimize>
   </PropertyGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.Runtime.Loader" Version="4.3.0" />
-  </ItemGroup>
   
 </Project>
