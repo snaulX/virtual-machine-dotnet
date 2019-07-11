@@ -358,6 +358,7 @@ namespace wolvm
         ArgumentsNullException, //... argument have 'null'
         IndexOutOfRangeException, //... get index who bigger than length of collection
         NullRefrenceException, //... operation work with 'null'
-        ChildException //... class or functions hasn`t child
+        ChildException, //... class or functions hasn`t child
+        SecurityException //... call private property
     }
 }

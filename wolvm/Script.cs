@@ -19,15 +19,30 @@ namespace wolvm
                 string[] tokens = string_expression.Split(new char[4] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
                 if (tokens[0].StartsWith("@"))
                 {
-                    string valname = tokens[0].Remove(0, 1); //get var name (remove '&')
-                    Value value = VirtualMachine.mainstack.values[valname]; //create empty link
-                    if (valname.Contains("#"))
+                    if (tokens[0].Contains("#"))
                     {
-                        if (valname.Split('#').Length == 2)
+                        if (tokens[0].Split('#').Length == 2)
                         {
+                            string valname = tokens[0].Remove(0, 1); //get var name (remove '@')
+                            Value value = null;
+                            try
+                            {
+                                value = _stack.values[valname]; //create get value from valname
+                            }
+                            catch (KeyNotFoundException)
+                            {
+                                VirtualMachine.ThrowVMException("Variable by name " + valname + " not found", VirtualMachine.position - script_code.Length, ExceptionType.NotFoundException);
+                                break; //time break for willn`t throw NullRefrenceException 
+                            }
                             string meth_name = valname.Split('#')[1]; //get calls method name
                             if (meth_name == "set")
                             {
+                                Console.WriteLine("set " + valname);
+                                if (value.setter.security == SecurityModifer.PRIVATE)
+                                {
+                                    VirtualMachine.ThrowVMException("Setter is private", VirtualMachine.position, ExceptionType.SecurityException);
+                                    break;
+                                }
                                 string[] argums = new string[0];
                                 string args = string_expression.Substring(string_expression.IndexOf(':') + 1).Trim(); //code after name of setter (string with arguments)
                                 argums = args.Split(','); //array with arguments of setter
@@ -41,6 +56,11 @@ namespace wolvm
                             }
                             else if (meth_name == "get")
                             {
+                                if (value.getter.security == SecurityModifer.PRIVATE)
+                                {
+                                    VirtualMachine.ThrowVMException("Getter is private", VirtualMachine.position, ExceptionType.SecurityException);
+                                    break;
+                                }
                                 value.getter.Call(); //just call getter
                             }
                             else

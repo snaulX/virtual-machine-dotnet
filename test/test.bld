@@ -73,7 +73,7 @@ stack {
 	};
 }
 main {
-	&sum#set : (#+ : <12:int>, <13:int> ) ;
+	@sum#set : (#+ : <12:int>, <13:int> ) ;
 	#print : ( i2s : @sum )  ;
 }
 end 
