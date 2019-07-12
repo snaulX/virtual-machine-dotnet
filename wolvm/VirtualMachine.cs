@@ -304,6 +304,20 @@ namespace wolvm
                 }
                 else if (buffer.ToString() == "end")
                 {
+                    //test stack
+                    foreach (KeyValuePair<string, Value> keyValuePair in mainstack.values)
+                    {
+                        Console.WriteLine(keyValuePair.Key + ' ' + keyValuePair.Value);
+                    }
+                    foreach (KeyValuePair<string, wolClass> keyValuePair in mainstack.classes)
+                    {
+                        Console.WriteLine(keyValuePair.Key + ' ' + keyValuePair.Value);
+                    }
+                    foreach (KeyValuePair<string, wolFunction> keyValuePair in mainstack.functions)
+                    {
+                        Console.WriteLine(keyValuePair.Key + ' ' + keyValuePair.Value);
+                    }
+
                     return;
                 }
                 else if (buffer.ToString() == "}")

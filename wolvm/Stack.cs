@@ -1133,8 +1133,11 @@ namespace wolvm
                                 {
                                     VirtualMachine.ThrowVMException("Start of block not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                 }
-                                if (stack_code[position + 1] == ',') goto variable;
-                                else VirtualMachine.mainstack.values.Add(var_name, thisVar);
+                                VirtualMachine.mainstack.values.Add(var_name, thisVar);
+                                if (stack_code[position + 1] == ',')
+                                {
+                                    goto variable;
+                                }
                             }
                         }
                     }

@@ -2,7 +2,7 @@
   "profiles": {
     "wolvm": {
       "commandName": "Project",
-      "workingDirectory": "C:\\Users\\User\\Desktop\\Sashino\\wol-projects\\wol\\vm\\wolvm"
+      "workingDirectory": "C:\\Users\\User\\Desktop\\Sashino\\wol-projects\\wol\\vm\\virtual-machine-dotnet"
     }
   }
 }

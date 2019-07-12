@@ -23,7 +23,7 @@ namespace wolvm
                     {
                         if (tokens[0].Split('#').Length == 2)
                         {
-                            string valname = tokens[0].Remove(0, 1); //get var name (remove '@')
+                            string valname = tokens[0].Remove(0, 1).Split('#')[0]; //get var name (remove '@') and remove '#'
                             Value value = null;
                             try
                             {
@@ -31,7 +31,7 @@ namespace wolvm
                             }
                             catch (KeyNotFoundException)
                             {
-                                VirtualMachine.ThrowVMException("Variable by name " + valname + " not found", VirtualMachine.position - script_code.Length, ExceptionType.NotFoundException);
+                                VirtualMachine.ThrowVMException($"Variable by name {valname} not found", VirtualMachine.position - script_code.Length, ExceptionType.NotFoundException);
                                 break; //time break for willn`t throw NullRefrenceException 
                             }
                             string meth_name = valname.Split('#')[1]; //get calls method name
@@ -66,6 +66,11 @@ namespace wolvm
                             else
                             {
                                 wolFunction func = value.GetMethod(meth_name);
+                                if (func.security == SecurityModifer.PRIVATE)
+                                {
+                                    VirtualMachine.ThrowVMException($"Method by name {meth_name} is private", VirtualMachine.position, ExceptionType.SecurityException);
+                                    break;
+                                }
                                 string[] argums = new string[0];
                                 if (string_expression.Contains(":"))
                                 {
@@ -74,7 +79,7 @@ namespace wolvm
                                 }
                                 else
                                 {
-                                    func.Call(value); //call method and exit from parsing
+                                    func.Call(value); //call method with 'this' argument and exit from parsing
                                     break;
                                 }
                                 Value[] values = new Value[argums.Length + 1]; //array with arguments who converted to Value
@@ -107,7 +112,7 @@ namespace wolvm
                     }
                     catch (KeyNotFoundException)
                     {
-                        VirtualMachine.ThrowVMException("Function by name " + func_name + " not found", VirtualMachine.position - script_code.Length, ExceptionType.NotFoundException);
+                        VirtualMachine.ThrowVMException($"Function by name {func_name} not found", VirtualMachine.position - script_code.Length, ExceptionType.NotFoundException);
                         continue; //time break
                     }
                     string[] argums = new string[0];
@@ -165,7 +170,7 @@ namespace wolvm
                     }
                     if (!haveExpression)
                     {
-                        VirtualMachine.ThrowVMException("VM Expression by name " + tokens[0] + " not found and will cannot parse", VirtualMachine.position, ExceptionType.NotFoundException);
+                        VirtualMachine.ThrowVMException($"VM Expression by name {tokens[0]} not found and will cannot parse", VirtualMachine.position, ExceptionType.NotFoundException);
                     }
                 }
             }

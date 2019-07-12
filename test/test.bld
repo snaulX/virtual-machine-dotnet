@@ -32,7 +32,7 @@ stack {
 			], 
 			name = string PUBLIC set (name: string) [
 				Set : &this.name , @thisargs.name ;
-				System.Print : (AddString : <Your new name is :string>,  @this.name );
+				System.Print : <Your new name is :string>,  @this.name ;
 			]
 			PUBLIC get [
 				System.Print : (AddString : <Your name is\u003A:string>, @this.name );
@@ -74,6 +74,6 @@ stack {
 }
 main {
 	@sum#set : (#+ : <12:int>, <13:int> ) ;
-	#print : ( i2s : @sum )  ;
+	#print : ( IntToStr : @sum )  ;
 }
 end 

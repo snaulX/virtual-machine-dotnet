@@ -53,7 +53,9 @@ namespace wolvm
             }
             else if (val.StartsWith("@"))
             {
+                start:
                 val = val.Remove(0, 1); //remove '@'
+                Console.WriteLine(val.IndexOf('.')); //test
                 return null;
             }
             else if (val.StartsWith("&"))
