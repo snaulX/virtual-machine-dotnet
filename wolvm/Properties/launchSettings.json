@@ -2,6 +2,7 @@
   "profiles": {
     "wolvm": {
       "commandName": "Project",
+      "commandLineArgs": "C:\\Users\\User\\Desktop\\Sashino\\wol-projects\\wol\\vm\\virtual-machine-dotnet\\test\\test.bld",
       "workingDirectory": "C:\\Users\\User\\Desktop\\Sashino\\wol-projects\\wol\\vm\\virtual-machine-dotnet"
     }
   }

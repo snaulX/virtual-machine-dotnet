@@ -362,7 +362,7 @@ namespace wolvm
     public enum ExceptionType
     {
         //this type throws when ...
-        TypeNotSupportedException,
+        TypeNotSupportedException, //... when in enum init method and more
         StackOverflowException, //... size of stack is bigger then memory
         InvalidTypeException, //... get type doesn`t fits
         NotFoundException,

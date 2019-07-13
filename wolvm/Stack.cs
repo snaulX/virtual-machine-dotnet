@@ -465,8 +465,8 @@ namespace wolvm
                                                                         }
                                                                     }
                                                                     func.body = buffer.ToString();
+                                                                    newWolClass.methods.Add(func_name, func);
                                                                     if (stack_code[position + 1] == ',') goto function;
-                                                                    else newWolClass.methods.Add(func_name, func);
                                                                 }
                                                                 else
                                                                 {
@@ -693,8 +693,8 @@ namespace wolvm
                                                             {
                                                                 VirtualMachine.ThrowVMException("Start of block not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                             }
+                                                            newWolClass.fields.Add(var_name, thisVar);
                                                             if (stack_code[position + 1] == ',') goto variable;
-                                                            else newWolClass.fields.Add(var_name, thisVar);
                                                         }
                                                     }
                                                 }
@@ -717,6 +717,7 @@ namespace wolvm
                                                 VirtualMachine.ThrowVMException("Unknown keyword " + buffer.ToString() + " in the class initilization", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                 break;
                                         }
+                                        stack.classes.Add(className, newWolClass); //add to return stack this class
                                     }
                                 }
                                 else
@@ -893,8 +894,8 @@ namespace wolvm
                                         }
                                     }
                                     func.body = buffer.ToString();
+                                    stack.functions.Add(func_name, func);
                                     if (stack_code[position + 1] == ',') goto function;
-                                    else VirtualMachine.mainstack.functions.Add(func_name, func);
                                 }
                                 else
                                 {
@@ -1133,7 +1134,7 @@ namespace wolvm
                                 {
                                     VirtualMachine.ThrowVMException("Start of block not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                 }
-                                VirtualMachine.mainstack.values.Add(var_name, thisVar);
+                                stack.values.Add(var_name, thisVar);
                                 if (stack_code[position + 1] == ',')
                                 {
                                     goto variable;
@@ -1170,6 +1171,7 @@ namespace wolvm
             {
                 //pass
             }
+            Console.WriteLine($"Classes length {stack.classes.Count}  funs {stack.functions.Count} vars {stack.values.Count}"); //test
             return stack;
         }
 
