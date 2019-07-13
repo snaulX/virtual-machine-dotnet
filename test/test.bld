@@ -24,8 +24,8 @@ stack {
 			]
 		],
 		var [
-			age = PUBLIC int set (age: int) [
-				Set : &this.age , @thisargs.age ;
+			age = PUBLIC int set (_age: int) [
+				Set : &this.age , @_age ;
 			]
 			PUBLIC get [
 				Return : @this.age ;
@@ -54,18 +54,18 @@ stack {
 	};
 	func {
 		_loads = PRIVATE void (fwname: string): [
-			Loads : @thisargs.fwname ;
+			Loads : @fwname ;
 		],
 		print = PRIVATE void (text: string): [
-			System.Print : @thisargs.text ;
+			System.Print : @text ;
 		],
 		+ = PRIVATE int (a: int, b: int): [
-			Return : ( Plus : @thisargs.a , @thisargs.b ) ;
+			Return : ( Plus : @a , @b ) ;
 		]
 	};
 	var {
-		sum = int PRIVATE set (sum: int) [
-			Set : &sum , @thisargs.sum ;
+		sum = int PRIVATE set (_sum: int) [
+			Set : &sum , @_sum ;
 		]
 		PRIVATE get [
 			Return : @sum ;

@@ -50,7 +50,8 @@ namespace wolvm
                 },
                 fields = new Dictionary<string, Value>
                 {
-                    { "HasSetter", new Value(VirtualMachine.wolBool.Value) }
+                    { "HasSetter", new Value(VirtualMachine.wolBool.Value) },
+                    { "Address", new Value(VirtualMachine.wolString.Value) }
                 },
                 methods = new Dictionary<string, wolFunction>
                 {
@@ -62,7 +63,7 @@ namespace wolvm
                                 { "method_name", wolString.Value },
                                 { "arguments", wolArray.Value }
                             },
-                            body = "Call : &this, @thisargs.method_name, @thisargs.arguments ;"
+                            body = "Call : &this, @method_name, @arguments ;"
                         }
                     }
                 }
@@ -373,6 +374,7 @@ namespace wolvm
         IndexOutOfRangeException, //... get index who bigger than length of collection
         NullRefrenceException, //... operation work with 'null'
         ChildException, //... class or functions hasn`t child
-        SecurityException //... call private property
+        SecurityException, //... call private property
+        ArgumentsOutOfRangeException //... arguments bigger or lower than need
     }
 }

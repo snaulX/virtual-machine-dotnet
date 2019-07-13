@@ -20,6 +20,21 @@ namespace wolvm
             getter.body = "Return : " + val + " ;";
         }
 
+        public Value GetField(string name)
+        {
+            try
+            {
+                return type.fields[name];
+            }
+            catch (KeyNotFoundException)
+            {
+                VirtualMachine.ThrowVMException($"Field by name {name} not found", VirtualMachine.position, ExceptionType.NotFoundException);
+                return null;
+            }
+        }
+
+        public bool CheckType(string name) => VirtualMachine.GetWolClass(name) == type ? true : false; //thanks C# for one-string functions))
+
         public static bool IsVoid(string val) => val.Trim() == "null";
 
         public static bool IsBool(string val) => val.Trim() == "true" || val.Trim() == "false";
