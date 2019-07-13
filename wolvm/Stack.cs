@@ -22,7 +22,7 @@ namespace wolvm
             Stack stack = new Stack();
             int position = 0;
             char current = stack_code[0];
-            while (char.IsWhiteSpace(current))
+            while (char.IsWhiteSpace(current)) //skip whitespaces
             {
                 position++;
                 if (position > stack_code.Length)
@@ -31,7 +31,7 @@ namespace wolvm
                 }
                 current = stack_code[position];
             }
-            try
+            try //skip whitespace
             {
                 current = stack_code[++position];
             }
@@ -42,27 +42,43 @@ namespace wolvm
             StringBuilder buffer = new StringBuilder();
             start: while (current != '}')
             {
-                if (buffer.ToString() == "class")
+                while (char.IsWhiteSpace(current)) //skip whitespaces
                 {
-                    buffer.Clear();
-                    while (char.IsWhiteSpace(current))
-                    {
-                        position++;
-                        if (position > stack_code.Length)
-                        {
-                            VirtualMachine.ThrowVMException("Classes is empty", VirtualMachine.position - position, ExceptionType.BLDSyntaxException);
-
-                        }
-                        current = stack_code[position];
-                    }
                     try
                     {
                         current = stack_code[++position];
                     }
                     catch (IndexOutOfRangeException)
                     {
-                        VirtualMachine.ThrowVMException("Classes is empty", VirtualMachine.position, ExceptionType.BLDSyntaxException);
-
+                        VirtualMachine.ThrowVMException("End of block of stack not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                    }
+                }
+                while (!char.IsWhiteSpace(current)) //get keyword
+                {
+                    try
+                    {
+                        buffer.Append(current);
+                        current = stack_code[++position];
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
+                        return stack;
+                        //VirtualMachine.ThrowVMException("End of block of stack not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                    }
+                }
+                if (buffer.ToString() == "class")
+                {
+                    buffer.Clear();
+                    while (char.IsWhiteSpace(current)) //skip whitespaces
+                    {
+                        try
+                        {
+                            current = stack_code[++position];
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+                            VirtualMachine.ThrowVMException("Class haven`t block", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                        }
                     }
                     if (current == '{')
                     {
@@ -80,6 +96,7 @@ namespace wolvm
 
                                 }
                             }
+                            buffer.Clear();
                             while (!char.IsWhiteSpace(current)) //get class name
                             {
                                 try
@@ -90,11 +107,11 @@ namespace wolvm
                                 catch (IndexOutOfRangeException)
                                 {
                                     VirtualMachine.ThrowVMException("Classes`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
-
                                 }
                             }
                             string className = buffer.ToString();
                             current = stack_code[++position]; //skip whitespace
+                            buffer.Clear();
                             if ((current == '=') || (current == ':'))
                             {
                                 current = stack_code[++position]; //skip whitespace
@@ -723,13 +740,11 @@ namespace wolvm
                                 else
                                 {
                                     VirtualMachine.ThrowVMException("Start of block operator is not valid", VirtualMachine.position, ExceptionType.BLDSyntaxException);
-
                                 }
                             }
                             else
                             {
                                 VirtualMachine.ThrowVMException("Equals operator is not valid", VirtualMachine.position, ExceptionType.BLDSyntaxException);
-
                             }
 
                         }
@@ -737,7 +752,6 @@ namespace wolvm
                     else
                     {
                         VirtualMachine.ThrowVMException("Classes`s start not found", VirtualMachine.position - position, ExceptionType.BLDSyntaxException);
-
                     }
                 }
                 else if (buffer.ToString() == "func")

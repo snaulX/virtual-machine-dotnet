@@ -39,7 +39,8 @@ stack {
 				Return : @this.name ;
 			]
 		];
-		, BaseType = ENUM PUBLIC (int): const [
+		BaseType = ENUM PUBLIC (int): 
+		const [
 			VOID = 0,
 			BOOL = 1,
 			BYTE = 2,
