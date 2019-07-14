@@ -342,7 +342,7 @@ namespace wolvm
         public static void ThrowVMException(string message, int position, ExceptionType type)
         {
             Console.BackgroundColor = ConsoleColor.DarkRed;
-            Console.Error.WriteLine(type.ToString() + ". Exception in position " + position + ". " + message);
+            Console.Error.WriteLine($"{type.ToString()}. Exception in position {position}. {message}");
             Console.BackgroundColor = ConsoleColor.Black;
             //Environment.Exit(((int) type) + 2); //for try-catch feauture
         }
