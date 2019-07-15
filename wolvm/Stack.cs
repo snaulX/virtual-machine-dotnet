@@ -245,7 +245,7 @@ namespace wolvm
                                         }
                                         catch (Exception)
                                         {
-                                            VirtualMachine.ThrowVMException("", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                            VirtualMachine.ThrowVMException(buffer.ToString() + " is not security modifer", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                         }
                                         while (char.IsWhiteSpace(current))
                                         {
@@ -260,9 +260,9 @@ namespace wolvm
                                         }
                                         if (current == '(')
                                         {
+                                            buffer.Clear();
                                             while (current != ')') //get parents
-                                            {
-                                                buffer.Clear();
+                                            { 
                                                 try
                                                 {
                                                     buffer.Append(current);
@@ -271,19 +271,30 @@ namespace wolvm
                                                 catch (IndexOutOfRangeException)
                                                 {
                                                     VirtualMachine.ThrowVMException("Classes`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
-
                                                 }
                                             }
-                                            foreach (string parent_name in buffer.ToString().Split(','))
+                                            foreach (string parent_name in buffer.ToString().Remove(0, 1).Split(','))
                                             {
                                                 try
                                                 {
                                                     newWolClass.parents.Add(parent_name, VirtualMachine.GetWolClass(parent_name)); //add values in parens to parents of our class
                                                 }
-                                                catch (NullReferenceException)
+                                                catch (Exception)
                                                 {
                                                     //roflanochka
                                                 }
+                                            }
+                                        }
+                                        current = stack_code[++position]; //skip ')'
+                                        while (char.IsWhiteSpace(current))
+                                        {
+                                            try
+                                            {
+                                                current = stack_code[++position];
+                                            }
+                                            catch (IndexOutOfRangeException)
+                                            {
+                                                VirtualMachine.ThrowVMException("End of class not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                             }
                                         }
                                         if ((current == ':') || (current == '>')) //check start of class
@@ -1230,7 +1241,7 @@ namespace wolvm
                                         }
                                         else
                                         {
-                                            VirtualMachine.ThrowVMException("Start of block not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                            VirtualMachine.ThrowVMException("Start of setter block not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                         }
                                         while (char.IsWhiteSpace(current))
                                         {
@@ -1280,7 +1291,7 @@ namespace wolvm
                                     }
                                     else
                                     {
-                                        VirtualMachine.ThrowVMException("Start of block not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                        VirtualMachine.ThrowVMException("Start of getter block not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                     }
                                     stack.values.Add(var_name, thisVar);
                                     if (stack_code[position + 1] == ',')
