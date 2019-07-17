@@ -115,6 +115,7 @@ namespace wolvm
                                         VirtualMachine.ThrowVMException("Classes`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
                                     }
                                 }
+                                Console.WriteLine(buffer.ToString()); //RoflanDebug)))
                                 if (buffer.ToString().Trim() == "{")
                                 {
                                     buffer.Clear();
@@ -544,7 +545,7 @@ namespace wolvm
                                                                             }
                                                                             catch (IndexOutOfRangeException)
                                                                             {
-                                                                                VirtualMachine.ThrowVMException("Function`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                                                                VirtualMachine.ThrowVMException("Method`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
                                                                             }
                                                                         }
                                                                         func.security = (SecurityModifer)Enum.Parse(typeof(SecurityModifer), buffer.ToString(), true); //write this modifer to our function
@@ -559,7 +560,7 @@ namespace wolvm
                                                                             }
                                                                             catch (IndexOutOfRangeException)
                                                                             {
-                                                                                VirtualMachine.ThrowVMException("Function`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                                                                VirtualMachine.ThrowVMException("Method`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
                                                                             }
                                                                         }
                                                                         try
@@ -875,7 +876,35 @@ namespace wolvm
                                                     case "const":
                                                         if ((newWolClass.classType == wolClassType.ENUM) || (newWolClass.classType == wolClassType.STRUCT))
                                                         {
-                                                            //valid
+                                                            while (char.IsWhiteSpace(current)) //skip whitespaces
+                                                            {
+                                                                try
+                                                                {
+                                                                    current = stack_code[++position];
+                                                                }
+                                                                catch (IndexOutOfRangeException)
+                                                                {
+                                                                    VirtualMachine.ThrowVMException("Start of constants not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                                                }
+                                                            }
+                                                            if (current == '[')
+                                                            {
+                                                                while (current != ']')
+                                                                {
+                                                                    try
+                                                                    {
+                                                                        current = stack_code[++position];
+                                                                    }
+                                                                    catch (IndexOutOfRangeException)
+                                                                    {
+                                                                        VirtualMachine.ThrowVMException("End of constants block not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                                                    } //it`s time solution
+                                                                }
+                                                            }
+                                                            else
+                                                            {
+                                                                VirtualMachine.ThrowVMException("Open brackets in constants not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                                            }
                                                         }
                                                         else
                                                         {
