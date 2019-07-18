@@ -490,7 +490,17 @@ namespace wolvm
                                                         else
                                                         {
                                                             buffer.Clear();
-                                                            current = stack_code[++position];
+                                                            while (char.IsWhiteSpace(current)) //skip whitespaces
+                                                            {
+                                                                try
+                                                                {
+                                                                    current = stack_code[++position];
+                                                                }
+                                                                catch (IndexOutOfRangeException)
+                                                                {
+                                                                    VirtualMachine.ThrowVMException("Start of methods not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                                                }
+                                                            }
                                                             if (current != '[') //check open bracket
                                                             {
                                                                 VirtualMachine.ThrowVMException("Start of methods not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
@@ -912,6 +922,7 @@ namespace wolvm
                                                         }
                                                         break;
                                                     case "],":
+                                                        buffer.Clear();
                                                         break; //костыль((
                                                     default:
                                                         VirtualMachine.ThrowVMException("Unknown keyword " + buffer.ToString() + " in the class initilization", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
@@ -1380,7 +1391,7 @@ namespace wolvm
                 {
                     //pass
                 }
-                Console.WriteLine($"Classes length {stack.classes.Count}  funs {stack.functions.Count} vars {stack.values.Count}"); //test
+                Console.WriteLine($"Classes length {stack.classes.Count}  funс {stack.functions.Count} vars {stack.values.Count}"); //test
                 return stack;
             }
             else
