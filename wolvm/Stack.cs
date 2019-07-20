@@ -1336,6 +1336,10 @@ namespace wolvm
 
                         }
                     }
+                    else
+                    {
+                        VirtualMachine.ThrowVMException($"Unknown keyword {buffer.ToString()} in stack initilization", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                    }
                     try
                     {
                         buffer.Append(current);
@@ -1351,7 +1355,7 @@ namespace wolvm
                     if (stack_code[++position] == ';')
                     {
                         buffer.Append(current);
-                        current = stack_code[position];
+                        current = stack_code[++position];
                         goto start;
                     }
                 }
@@ -1359,7 +1363,7 @@ namespace wolvm
                 {
                     //pass
                 }
-                Console.WriteLine($"Classes length {stack.classes.Count}  funс {stack.functions.Count} vars {stack.values.Count}"); //test
+                //Console.WriteLine($"Classes length {stack.classes.Count}  funс {stack.functions.Count} vars {stack.values.Count}"); //test
                 return stack;
             }
             else
