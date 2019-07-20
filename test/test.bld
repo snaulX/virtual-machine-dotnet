@@ -1,11 +1,6 @@
 _loads {
 	System
 }
-main {
-	#_loads : <System:string>;
-	Beep;
-	Plus : <12:double>, <10:double>, <678:double>;
-}
 stack {
 	class {
 		Tuzik = DEFAULT PUBLIC (void) : 
@@ -74,6 +69,9 @@ stack {
 	};
 }
 main {
+	#_loads : <System:string>;
+	Beep;
+	Plus : <12:double>, <10:double>, <678:double>;
 	@sum#set : ( #+ : <12:int>, <13:int> ) ;
 	#print : ( IntToStr : @sum )  ;
 }
