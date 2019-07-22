@@ -30,7 +30,7 @@ stack {
 				System.Print : <Your new name is :string>,  @this.name ;
 			]
 			PUBLIC get [
-				System.Print : (AddString : <Your name is\u003A:string>, @this.name );
+				System.Print : <Your name is\u003A:string>, @this.name ;
 				Return : @this.name ;
 			]
 		];

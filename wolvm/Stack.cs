@@ -58,7 +58,7 @@ namespace wolvm
                         }
                         catch (IndexOutOfRangeException)
                         {
-                            VirtualMachine.ThrowVMException("End of block of stack not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                            VirtualMachine.ThrowVMException("End of block of stack not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                         }
                     }
                     while (!char.IsWhiteSpace(current)) //get keyword
@@ -85,7 +85,7 @@ namespace wolvm
                             }
                             catch (IndexOutOfRangeException)
                             {
-                                VirtualMachine.ThrowVMException("Class haven`t block", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                VirtualMachine.ThrowVMException("Class haven`t block", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                             }
                         }
                         if (current == '{')
@@ -101,7 +101,7 @@ namespace wolvm
                                     }
                                     catch (IndexOutOfRangeException)
                                     {
-                                        VirtualMachine.ThrowVMException("Classes`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                        VirtualMachine.ThrowVMException("Classes`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                     }
                                 }
                                 while (!char.IsWhiteSpace(current)) //get name of class
@@ -113,7 +113,7 @@ namespace wolvm
                                     }
                                     catch (IndexOutOfRangeException)
                                     {
-                                        VirtualMachine.ThrowVMException("Classes`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                        VirtualMachine.ThrowVMException("Classes`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                     }
                                 }
                                 string className = buffer.ToString();
@@ -125,7 +125,7 @@ namespace wolvm
                                     }
                                     catch (IndexOutOfRangeException)
                                     {
-                                        VirtualMachine.ThrowVMException("Classes`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                        VirtualMachine.ThrowVMException("Classes`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
 
                                     }
                                 }
@@ -152,7 +152,7 @@ namespace wolvm
                                         }
                                         catch (IndexOutOfRangeException)
                                         {
-                                            VirtualMachine.ThrowVMException("Classes`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                            VirtualMachine.ThrowVMException("Classes`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
 
                                         }
                                     }
@@ -177,7 +177,7 @@ namespace wolvm
                                         }
                                         catch (IndexOutOfRangeException)
                                         {
-                                            VirtualMachine.ThrowVMException("Classes`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                            VirtualMachine.ThrowVMException("Classes`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
 
                                         }
                                     }
@@ -211,7 +211,7 @@ namespace wolvm
                                         }
                                         catch (IndexOutOfRangeException)
                                         {
-                                            VirtualMachine.ThrowVMException("Classes`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                            VirtualMachine.ThrowVMException("Classes`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                         }
                                     }
                                     try
