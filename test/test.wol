@@ -13,12 +13,12 @@ class public Tuzik {
 	var public string name = set (string name) {
 		Virtual {
 			Set : &this.name , @thisargs.name ;
-			System.Print : (AddString : <Your name is :string>, @this.name );
+			System.Print : <Your name is :string>, @this.name ;
 		}
 	}
 	get {
 		Virtual {
-			System.Print : (AddString : <Your name is\u003A:string>, @this.name );
+			System.Print : <Your name is\u003A:string>, @this.name ;
 			Return : @this.name ;
 		}
 	};

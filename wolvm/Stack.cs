@@ -457,13 +457,13 @@ namespace wolvm
                                                     }
                                                     break;
                                                 case "func":
+                                                    buffer.Clear();
                                                     if (newWolClass.classType == wolClassType.ENUM)
                                                     {
                                                         VirtualMachine.ThrowVMException("Enum don`t support methods", VirtualMachine.position, ExceptionType.TypeNotSupportedException);
                                                     }
                                                     else
                                                     {
-                                                        buffer.Clear();
                                                         while (char.IsWhiteSpace(current)) //skip whitespaces
                                                         {
                                                             try
@@ -504,7 +504,7 @@ namespace wolvm
                                                                     }
                                                                     catch (IndexOutOfRangeException)
                                                                     {
-                                                                        VirtualMachine.ThrowVMException("Method`s name not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                                                        VirtualMachine.ThrowVMException("Method`s name not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                     }
                                                                 }
                                                                 string func_name = buffer.ToString();
@@ -512,7 +512,7 @@ namespace wolvm
                                                                 current = stack_code[++position];
                                                                 if (current != '=') //check assignment operator
                                                                 {
-                                                                    VirtualMachine.ThrowVMException("Assigment operator isn`t right in method", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                                                    VirtualMachine.ThrowVMException($"Assigment operator isn`t right ('{current}') in method", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                 }
                                                                 else
                                                                 {
@@ -529,7 +529,7 @@ namespace wolvm
                                                                         }
                                                                         catch (IndexOutOfRangeException)
                                                                         {
-                                                                            VirtualMachine.ThrowVMException("Method`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                                                            VirtualMachine.ThrowVMException("Method`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                         }
                                                                     }
                                                                     func.security = (SecurityModifer)Enum.Parse(typeof(SecurityModifer), buffer.ToString(), true); //write this modifer to our function
@@ -544,7 +544,7 @@ namespace wolvm
                                                                         }
                                                                         catch (IndexOutOfRangeException)
                                                                         {
-                                                                            VirtualMachine.ThrowVMException("Method`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                                                            VirtualMachine.ThrowVMException("Method`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                         }
                                                                     }
                                                                     try
@@ -634,7 +634,7 @@ namespace wolvm
                                                 case "var":
                                                     if (newWolClass.classType == wolClassType.ENUM)
                                                     {
-                                                        VirtualMachine.ThrowVMException("Enum don`t support variables", VirtualMachine.position, ExceptionType.TypeNotSupportedException);
+                                                        VirtualMachine.ThrowVMException("Enum don`t support variables", VirtualMachine.position - stack_code.Length + position, ExceptionType.TypeNotSupportedException);
                                                     }
                                                     else
                                                     {
@@ -895,7 +895,7 @@ namespace wolvm
                                                     }
                                                     else
                                                     {
-                                                        VirtualMachine.ThrowVMException(newWolClass.classType.ToString().ToLower() + " don`t support constants", VirtualMachine.position, ExceptionType.TypeNotSupportedException);
+                                                        VirtualMachine.ThrowVMException(newWolClass.classType.ToString().ToLower() + " don`t support constants", VirtualMachine.position - stack_code.Length + position, ExceptionType.TypeNotSupportedException);
                                                     }
                                                     break;
                                                 case "],":
