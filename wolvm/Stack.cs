@@ -220,7 +220,7 @@ namespace wolvm
                                     }
                                     catch (Exception)
                                     {
-                                        VirtualMachine.ThrowVMException(buffer.ToString() + " is not security modifer", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                        VirtualMachine.ThrowVMException($"{buffer.ToString()} is not security modifer", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                     }
                                     while (char.IsWhiteSpace(current))
                                     {
@@ -245,7 +245,7 @@ namespace wolvm
                                             }
                                             catch (IndexOutOfRangeException)
                                             {
-                                                VirtualMachine.ThrowVMException("Classes`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                                VirtualMachine.ThrowVMException("Classes`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                             }
                                         }
                                         foreach (string parent_name in buffer.ToString().Remove(0, 1).Split(','))
@@ -277,7 +277,7 @@ namespace wolvm
                                         while (current != ';') //parse class body
                                         {
                                             current = stack_code[++position]; //skip start of class (':' or '>')
-                                            while (char.IsWhiteSpace(current)) //skip whitespaces
+                                            block_class: while (char.IsWhiteSpace(current)) //skip whitespaces
                                             {
                                                 try
                                                 {
@@ -285,7 +285,7 @@ namespace wolvm
                                                 }
                                                 catch (IndexOutOfRangeException)
                                                 {
-                                                    VirtualMachine.ThrowVMException("Classes`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                                    VirtualMachine.ThrowVMException("Classes`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                 }
                                             }
                                             buffer.Clear();
@@ -298,7 +298,7 @@ namespace wolvm
                                                 }
                                                 catch (IndexOutOfRangeException)
                                                 {
-                                                    VirtualMachine.ThrowVMException("Classes`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                                    VirtualMachine.ThrowVMException("Classes`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                 }
                                             }
                                             switch (buffer.ToString())
@@ -636,50 +636,26 @@ namespace wolvm
                                                     {
                                                         VirtualMachine.ThrowVMException("Enum don`t support variables", VirtualMachine.position, ExceptionType.TypeNotSupportedException);
                                                     }
-                                                    current = stack_code[++position];
-                                                    if (current == '[')
+                                                    else
                                                     {
-                                                        while (current != ']')
+                                                        current = stack_code[++position];
+                                                        if (current == '[')
                                                         {
-                                                            variable:
-                                                            while (char.IsWhiteSpace(current)) //skip whitespaces
+                                                            while (current != ']')
                                                             {
-                                                                try
+                                                                variable:
+                                                                while (char.IsWhiteSpace(current)) //skip whitespaces
                                                                 {
-                                                                    current = stack_code[++position];
+                                                                    try
+                                                                    {
+                                                                        current = stack_code[++position];
+                                                                    }
+                                                                    catch (IndexOutOfRangeException)
+                                                                    {
+                                                                        VirtualMachine.ThrowVMException("Variable`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                                                    }
                                                                 }
-                                                                catch (IndexOutOfRangeException)
-                                                                {
-                                                                    VirtualMachine.ThrowVMException("Variable`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
-                                                                }
-                                                            }
-                                                            while (!char.IsWhiteSpace(current)) //get variable name
-                                                            {
-                                                                try
-                                                                {
-                                                                    buffer.Append(current);
-                                                                    current = stack_code[++position];
-                                                                }
-                                                                catch (IndexOutOfRangeException)
-                                                                {
-                                                                    VirtualMachine.ThrowVMException("Variable`s name not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
-                                                                }
-                                                            }
-                                                            string var_name = buffer.ToString();
-                                                            buffer.Clear();
-                                                            current = stack_code[++position];
-                                                            if (current != '=') //check assignment operator
-                                                            {
-                                                                VirtualMachine.ThrowVMException("Assigment operator isn`t right in field", VirtualMachine.position, ExceptionType.BLDSyntaxException);
-                                                            }
-                                                            else
-                                                            {
-
-                                                                Value thisVar = new Value(VirtualMachine.Void.Value); //create empty value with parent 'void'
-                                                                position += 2;
-                                                                current = stack_code[position]; //skip whitespace
-                                                                buffer.Clear();
-                                                                while (!char.IsWhiteSpace(current)) //get type
+                                                                while (!char.IsWhiteSpace(current)) //get variable name
                                                                 {
                                                                     try
                                                                     {
@@ -688,80 +664,156 @@ namespace wolvm
                                                                     }
                                                                     catch (IndexOutOfRangeException)
                                                                     {
-                                                                        VirtualMachine.ThrowVMException("Field`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                                                        VirtualMachine.ThrowVMException("Variable`s name not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
                                                                     }
                                                                 }
-                                                                try
-                                                                {
-                                                                    thisVar.type = VirtualMachine.GetWolClass(buffer.ToString());
-                                                                }
-                                                                catch (NullReferenceException)
-                                                                {
-                                                                    //VirtualMachine.ThrowVMException("")
-                                                                    //don`t need now throw vm exception becouse in GetWolClass was throw exception
-                                                                }
+                                                                string var_name = buffer.ToString();
+                                                                buffer.Clear();
                                                                 current = stack_code[++position];
-                                                                while (!char.IsWhiteSpace(current)) //get security modifer
+                                                                if (current != '=') //check assignment operator
                                                                 {
-                                                                    try
-                                                                    {
-                                                                        buffer.Append(current);
-                                                                        current = stack_code[++position];
-                                                                    }
-                                                                    catch (IndexOutOfRangeException)
-                                                                    {
-                                                                        VirtualMachine.ThrowVMException("Field`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
-                                                                    }
+                                                                    VirtualMachine.ThrowVMException("Assigment operator isn`t right in field", VirtualMachine.position, ExceptionType.BLDSyntaxException);
                                                                 }
-                                                                SecurityModifer security = (SecurityModifer)Enum.Parse(typeof(SecurityModifer), buffer.ToString(), true); //write this modifer to our variable
-                                                                current = stack_code[++position]; //skip whitespace
-                                                                buffer.Clear();
-                                                                while (!char.IsWhiteSpace(current)) //get name - 'set' or 'get'
+                                                                else
                                                                 {
-                                                                    try
+
+                                                                    Value thisVar = new Value(VirtualMachine.Void.Value); //create empty value with parent 'void'
+                                                                    position += 2;
+                                                                    current = stack_code[position]; //skip whitespace
+                                                                    buffer.Clear();
+                                                                    while (!char.IsWhiteSpace(current)) //get type
                                                                     {
-                                                                        buffer.Append(current);
-                                                                        current = stack_code[++position];
-                                                                    }
-                                                                    catch (IndexOutOfRangeException)
-                                                                    {
-                                                                        VirtualMachine.ThrowVMException("Field`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
-                                                                    }
-                                                                }
-                                                                if (buffer.ToString() == "set")
-                                                                {
-                                                                    thisVar.setter.security = security;
-                                                                    current = stack_code[++position];
-                                                                    if (current == '(')
-                                                                    {
-                                                                        //start parse setter arguments
-                                                                        buffer.Clear();
-                                                                        current = stack_code[++position];
-                                                                        while (current != ')')
+                                                                        try
                                                                         {
                                                                             buffer.Append(current);
+                                                                            current = stack_code[++position];
+                                                                        }
+                                                                        catch (IndexOutOfRangeException)
+                                                                        {
+                                                                            VirtualMachine.ThrowVMException("Field`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                                                        }
+                                                                    }
+                                                                    try
+                                                                    {
+                                                                        thisVar.type = VirtualMachine.GetWolClass(buffer.ToString());
+                                                                    }
+                                                                    catch (NullReferenceException)
+                                                                    {
+                                                                        //VirtualMachine.ThrowVMException("")
+                                                                        //don`t need now throw vm exception becouse in GetWolClass was throw exception
+                                                                    }
+                                                                    current = stack_code[++position];
+                                                                    while (!char.IsWhiteSpace(current)) //get security modifer
+                                                                    {
+                                                                        try
+                                                                        {
+                                                                            buffer.Append(current);
+                                                                            current = stack_code[++position];
+                                                                        }
+                                                                        catch (IndexOutOfRangeException)
+                                                                        {
+                                                                            VirtualMachine.ThrowVMException("Field`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                                                        }
+                                                                    }
+                                                                    SecurityModifer security = (SecurityModifer)Enum.Parse(typeof(SecurityModifer), buffer.ToString(), true); //write this modifer to our variable
+                                                                    current = stack_code[++position]; //skip whitespace
+                                                                    buffer.Clear();
+                                                                    while (!char.IsWhiteSpace(current)) //get name - 'set' or 'get'
+                                                                    {
+                                                                        try
+                                                                        {
+                                                                            buffer.Append(current);
+                                                                            current = stack_code[++position];
+                                                                        }
+                                                                        catch (IndexOutOfRangeException)
+                                                                        {
+                                                                            VirtualMachine.ThrowVMException("Field`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                                                        }
+                                                                    }
+                                                                    if (buffer.ToString() == "set")
+                                                                    {
+                                                                        thisVar.setter.security = security;
+                                                                        current = stack_code[++position];
+                                                                        if (current == '(')
+                                                                        {
+                                                                            //start parse setter arguments
+                                                                            buffer.Clear();
+                                                                            current = stack_code[++position];
+                                                                            while (current != ')')
+                                                                            {
+                                                                                buffer.Append(current);
+                                                                                try
+                                                                                {
+                                                                                    current = stack_code[++position];
+                                                                                }
+                                                                                catch (IndexOutOfRangeException)
+                                                                                {
+                                                                                    VirtualMachine.ThrowVMException("End of arguments not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                                                                }
+                                                                            }
+                                                                            string argument = buffer.ToString();
+                                                                            string name = argument.Split(':')[0].Trim();
+                                                                            wolClass type = VirtualMachine.GetWolClass(argument.Split(':')[1].Trim());
+                                                                            thisVar.setter.arguments.Add(name, type); //add argumrnt (null pointer) to setter
+                                                                                                                      //start parse block
+                                                                        }
+                                                                        else if (current == ':')
+                                                                        {
+                                                                            //start parse block
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            VirtualMachine.ThrowVMException("Arguments or start of setter not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                                                        }
+                                                                        current = stack_code[++position];
+                                                                        //parse block
+                                                                        while (char.IsWhiteSpace(current)) //skip whitespaces
+                                                                        {
                                                                             try
                                                                             {
                                                                                 current = stack_code[++position];
                                                                             }
                                                                             catch (IndexOutOfRangeException)
                                                                             {
-                                                                                VirtualMachine.ThrowVMException("End of arguments not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                                                                VirtualMachine.ThrowVMException("Start of setter block not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                             }
                                                                         }
-                                                                        string argument = buffer.ToString();
-                                                                        string name = argument.Split(':')[0].Trim();
-                                                                        wolClass type = VirtualMachine.GetWolClass(argument.Split(':')[1].Trim());
-                                                                        thisVar.setter.arguments.Add(name, type); //add argumrnt (null pointer) to setter
-                                                                                                                  //start parse block
+                                                                        if (current == '[')
+                                                                        {
+                                                                            buffer.Clear();
+                                                                            while (current != ']')
+                                                                            {
+                                                                                try
+                                                                                {
+                                                                                    buffer.Append(current);
+                                                                                    current = stack_code[++position];
+                                                                                }
+                                                                                catch (IndexOutOfRangeException)
+                                                                                {
+                                                                                    VirtualMachine.ThrowVMException("End of block of fields not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                                                                }
+                                                                            }
+                                                                            thisVar.setter.body = buffer.ToString();
+                                                                        }
+                                                                        else
+                                                                        {
+                                                                            VirtualMachine.ThrowVMException("Start of block not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                                                        }
+                                                                        while (char.IsWhiteSpace(current))
+                                                                        {
+                                                                            try
+                                                                            {
+                                                                                current = stack_code[++position];
+                                                                            }
+                                                                            catch (IndexOutOfRangeException)
+                                                                            {
+                                                                                VirtualMachine.ThrowVMException("Getter not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                                                            }
+                                                                        }
                                                                     }
-                                                                    else if (current == ':')
+                                                                    else if (buffer.ToString() != "get")
                                                                     {
-                                                                        //start parse block
-                                                                    }
-                                                                    else
-                                                                    {
-                                                                        VirtualMachine.ThrowVMException("Arguments or start of setter not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                                                        VirtualMachine.ThrowVMException("Unknown keyword " + buffer.ToString(), VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                     }
                                                                     current = stack_code[++position];
                                                                     //parse block
@@ -773,7 +825,7 @@ namespace wolvm
                                                                         }
                                                                         catch (IndexOutOfRangeException)
                                                                         {
-                                                                            VirtualMachine.ThrowVMException("Start of setter block not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                                                            VirtualMachine.ThrowVMException("Start of getter block not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                         }
                                                                     }
                                                                     if (current == '[')
@@ -791,70 +843,21 @@ namespace wolvm
                                                                                 VirtualMachine.ThrowVMException("End of block of fields not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                             }
                                                                         }
-                                                                        thisVar.setter.body = buffer.ToString();
+                                                                        thisVar.getter.body = buffer.ToString();
                                                                     }
                                                                     else
                                                                     {
                                                                         VirtualMachine.ThrowVMException("Start of block not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                     }
-                                                                    while (char.IsWhiteSpace(current))
-                                                                    {
-                                                                        try
-                                                                        {
-                                                                            current = stack_code[++position];
-                                                                        }
-                                                                        catch (IndexOutOfRangeException)
-                                                                        {
-                                                                            VirtualMachine.ThrowVMException("Getter not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
-                                                                        }
-                                                                    }
+                                                                    newWolClass.fields.Add(var_name, thisVar);
+                                                                    if (stack_code[++position] == ',') goto variable;
                                                                 }
-                                                                else if (buffer.ToString() != "get")
-                                                                {
-                                                                    VirtualMachine.ThrowVMException("Unknown keyword " + buffer.ToString(), VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
-                                                                }
-                                                                current = stack_code[++position];
-                                                                //parse block
-                                                                while (char.IsWhiteSpace(current)) //skip whitespaces
-                                                                {
-                                                                    try
-                                                                    {
-                                                                        current = stack_code[++position];
-                                                                    }
-                                                                    catch (IndexOutOfRangeException)
-                                                                    {
-                                                                        VirtualMachine.ThrowVMException("Start of getter block not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
-                                                                    }
-                                                                }
-                                                                if (current == '[')
-                                                                {
-                                                                    buffer.Clear();
-                                                                    while (current != ']')
-                                                                    {
-                                                                        try
-                                                                        {
-                                                                            buffer.Append(current);
-                                                                            current = stack_code[++position];
-                                                                        }
-                                                                        catch (IndexOutOfRangeException)
-                                                                        {
-                                                                            VirtualMachine.ThrowVMException("End of block of fields not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
-                                                                        }
-                                                                    }
-                                                                    thisVar.getter.body = buffer.ToString();
-                                                                }
-                                                                else
-                                                                {
-                                                                    VirtualMachine.ThrowVMException("Start of block not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
-                                                                }
-                                                                newWolClass.fields.Add(var_name, thisVar);
-                                                                if (stack_code[++position] == ',') goto variable;
                                                             }
                                                         }
-                                                    }
-                                                    else
-                                                    {
-                                                        VirtualMachine.ThrowVMException("Start of fields not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                                        else
+                                                        {
+                                                            VirtualMachine.ThrowVMException("Start of fields not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                                        }
                                                     }
                                                     break;
                                                 case "const":
@@ -897,7 +900,7 @@ namespace wolvm
                                                     break;
                                                 case "],":
                                                     buffer.Clear();
-                                                    break; //костыль((
+                                                    goto block_class;
                                                 default:
                                                     VirtualMachine.ThrowVMException("Unknown keyword " + buffer.ToString() + " in the class initilization", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                     break;
