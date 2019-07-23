@@ -517,7 +517,6 @@ namespace wolvm
                                                                 }
                                                                 else
                                                                 {
-
                                                                     wolFunction func = new wolFunction(); //create empty function
                                                                     position += 2; //skip whitespace
                                                                     current = stack_code[position];
@@ -938,7 +937,7 @@ namespace wolvm
                                 }
                                 else
                                 {
-                                    VirtualMachine.ThrowVMException($"Equals operator is not valid ('{current}')", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                    VirtualMachine.ThrowVMException($"Assigment operator in class initilization is not valid ('{current}')", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                 }
                             }
                         }
@@ -958,7 +957,7 @@ namespace wolvm
                             }
                             catch (IndexOutOfRangeException)
                             {
-                                VirtualMachine.ThrowVMException("Functions is empty", VirtualMachine.position - position, ExceptionType.BLDSyntaxException);
+                                VirtualMachine.ThrowVMException("Functions is empty", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                             }
                         }
                         if (current == '{')
@@ -974,7 +973,7 @@ namespace wolvm
                                     }
                                     catch (IndexOutOfRangeException)
                                     {
-                                        VirtualMachine.ThrowVMException("Function`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                        VirtualMachine.ThrowVMException("Function`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                     }
                                 }
                                 while (!char.IsWhiteSpace(current)) //get function name
@@ -986,7 +985,7 @@ namespace wolvm
                                     }
                                     catch (IndexOutOfRangeException)
                                     {
-                                        VirtualMachine.ThrowVMException("Function`s name not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                        VirtualMachine.ThrowVMException("Function`s name not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                     }
                                 }
                                 string func_name = buffer.ToString();
@@ -994,7 +993,7 @@ namespace wolvm
                                 current = stack_code[++position];
                                 if (current != '=') //check assignment operator
                                 {
-                                    VirtualMachine.ThrowVMException("Assigment operator isn`t right in fucntion", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                    VirtualMachine.ThrowVMException("Assigment operator isn`t right in fucntion", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                 }
                                 else
                                 {
@@ -1011,7 +1010,7 @@ namespace wolvm
                                         }
                                         catch (IndexOutOfRangeException)
                                         {
-                                            VirtualMachine.ThrowVMException("Function`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                            VirtualMachine.ThrowVMException("Function`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                         }
                                     }
                                     func.security = (SecurityModifer)Enum.Parse(typeof(SecurityModifer), buffer.ToString(), true); //write this modifer to our function
@@ -1026,7 +1025,7 @@ namespace wolvm
                                         }
                                         catch (IndexOutOfRangeException)
                                         {
-                                            VirtualMachine.ThrowVMException("Function`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                            VirtualMachine.ThrowVMException("Function`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                         }
                                     }
                                     try
@@ -1102,7 +1101,11 @@ namespace wolvm
                                         }
                                         func.body = buffer.ToString();
                                         stack.functions.Add(func_name, func);
-                                        if (stack_code[position + 1] == ',') goto function;
+                                        if (stack_code[++position] == ',')
+                                        {
+                                            current = stack_code[++position];
+                                            goto function;
+                                        }
                                     }
                                     else
                                     {
@@ -1113,8 +1116,7 @@ namespace wolvm
                         }
                         else
                         {
-                            VirtualMachine.ThrowVMException("Functions`s start not found", VirtualMachine.position - position, ExceptionType.BLDSyntaxException);
-
+                            VirtualMachine.ThrowVMException("Functions`s start not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                         }
                     }
                     else if (buffer.ToString() == "var")
@@ -1128,7 +1130,7 @@ namespace wolvm
                             }
                             catch (IndexOutOfRangeException)
                             {
-                                VirtualMachine.ThrowVMException("Variables is empty", VirtualMachine.position - position, ExceptionType.BLDSyntaxException);
+                                VirtualMachine.ThrowVMException("Variables is empty", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                             }
                         }
                         if (current == '{')
@@ -1144,7 +1146,7 @@ namespace wolvm
                                     }
                                     catch (IndexOutOfRangeException)
                                     {
-                                        VirtualMachine.ThrowVMException("Variable`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                        VirtualMachine.ThrowVMException("Variable`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                     }
                                 }
                                 while (!char.IsWhiteSpace(current)) //get variable name
@@ -1156,7 +1158,7 @@ namespace wolvm
                                     }
                                     catch (IndexOutOfRangeException)
                                     {
-                                        VirtualMachine.ThrowVMException("Variable`s name not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                        VirtualMachine.ThrowVMException("Variable`s name not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                     }
                                 }
                                 string var_name = buffer.ToString();
@@ -1164,7 +1166,7 @@ namespace wolvm
                                 current = stack_code[++position];
                                 if (current != '=') //check assignment operator
                                 {
-                                    VirtualMachine.ThrowVMException("Assigment operator isn`t right in variable", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                    VirtualMachine.ThrowVMException("Assigment operator isn`t right in variable", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                 }
                                 else
                                 {
@@ -1204,7 +1206,7 @@ namespace wolvm
                                         }
                                         catch (IndexOutOfRangeException)
                                         {
-                                            VirtualMachine.ThrowVMException("Variable`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                            VirtualMachine.ThrowVMException("Variable`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                         }
                                     }
                                     SecurityModifer security = (SecurityModifer)Enum.Parse(typeof(SecurityModifer), buffer.ToString(), true); //write this modifer to our variable
@@ -1305,7 +1307,7 @@ namespace wolvm
                                     }
                                     else if (buffer.ToString() != "get")
                                     {
-                                        VirtualMachine.ThrowVMException("Unknown keyword " + buffer.ToString(), VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                        VirtualMachine.ThrowVMException($"Unknown keyword {buffer.ToString()}", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                     }
                                     current = stack_code[++position];
                                     //parse block
@@ -1342,8 +1344,9 @@ namespace wolvm
                                         VirtualMachine.ThrowVMException("Start of getter block not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                     }
                                     stack.values.Add(var_name, thisVar);
-                                    if (stack_code[position + 1] == ',')
+                                    if (stack_code[++position] == ',')
                                     {
+                                        current = stack_code[++position];
                                         goto variable;
                                     }
                                 }
@@ -1351,7 +1354,7 @@ namespace wolvm
                         }
                         else
                         {
-                            VirtualMachine.ThrowVMException("Variables`s start not found", VirtualMachine.position - position, ExceptionType.BLDSyntaxException);
+                            VirtualMachine.ThrowVMException("Variables`s start not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
 
                         }
                     }
