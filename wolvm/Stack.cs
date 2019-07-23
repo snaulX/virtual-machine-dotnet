@@ -1355,7 +1355,6 @@ namespace wolvm
                         else
                         {
                             VirtualMachine.ThrowVMException("Variables`s start not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
-
                         }
                     }
                     else
@@ -1364,19 +1363,17 @@ namespace wolvm
                     }
                     try
                     {
-                        buffer.Append(current);
                         current = stack_code[++position];
                     }
                     catch (IndexOutOfRangeException)
                     {
-                        break;
+                        return stack;
                     }
                 }
                 try
                 {
                     if (stack_code[++position] == ';')
                     {
-                        buffer.Append(current);
                         current = stack_code[++position];
                         goto start;
                     }
