@@ -730,7 +730,15 @@ namespace wolvm
                                                                             VirtualMachine.ThrowVMException("Field`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                         }
                                                                     }
-                                                                    SecurityModifer security = (SecurityModifer)Enum.Parse(typeof(SecurityModifer), buffer.ToString(), true); //write this modifer to our variable
+                                                                    SecurityModifer security = SecurityModifer.PRIVATE; //костыль
+                                                                    try
+                                                                    {
+                                                                        security = (SecurityModifer)Enum.Parse(typeof(SecurityModifer), buffer.ToString(), true); //write this modifer to our variable
+                                                                    }
+                                                                    catch (IndexOutOfRangeException)
+                                                                    {
+                                                                        VirtualMachine.ThrowVMException($"{buffer.ToString()} is not security modifer of setter (getter)", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                                                    }
                                                                     current = stack_code[++position]; //skip whitespace
                                                                     buffer.Clear();
                                                                     while (!char.IsWhiteSpace(current)) //get name - 'set' or 'get'
