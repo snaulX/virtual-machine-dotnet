@@ -632,7 +632,11 @@ namespace wolvm
                                                                         }
                                                                         func.body = buffer.ToString();
                                                                         newWolClass.methods.Add(func_name, func);
-                                                                        if (stack_code[position + 1] == ',') goto function;
+                                                                        if (stack_code[++position] == ',')
+                                                                        {
+                                                                            current = stack_code[++position];
+                                                                            goto function;
+                                                                        }
                                                                     }
                                                                     else
                                                                     {
@@ -907,14 +911,14 @@ namespace wolvm
                                                     }
                                                     else
                                                     {
-                                                        VirtualMachine.ThrowVMException(newWolClass.classType.ToString().ToLower() + " don`t support constants", VirtualMachine.position - stack_code.Length + position, ExceptionType.TypeNotSupportedException);
+                                                        VirtualMachine.ThrowVMException($"{newWolClass.classType.ToString().ToLower()} don`t support constants", VirtualMachine.position - stack_code.Length + position, ExceptionType.TypeNotSupportedException);
                                                     }
                                                     break;
-                                                case "],":
+                                                case "],": //костыль(
                                                     buffer.Clear();
                                                     goto block_class;
                                                 default:
-                                                    VirtualMachine.ThrowVMException("Unknown keyword " + buffer.ToString() + " in the class initilization", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                                    VirtualMachine.ThrowVMException($"Unknown keyword {buffer.ToString()} in the class initilization", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                     break;
                                             }
                                             try
