@@ -493,7 +493,7 @@ namespace wolvm
                                                                     }
                                                                     catch (IndexOutOfRangeException)
                                                                     {
-                                                                        VirtualMachine.ThrowVMException("Method`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                                                        VirtualMachine.ThrowVMException("Method`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                     }
                                                                 }
                                                                 while (!char.IsWhiteSpace(current)) //get method name
@@ -929,18 +929,18 @@ namespace wolvm
                                     }
                                     else
                                     {
-                                        VirtualMachine.ThrowVMException("Start of block operator is not valid", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                        VirtualMachine.ThrowVMException("Start of block operator is not valid", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                     }
                                 }
                                 else
                                 {
-                                    VirtualMachine.ThrowVMException("Equals operator is not valid " + current, VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                    VirtualMachine.ThrowVMException($"Equals operator is not valid ('{current}')", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                 }
                             }
                         }
                         else
                         {
-                            VirtualMachine.ThrowVMException("Classes`s start not found", VirtualMachine.position - position, ExceptionType.BLDSyntaxException);
+                            VirtualMachine.ThrowVMException("Classes`s start not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                         }
                     }
                     else if (buffer.ToString() == "func")
