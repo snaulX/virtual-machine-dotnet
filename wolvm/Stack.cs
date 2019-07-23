@@ -453,14 +453,14 @@ namespace wolvm
                                                     }
                                                     else
                                                     {
-                                                        VirtualMachine.ThrowVMException(newWolClass.classType.ToString().ToLower() + " don`t support constructors", VirtualMachine.position, ExceptionType.TypeNotSupportedException);
+                                                        VirtualMachine.ThrowVMException(newWolClass.classType.ToString().ToLower() + " don`t support constructors", VirtualMachine.position - stack_code.Length + position, ExceptionType.TypeNotSupportedException);
                                                     }
                                                     break;
                                                 case "func":
                                                     buffer.Clear();
                                                     if (newWolClass.classType == wolClassType.ENUM)
                                                     {
-                                                        VirtualMachine.ThrowVMException("Enum don`t support methods", VirtualMachine.position, ExceptionType.TypeNotSupportedException);
+                                                        VirtualMachine.ThrowVMException("Enum don`t support methods", VirtualMachine.position - stack_code.Length + position, ExceptionType.TypeNotSupportedException);
                                                     }
                                                     else
                                                     {
@@ -481,6 +481,7 @@ namespace wolvm
                                                         }
                                                         else
                                                         {
+                                                            current = stack_code[++position]; //skip open bracket '['
                                                             while (current != ']')
                                                             {
                                                                 function:
@@ -556,6 +557,17 @@ namespace wolvm
                                                                         //VirtualMachine.ThrowVMException("")
                                                                         //don`t need now throw vm exception becouse in GetWolClass was throw exception
                                                                     }
+                                                                    while (char.IsWhiteSpace(current)) //skip whitespaces
+                                                                    {
+                                                                        try
+                                                                        {
+                                                                            current = stack_code[++position];
+                                                                        }
+                                                                        catch (IndexOutOfRangeException)
+                                                                        {
+                                                                            VirtualMachine.ThrowVMException("Start of arguments or method not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                                                        }
+                                                                    }
                                                                     if (current == ':')
                                                                     {
                                                                         //start parse block
@@ -588,7 +600,7 @@ namespace wolvm
                                                                     }
                                                                     else
                                                                     {
-                                                                        VirtualMachine.ThrowVMException("Arguments or start of method not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                                                        VirtualMachine.ThrowVMException($"Arguments or start of method not found ('{current}')", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                     }
                                                                     current = stack_code[++position];
                                                                     //parse block
