@@ -326,7 +326,7 @@ namespace wolvm
                                                                     }
                                                                     catch (IndexOutOfRangeException)
                                                                     {
-                                                                        VirtualMachine.ThrowVMException("Constructor`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                                                        VirtualMachine.ThrowVMException("Constructor`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                     }
                                                                 }
                                                                 while (!char.IsWhiteSpace(current)) //get constructor name
@@ -338,7 +338,7 @@ namespace wolvm
                                                                     }
                                                                     catch (IndexOutOfRangeException)
                                                                     {
-                                                                        VirtualMachine.ThrowVMException("Constructor`s name not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                                                        VirtualMachine.ThrowVMException("Constructor`s name not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                     }
                                                                 }
                                                                 string constrnanme = buffer.ToString();
@@ -351,12 +351,12 @@ namespace wolvm
                                                                     }
                                                                     catch (IndexOutOfRangeException)
                                                                     {
-                                                                        VirtualMachine.ThrowVMException("Constructor`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                                                        VirtualMachine.ThrowVMException("Constructor`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                     }
                                                                 }
                                                                 if (current != '=') //check assignment operator
                                                                 {
-                                                                    VirtualMachine.ThrowVMException("Assigment operator isn`t right in constructor " + current, VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                                                    VirtualMachine.ThrowVMException($"Assigment operator isn`t right in constructor {current}", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                 }
                                                                 else
                                                                 {
@@ -372,7 +372,7 @@ namespace wolvm
                                                                         }
                                                                         catch (IndexOutOfRangeException)
                                                                         {
-                                                                            VirtualMachine.ThrowVMException("Constructor`s end not found", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                                                                            VirtualMachine.ThrowVMException("Constructor`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                         }
                                                                     }
                                                                     constr.security = (SecurityModifer)Enum.Parse(typeof(SecurityModifer), buffer.ToString(), true); //write this modifer to our function
@@ -686,7 +686,7 @@ namespace wolvm
                                                                 current = stack_code[++position];
                                                                 if (current != '=') //check assignment operator
                                                                 {
-                                                                    VirtualMachine.ThrowVMException("Assigment operator isn`t right in field", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                                                    VirtualMachine.ThrowVMException($"Assigment operator isn`t right in field ('{current}')", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                 }
                                                                 else
                                                                 {
