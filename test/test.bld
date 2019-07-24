@@ -10,6 +10,14 @@ stack {
 				&this.name#set : <null:void>;
 			]
 		],
+		func [
+			toString = PUBLIC string : [
+				Return : <Tuzik:string>;
+			],
+			greet = PUBLIC void (text: string) [
+				#print :(AddString : <Hello, :string>, @text );
+			]
+		],
 		var [
 			age = int PUBLIC set (_age: int) [
 				Set : &this.age , @_age ;
@@ -24,14 +32,6 @@ stack {
 			PUBLIC get [
 				System.Print : <Your name is\u003A:string>, @this.name ;
 				Return : @this.name ;
-			]
-		],
-		func [
-			toString = PUBLIC string : [
-				Return : <Tuzik:string>;
-			],
-			greet = PUBLIC void (text: string) [
-				#print :(AddString : <Hello, :string>, @text );
 			]
 		];
 		BaseType = ENUM PUBLIC (int): 

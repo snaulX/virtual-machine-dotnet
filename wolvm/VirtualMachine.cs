@@ -140,6 +140,7 @@ namespace wolvm
         {
             position = 0;
             char current = input[0];
+            int time = Environment.TickCount;
             while (position < input.Length)
             {
                 while (char.IsWhiteSpace(current)) //skip whitespaces
@@ -328,9 +329,10 @@ namespace wolvm
                 }
                 else
                 {
-                    ThrowVMException("Unknown keyword " + buffer.ToString(), position, ExceptionType.BLDSyntaxException);
+                    ThrowVMException($"Unknown keyword {buffer.ToString()}", position, ExceptionType.BLDSyntaxException);
                 }
             }
+            Console.WriteLine($"Time of program: {time - Environment.TickCount}");
         }
 
         /// <summary>
@@ -365,7 +367,7 @@ namespace wolvm
         TypeNotSupportedException, //... when in enum init method and more
         StackOverflowException, //... size of stack is bigger then memory
         InvalidTypeException, //... get type doesn`t fits
-        NotFoundException,
+        NotFoundException, //... 'anything' not found
         InitilizateException,
         BLDSyntaxException, //... wrong syntax of build-file
         LoadsException, //... framework can`t load or other troubles with him
