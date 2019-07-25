@@ -117,6 +117,7 @@ namespace wolvm
                                     }
                                 }
                                 string className = buffer.ToString();
+                                Console.WriteLine(className);
                                 while (char.IsWhiteSpace(current)) //skip whitespaces
                                 {
                                     try
@@ -628,7 +629,7 @@ namespace wolvm
                                                                                 VirtualMachine.ThrowVMException("End of block of method not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                             }
                                                                         }
-                                                                        func.body = buffer.ToString();
+                                                                        func.body = buffer.ToString().Trim();
                                                                         newWolClass.methods.Add(func_name, func);
                                                                     }
                                                                     else
