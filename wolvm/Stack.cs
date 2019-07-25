@@ -117,7 +117,6 @@ namespace wolvm
                                     }
                                 }
                                 string className = buffer.ToString();
-                                Console.WriteLine(className + " is class name");
                                 while (char.IsWhiteSpace(current)) //skip whitespaces
                                 {
                                     try
@@ -569,7 +568,7 @@ namespace wolvm
                                                                     }
                                                                     if (current == ':')
                                                                     {
-                                                                        goto parse_block;
+                                                                        //goto parse_block;
                                                                     }
                                                                     else if (current == '(')
                                                                     {
