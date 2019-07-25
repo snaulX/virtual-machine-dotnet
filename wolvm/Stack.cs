@@ -117,7 +117,7 @@ namespace wolvm
                                     }
                                 }
                                 string className = buffer.ToString();
-                                Console.WriteLine(className);
+                                Console.WriteLine(className + " is class name");
                                 while (char.IsWhiteSpace(current)) //skip whitespaces
                                 {
                                     try
@@ -575,12 +575,12 @@ namespace wolvm
                                                                     {
                                                                         //start parse function arguments
                                                                         buffer.Clear();
-                                                                        current = stack_code[++position];
+                                                                        current = stack_code[++position]; //skip open paren '('
                                                                         while (current != ')')
                                                                         {
-                                                                            buffer.Append(current);
                                                                             try
                                                                             {
+                                                                                buffer.Append(current);
                                                                                 current = stack_code[++position];
                                                                             }
                                                                             catch (IndexOutOfRangeException)
@@ -589,12 +589,7 @@ namespace wolvm
                                                                             }
                                                                         }
                                                                         string[] arguments = buffer.ToString().Split(',');
-                                                                        foreach (string argument in arguments)
-                                                                        {
-                                                                            string name = argument.Split(':')[0].Trim();
-                                                                            wolClass type = VirtualMachine.GetWolClass(argument.Split(':')[1].Trim());
-                                                                            func.arguments.Add(name, type); //add argumrnt (null pointer) to method
-                                                                        }
+                                                                        foreach (string argument in arguments) func.arguments.Add(argument.Split(':')[0].Trim(), VirtualMachine.GetWolClass(argument.Split(':')[1])); //add argumrnt to method
                                                                         //start parse block
                                                                     }
                                                                     else
