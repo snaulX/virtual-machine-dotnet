@@ -569,7 +569,7 @@ namespace wolvm
                                                                     }
                                                                     if (current == ':')
                                                                     {
-                                                                        //start parse block
+                                                                        goto parse_block;
                                                                     }
                                                                     else if (current == '(')
                                                                     {
@@ -589,15 +589,16 @@ namespace wolvm
                                                                             }
                                                                         }
                                                                         string[] arguments = buffer.ToString().Split(',');
-                                                                        foreach (string argument in arguments) func.arguments.Add(argument.Split(':')[0].Trim(), VirtualMachine.GetWolClass(argument.Split(':')[1])); //add argumrnt to method
-                                                                        //start parse block
+                                                                        foreach (string argument in arguments)
+                                                                            func.arguments.Add(argument.Split(':')[0].Trim(), VirtualMachine.GetWolClass(argument.Split(':')[1])); //add argumrnt to method
+                                                                        goto parse_block;
                                                                     }
                                                                     else
                                                                     {
                                                                         VirtualMachine.ThrowVMException($"Arguments or start of method not found ('{current}')", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                     }
                                                                     current = stack_code[++position];
-                                                                    //parse block
+                                                                    parse_block:
                                                                     while (char.IsWhiteSpace(current)) //skip whitespaces
                                                                     {
                                                                         try
