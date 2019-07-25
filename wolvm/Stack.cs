@@ -290,7 +290,7 @@ namespace wolvm
                                                 }
                                             }
                                             buffer.Clear();
-                                            while (!char.IsWhiteSpace(current)) //get class name
+                                            while (!char.IsWhiteSpace(current)) //get class keyword
                                             {
                                                 try
                                                 {
@@ -454,7 +454,7 @@ namespace wolvm
                                                     }
                                                     else
                                                     {
-                                                        VirtualMachine.ThrowVMException(newWolClass.classType.ToString().ToLower() + " don`t support constructors", VirtualMachine.position - stack_code.Length + position, ExceptionType.TypeNotSupportedException);
+                                                        VirtualMachine.ThrowVMException($"{newWolClass.classType.ToString().ToLower()} don`t support constructors", VirtualMachine.position - stack_code.Length + position, ExceptionType.TypeNotSupportedException);
                                                     }
                                                     break;
                                                 case "func":
@@ -923,7 +923,6 @@ namespace wolvm
                                                     }
                                                     break;
                                                 case "],": //костыль(
-                                                    buffer.Clear();
                                                     goto block_class;
                                                 default:
                                                     VirtualMachine.ThrowVMException($"Unknown keyword {buffer.ToString()} in the class initilization", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
