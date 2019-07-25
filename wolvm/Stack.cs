@@ -531,7 +531,14 @@ namespace wolvm
                                                                             VirtualMachine.ThrowVMException("Method`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                         }
                                                                     }
-                                                                    func.security = (SecurityModifer)Enum.Parse(typeof(SecurityModifer), buffer.ToString(), true); //write this modifer to our function
+                                                                    try
+                                                                    {
+                                                                        func.security = (SecurityModifer)Enum.Parse(typeof(SecurityModifer), buffer.ToString(), true); //write this modifer to our function
+                                                                    }
+                                                                    catch (ArgumentException)
+                                                                    {
+                                                                        VirtualMachine.ThrowVMException($"{buffer.ToString()} is not secutiry modifer", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                                                    }
                                                                     current = stack_code[++position]; //skip whitespace
                                                                     buffer.Clear();
                                                                     while (!char.IsWhiteSpace(current)) //get return type
