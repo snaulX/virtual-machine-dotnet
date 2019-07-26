@@ -22,19 +22,10 @@ namespace wolvm
         };
         //initilizate base classes
         public static KeyValuePair<string, wolClass> Void = new KeyValuePair<string, wolClass>("void", new Void()),
-            wolBool = new KeyValuePair<string, wolClass>("bool", new wolClass
-            {
-                security = SecurityModifer.PUBLIC,
-                classType = wolClassType.STRUCT,
-                constants = new Dictionary<string, Value>
-                {
-                    { "false", new Value(wolInt.Value, "<0:int>") },
-                    { "true", new Value(wolInt.Value, "<1:int>") }
-                }
-            }),
+            wolBool = new KeyValuePair<string, wolClass>("bool", new wolBool()),
             wolString = new KeyValuePair<string, wolClass>("string", new wolClass(SecurityModifer.PUBLIC, wolClassType.DEFAULT, "string")),
             wolDouble = new KeyValuePair<string, wolClass>("double", new wolClass(SecurityModifer.PUBLIC, wolClassType.STRUCT, "double")),
-            wolInt = new KeyValuePair<string, wolClass>("int", new wolClass(SecurityModifer.PUBLIC, wolClassType.STRUCT, "int")),
+            wolInt = new KeyValuePair<string, wolClass>("int", new wolInt()),
             wolType = new KeyValuePair<string, wolClass>("Type", new wolClass(SecurityModifer.PUBLIC, wolClassType.DEFAULT, "Type")),
             wolFunc = new KeyValuePair<string, wolClass>("Func", new wolClass(SecurityModifer.PUBLIC, wolClassType.DEFAULT, "Function")),
             wolEnum = new KeyValuePair<string, wolClass>("Enum", new wolClass(SecurityModifer.PUBLIC, wolClassType.STATIC)),
