@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace wolvm
 {
@@ -597,14 +598,13 @@ namespace wolvm
                                                                         string[] arguments = buffer.ToString().Split(',');
                                                                         foreach (string argument in arguments)
                                                                             func.arguments.Add(argument.Split(':')[0].Trim(), VirtualMachine.GetWolClass(argument.Split(':')[1])); //add argumrnt to method
-                                                                        goto parse_block;
+                                                                        //current = stack_code[++position]; //skip ')'
                                                                     }
                                                                     else
                                                                     {
                                                                         VirtualMachine.ThrowVMException($"Arguments or start of method not found ('{current}')", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                     }
                                                                     current = stack_code[++position];
-                                                                    parse_block:
                                                                     while (char.IsWhiteSpace(current)) //skip whitespaces
                                                                     {
                                                                         try
@@ -645,6 +645,7 @@ namespace wolvm
                                                                 current = stack_code[++position];
                                                                 goto function;
                                                             }
+                                                            Console.WriteLine(Regex.Escape($"{position} {current} ('{stack_code[position]}') (\"{stack_code[position + 1]} {stack_code[position - 1]}\")")); //debug
                                                         }
                                                     }
                                                     break;
