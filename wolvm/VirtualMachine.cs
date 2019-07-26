@@ -19,7 +19,7 @@ namespace wolvm
             new PlusExpression()
         };
         //initilizate base classes
-        public static KeyValuePair<string, wolClass> Void = new KeyValuePair<string, wolClass>("void", new wolClass(SecurityModifer.PUBLIC, wolClassType.STRUCT, "void")),
+        public static KeyValuePair<string, wolClass> Void = new KeyValuePair<string, wolClass>("void", new Void()),
             wolBool = new KeyValuePair<string, wolClass>("bool", new wolClass
             {
                 security = SecurityModifer.PUBLIC,
