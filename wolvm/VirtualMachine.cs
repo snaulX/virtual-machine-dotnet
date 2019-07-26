@@ -16,7 +16,9 @@ namespace wolvm
         public static List<VMExpression> expressions = new List<VMExpression>
         {
             new BeepExpression(),
-            new PlusExpression()
+            new PlusExpression(),
+            new LoadsExpression(),
+            new TypeofExpression()
         };
         //initilizate base classes
         public static KeyValuePair<string, wolClass> Void = new KeyValuePair<string, wolClass>("void", new Void()),
