@@ -26,7 +26,7 @@ namespace wolvm
             wolString = new KeyValuePair<string, wolClass>("string", new wolClass(SecurityModifer.PUBLIC, wolClassType.DEFAULT, "string")),
             wolDouble = new KeyValuePair<string, wolClass>("double", new wolClass(SecurityModifer.PUBLIC, wolClassType.STRUCT, "double")),
             wolInt = new KeyValuePair<string, wolClass>("int", new wolInt()),
-            wolType = new KeyValuePair<string, wolClass>("Type", new wolClass(SecurityModifer.PUBLIC, wolClassType.DEFAULT, "Type")),
+            wolType = new KeyValuePair<string, wolClass>("Type", new wolType()),
             wolFunc = new KeyValuePair<string, wolClass>("Func", new wolClass(SecurityModifer.PUBLIC, wolClassType.DEFAULT, "Function")),
             wolEnum = new KeyValuePair<string, wolClass>("Enum", new wolClass(SecurityModifer.PUBLIC, wolClassType.STATIC)),
             wolChar = new KeyValuePair<string, wolClass>("char", new wolClass(SecurityModifer.PUBLIC, wolClassType.STRUCT, "char")),
