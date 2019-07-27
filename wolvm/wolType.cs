@@ -13,8 +13,19 @@ namespace wolvm
             classType = wolClassType.DEFAULT;
             constructors = new Dictionary<string, wolFunction>
             {
-                { "Type", new wolFunction(SecurityModifer.PUBLIC,
-                new KeyValuePair<string, wolClass>("type_name", VirtualMachine.wolString.Value)) }
+                { "Type", new wolFunction
+                    {
+                        arguments = new Dictionary<string, wolClass>
+                        {
+                            { "name", VirtualMachine.wolString.Value }
+                        },
+                        body = "@this.name#set : @name ;"
+                    }
+                }
+            };
+            fields = new Dictionary<string, Value>
+            {
+                { "name",  new Value(VirtualMachine.wolString.Value, "<null:void>", SecurityModifer.PUBLIC) }
             };
         }
 

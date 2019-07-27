@@ -26,7 +26,7 @@ stack {
 				Return : @this.age ;
 			], 
 			name = string PUBLIC set (name: string) [
-				Set : &this.name , @thisargs.name ;
+				Set : &this.name , @name ;
 				System.Print : <Your new name is :string>,  @this.name ;
 			]
 			PUBLIC get [

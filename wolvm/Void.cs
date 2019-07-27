@@ -19,6 +19,16 @@ namespace wolvm
                         returnType = VirtualMachine.wolString.Value,
                         body = "Return : ( AddString : ( Typeof : @this ; ), <^:string>; );"
                     }
+                },
+                { "getType", new wolFunction
+                    {
+                        arguments = new Dictionary<string, wolClass>
+                        {
+                            { "this", this }
+                        },
+                        returnType = VirtualMachine.wolType.Value,
+                        body = "Return : ( Typeof : @this ; );"
+                    }
                 }
             };
             constants = new Dictionary<string, Value>

@@ -20,6 +20,17 @@ namespace wolvm
             getter.body = "Return : @this ;";
         }
 
+        public Value(wolClass wolclass, string constr_name, params Value[] arguments) : this(wolclass, "<null:void", SecurityModifer.PUBLIC)
+        {
+            Script.Parse(type.constructors[constr_name].body, VirtualMachine.mainstack + new Stack
+            {
+                values = new Dictionary<string, Value>
+            {
+                { "this", this }
+            }
+            });
+        }
+
         public Value GetField(string name)
         {
             try
@@ -142,6 +153,11 @@ namespace wolvm
 
         public override string ToString() => "VALUE:" + value + "\nTYPE:" + type.ToString();
 
+        /// <summary>
+        /// Get not static method in this value
+        /// </summary>
+        /// <param name="name">Name of not static method</param>
+        /// <returns></returns>
         public wolFunction GetMethod(string name)
         {
             wolFunction meth = type.methods[name];

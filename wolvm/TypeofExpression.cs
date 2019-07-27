@@ -8,7 +8,7 @@ namespace wolvm
     {
         public Value ParseExpression(params Value[] args)
         {
-            Value retval = new Value(VirtualMachine.wolType.Value);
+            Value retval = new Value(VirtualMachine.wolType.Value, "Type", args[0]);
             return retval;
         }
     }
