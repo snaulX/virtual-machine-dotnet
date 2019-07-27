@@ -6,10 +6,6 @@ namespace wolvm
 {
     public class TypeofExpression : VMExpression
     {
-        public Value ParseExpression(params Value[] args)
-        {
-            Value retval = new Value(VirtualMachine.wolType.Value, "Type", args[0]);
-            return retval;
-        }
+        public Value ParseExpression(params Value[] args) => new Value(VirtualMachine.wolType.Value, "Type", Value.GetValue($"<{args[0].type.ToString()}:string>"));
     }
 }

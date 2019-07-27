@@ -12,6 +12,7 @@ namespace wolvm
         public Dictionary<string, wolClass> parents;
         public SecurityModifer security;
         public wolClassType classType;
+        string strtype;
         
         //for overriding
         public wolClass()
@@ -21,6 +22,7 @@ namespace wolvm
 
         public wolClass(SecurityModifer securityModifer = SecurityModifer.PRIVATE, wolClassType type = wolClassType.DEFAULT, string ConstructorName = "init")
         {
+            strtype = ConstructorName;
             security = securityModifer;
             classType = type;
             switch (classType)
@@ -111,6 +113,11 @@ namespace wolvm
                     { VirtualMachine.wolCollection.Key, VirtualMachine.wolCollection.Value }
                 }
             };
+        }
+
+        public override string ToString()
+        {
+            return strtype;
         }
     }
 
