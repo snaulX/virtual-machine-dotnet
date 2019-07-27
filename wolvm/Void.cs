@@ -16,10 +16,14 @@ namespace wolvm
                         {
                             { "this", this }
                         },
-                        returnType = VirtualMachine.Void.Value,
+                        returnType = VirtualMachine.wolString.Value,
                         body = "Return : ( AddString : ( Typeof : @this ; ), <^:string>; );"
                     }
                 }
+            };
+            constants = new Dictionary<string, Value>
+            {
+                { "null", new Value(this) }
             };
         }
     }
