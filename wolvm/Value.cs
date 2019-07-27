@@ -16,8 +16,8 @@ namespace wolvm
             type = wolclass;
             getter = new wolFunction(modifer);
             setter = new wolFunction(modifer);
-            setter.body = "Set : " + " ;";
-            getter.body = "Return : " + val + " ;";
+            setter.body = "Set : &this ;";
+            getter.body = "Return : @this ;";
         }
 
         public Value GetField(string name)

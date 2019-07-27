@@ -52,7 +52,10 @@ namespace wolvm
                     break;
                 case wolClassType.STRUCT:
                     constants = new Dictionary<string, Value>();
-                    parents = new Dictionary<string, wolClass>();
+                    parents = new Dictionary<string, wolClass>
+                    {
+                        { VirtualMachine.Void.Key, VirtualMachine.Void.Value }
+                    };
                     fields = new Dictionary<string, Value>();
                     methods = new Dictionary<string, wolFunction>();
                     constructors = new Dictionary<string, wolFunction>
@@ -65,7 +68,10 @@ namespace wolvm
                     };
                     break;
                 case wolClassType.ABSTRACT:
-                    parents = new Dictionary<string, wolClass>();
+                    parents = new Dictionary<string, wolClass>
+                    {
+                        { VirtualMachine.Void.Key, VirtualMachine.Void.Value }
+                    };
                     fields = new Dictionary<string, Value>();
                     methods = new Dictionary<string, wolFunction>();
                     break;
@@ -96,7 +102,6 @@ namespace wolvm
                 fields = new Dictionary<string, Value>(),
                 parents = new Dictionary<string, wolClass>
                 {
-                    { VirtualMachine.Void.Key, VirtualMachine.Void.Value },
                     { VirtualMachine.wolCollection.Key, VirtualMachine.wolCollection.Value }
                 }
             };
