@@ -182,7 +182,7 @@ namespace wolvm
 
                                         }
                                     }
-                                    wolClass newWolClass = new wolClass { }; //create empty class
+                                    wolClass newWolClass = new wolClass(SecurityModifer.PRIVATE, wolClassType.DEFAULT, "init"); //create class
                                     try
                                     {
                                         newWolClass.classType = (wolClassType)Enum.Parse(typeof(wolClassType), buffer.ToString(), true); //give type to our class from buffer without case sensetive

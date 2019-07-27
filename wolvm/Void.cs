@@ -6,8 +6,7 @@ namespace wolvm
 {
     public class Void : wolClass
     {
-        public Void(SecurityModifer securityModifer = SecurityModifer.PUBLIC, wolClassType type = wolClassType.STRUCT, string ConstructorName = "void")
-            : base(securityModifer, type, ConstructorName)
+        public Void() : base()
         {
             methods = new Dictionary<string, wolFunction>
             {
@@ -15,7 +14,7 @@ namespace wolvm
                     {
                         arguments = new Dictionary<string, wolClass>
                         {
-                            { "this", VirtualMachine.Void.Value }
+                            { "this", this }
                         },
                         returnType = VirtualMachine.Void.Value,
                         body = "Return : ( AddString : ( Typeof : @this ; ), <^:string>; );"

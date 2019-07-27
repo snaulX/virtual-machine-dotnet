@@ -4,18 +4,18 @@
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp1.1</TargetFramework>
     <Authors>snaulX</Authors>
-    <Company>snaulX</Company>
+    <Company>World of Legends</Company>
     <Product>World of Legends Virtual Machine</Product>
     <Copyright>Copyright (c) snaulX 2019</Copyright>
-    <Description>World of Legends Virtual Machine (WoL VM) - virtual machine who created WoL Ecosystem and used for execute files.</Description>
+    <Description>World of Legends Virtual Machine (WoL VM) - virtual machine who created WoL Ecosystem and used for execute build-files.</Description>
     <Platforms>AnyCPU;x64;x86</Platforms>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <OutputPath>bin\</OutputPath>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <Optimize>false</Optimize>
-    <DocumentationFile></DocumentationFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x86'">

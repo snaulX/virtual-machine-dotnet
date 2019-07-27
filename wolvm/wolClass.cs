@@ -12,6 +12,12 @@ namespace wolvm
         public Dictionary<string, wolClass> parents;
         public SecurityModifer security;
         public wolClassType classType;
+        
+        //for overriding
+        public wolClass()
+        {
+            //pass
+        }
 
         public wolClass(SecurityModifer securityModifer = SecurityModifer.PRIVATE, wolClassType type = wolClassType.DEFAULT, string ConstructorName = "init")
         {
