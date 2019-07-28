@@ -122,7 +122,7 @@ namespace wolvm
             }
             catch (KeyNotFoundException)
             {
-                ThrowVMException("Class by name " + name.Trim() + " not found", position, ExceptionType.NotFoundException);
+                ThrowVMException($"Class by name {name.Trim()} not found", position, ExceptionType.NotFoundException);
                 return null;
             }
         }
@@ -196,22 +196,22 @@ namespace wolvm
                             Assembly assembly = null;
                             try
                             {
-                                assembly = Assembly.Load(new AssemblyName("vmlib/" + dllName.Trim() + ".dll"));
+                                assembly = Assembly.Load(new AssemblyName(dllName.Trim() + ".dll"));
                             } 
                             catch (Exception ex)
                             {
-                                ThrowVMException("Library with info vmlib/" + dllName.Trim() + " not found " + ex.GetType(), position, ExceptionType.FileNotFoundException);
+                                ThrowVMException($"Library with info {dllName.Trim()} not found {ex.GetType()}", position, ExceptionType.FileNotFoundException);
                                 break;
                             }
                             Type mainClass = assembly.GetTypes().FirstOrDefault(t => t != mainType && mainType.IsAssignableFrom(t));
                             if (mainClass != null)
                             {
                                 if (Activator.CreateInstance(mainClass) is VMLibrary mainObj) mainObj.Load();
-                                else ThrowVMException("Main class in library by name " + dllName + " haven`t type VMLibrary and will cannot loaded", position, ExceptionType.LoadsException);
+                                else ThrowVMException($"Main class in library by name {dllName} haven`t type VMLibrary and will cannot loaded", position, ExceptionType.LoadsException);
                             }
                             else
                             {
-                                ThrowVMException("Library by name " + dllName + "haven`t main class and will cannot loaded", position, ExceptionType.LoadsException);
+                                ThrowVMException($"Library by name {dllName}haven`t main class and will cannot loaded", position, ExceptionType.LoadsException);
                             }
                             
                         } 
