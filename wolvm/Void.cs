@@ -16,7 +16,7 @@ namespace wolvm
                         {
                             { "this", this }
                         },
-                        returnType = VirtualMachine.wolString.Value,
+                        returnType = VirtualMachine.wolString,
                         body = "return ( AddString : ( Typeof : @this ; ), <^:string>; );"
                     }
                 },

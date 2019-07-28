@@ -20,9 +20,9 @@ namespace wolvm
             //pass
         }
 
-        public wolClass(SecurityModifer securityModifer = SecurityModifer.PRIVATE, wolClassType type = wolClassType.DEFAULT, string ConstructorName = "init")
+        public wolClass(string name, SecurityModifer securityModifer = SecurityModifer.PRIVATE, wolClassType type = wolClassType.DEFAULT, string ConstructorName = "init")
         {
-            strtype = ConstructorName;
+            strtype = name;
             security = securityModifer;
             classType = type;
             switch (classType)

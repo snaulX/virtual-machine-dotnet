@@ -21,17 +21,15 @@ namespace wolvm
             new TypeofExpression()
         };
         //initilizate base classes
-        public static wolClass Void = new Void(), wolInt = new wolInt();
+        public static wolClass Void = new Void(), wolInt = new wolInt(), wolString = new wolString(), wolBool = new wolBool();
         public static KeyValuePair<string, wolClass>
-            wolBool = new KeyValuePair<string, wolClass>("bool", new wolBool()),
-            wolString = new KeyValuePair<string, wolClass>("string", new wolClass(SecurityModifer.PUBLIC, wolClassType.DEFAULT, "string")),
-            wolDouble = new KeyValuePair<string, wolClass>("double", new wolClass(SecurityModifer.PUBLIC, wolClassType.STRUCT, "double")),
+            wolDouble = new KeyValuePair<string, wolClass>("double", new wolClass("double", SecurityModifer.PUBLIC, wolClassType.STRUCT, "double")),
             wolType = new KeyValuePair<string, wolClass>("Type", new wolType()),
-            wolFunc = new KeyValuePair<string, wolClass>("Func", new wolClass(SecurityModifer.PUBLIC, wolClassType.DEFAULT, "Function")),
-            wolEnum = new KeyValuePair<string, wolClass>("Enum", new wolClass(SecurityModifer.PUBLIC, wolClassType.STATIC)),
-            wolChar = new KeyValuePair<string, wolClass>("char", new wolClass(SecurityModifer.PUBLIC, wolClassType.STRUCT, "char")),
-            wolBlock = new KeyValuePair<string, wolClass>("Block", new wolClass(SecurityModifer.PUBLIC, wolClassType.DEFAULT, "Virtual")),
-            wolCollection = new KeyValuePair<string, wolClass>("Collection", new wolClass(SecurityModifer.PUBLIC, wolClassType.ABSTRACT, "Collection")),
+            wolFunc = new KeyValuePair<string, wolClass>("Func", new wolClass("Func", SecurityModifer.PUBLIC, wolClassType.DEFAULT, "Function")),
+            wolEnum = new KeyValuePair<string, wolClass>("Enum", new wolClass("Enum", SecurityModifer.PUBLIC, wolClassType.STATIC)),
+            wolChar = new KeyValuePair<string, wolClass>("char", new wolClass("char", SecurityModifer.PUBLIC, wolClassType.STRUCT, "char")),
+            wolBlock = new KeyValuePair<string, wolClass>("Block", new wolClass("Block", SecurityModifer.PUBLIC, wolClassType.DEFAULT, "Virtual")),
+            wolCollection = new KeyValuePair<string, wolClass>("Collection", new wolClass("Collection", SecurityModifer.PUBLIC, wolClassType.ABSTRACT, "Collection")),
             wolArray = new KeyValuePair<string, wolClass>("Array", wolClass.CreateCollection(SecurityModifer.PUBLIC, "Array")),
             wolLink = new KeyValuePair<string, wolClass>("Link", new wolClass
             {
@@ -43,8 +41,8 @@ namespace wolvm
                 },
                 fields = new Dictionary<string, Value>
                 {
-                    { "HasSetter", new Value(VirtualMachine.wolBool.Value) },
-                    { "Address", new Value(VirtualMachine.wolString.Value) }
+                    { "HasSetter", new Value(wolBool) },
+                    { "Address", new Value(wolString) }
                 },
                 methods = new Dictionary<string, wolFunction>
                 {
@@ -53,7 +51,7 @@ namespace wolvm
                             security = SecurityModifer.PUBLIC,
                             arguments = new Dictionary<string, wolClass>
                             {
-                                { "method_name", wolString.Value },
+                                { "method_name", wolString },
                                 { "arguments", wolArray.Value }
                             },
                             body = "Call : &this, @method_name, @arguments ;"
@@ -76,7 +74,7 @@ namespace wolvm
 
                 //add base classes to stack
                 mainstack.classes.Add("void", Void);
-                mainstack.classes.Add("string", wolString.Value);
+                mainstack.classes.Add("string", wolString);
                 mainstack.classes.Add("double", wolDouble.Value);
                 mainstack.classes.Add("int", wolInt);
                 mainstack.classes.Add("Type", wolType.Value);

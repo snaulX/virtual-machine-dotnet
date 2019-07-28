@@ -17,7 +17,7 @@ namespace wolvm
                     {
                         arguments = new Dictionary<string, wolClass>
                         {
-                            { "name", VirtualMachine.wolString.Value }
+                            { "name", VirtualMachine.wolString }
                         },
                         body = "@this.name#set : @name ;"
                     }
@@ -25,7 +25,7 @@ namespace wolvm
             };
             fields = new Dictionary<string, Value>
             {
-                { "name",  new Value(VirtualMachine.wolString.Value, "<null:void>", SecurityModifer.PUBLIC) }
+                { "name",  new Value(VirtualMachine.wolString, "<null:void>", SecurityModifer.PUBLIC) }
             };
         }
 
