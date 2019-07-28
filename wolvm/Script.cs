@@ -134,6 +134,14 @@ namespace wolvm
                     }
                     func.Call(values); //call function with arguments
                 }
+                else if (tokens[0] == "return")
+                {
+                    //pass
+                }
+                else if (tokens[0] == "label")
+                {
+                    //pass
+                }
                 else
                 {
                     bool haveExpression = true; //check on found expression by this name

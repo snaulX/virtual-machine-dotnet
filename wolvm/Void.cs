@@ -17,7 +17,7 @@ namespace wolvm
                             { "this", this }
                         },
                         returnType = VirtualMachine.wolString.Value,
-                        body = "Return : ( AddString : ( Typeof : @this ; ), <^:string>; );"
+                        body = "return ( AddString : ( Typeof : @this ; ), <^:string>; );"
                     }
                 },
                 { "getType", new wolFunction
@@ -27,7 +27,7 @@ namespace wolvm
                             { "this", this }
                         },
                         returnType = VirtualMachine.wolType.Value,
-                        body = "Return : ( Typeof : @this ; );"
+                        body = "return ( Typeof : @this ; );"
                     }
                 }
             };

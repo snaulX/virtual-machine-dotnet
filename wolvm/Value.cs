@@ -17,7 +17,7 @@ namespace wolvm
             getter = new wolFunction(modifer);
             setter = new wolFunction(modifer);
             setter.body = "Set : &this ;";
-            getter.body = "Return : @this ;";
+            getter.body = "return @this ;";
         }
 
         public Value(wolClass wolclass, string constr_name, params Value[] arguments) : this(wolclass, "<null:void", SecurityModifer.PUBLIC)
