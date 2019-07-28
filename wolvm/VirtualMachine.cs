@@ -21,7 +21,8 @@ namespace wolvm
             new TypeofExpression()
         };
         //initilizate base classes
-        public static KeyValuePair<string, wolClass> Void = new KeyValuePair<string, wolClass>("void", new Void()),
+        public static wolClass Void = new Void();
+        public static KeyValuePair<string, wolClass>
             wolBool = new KeyValuePair<string, wolClass>("bool", new wolBool()),
             wolString = new KeyValuePair<string, wolClass>("string", new wolClass(SecurityModifer.PUBLIC, wolClassType.DEFAULT, "string")),
             wolDouble = new KeyValuePair<string, wolClass>("double", new wolClass(SecurityModifer.PUBLIC, wolClassType.STRUCT, "double")),
@@ -75,7 +76,7 @@ namespace wolvm
                 //create and start 'context of thread'
 
                 //add base classes to stack
-                mainstack.classes.Add(Void.Key, Void.Value);
+                mainstack.classes.Add("void", Void);
                 mainstack.classes.Add(wolString.Key, wolString.Value);
                 mainstack.classes.Add(wolDouble.Key, wolDouble.Value);
                 mainstack.classes.Add(wolInt.Key, wolInt.Value);

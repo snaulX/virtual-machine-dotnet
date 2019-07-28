@@ -149,7 +149,7 @@ namespace wolvm
             }
         }
 
-        public static Value VoidValue => new Value(VirtualMachine.Void.Value);
+        public static Value VoidValue => new Value(VirtualMachine.Void);
 
         public override string ToString() => "VALUE:" + value + "\nTYPE:" + type.ToString();
 

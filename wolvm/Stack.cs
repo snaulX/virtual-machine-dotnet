@@ -695,7 +695,7 @@ namespace wolvm
                                                                 else
                                                                 {
 
-                                                                    Value thisVar = new Value(VirtualMachine.Void.Value); //create empty value with parent 'void'
+                                                                    Value thisVar = new Value(VirtualMachine.Void); //create empty value with parent 'void'
                                                                     position += 2;
                                                                     current = stack_code[position]; //skip whitespace
                                                                     buffer.Clear();
@@ -1182,7 +1182,7 @@ namespace wolvm
                                 else
                                 {
 
-                                    Value thisVar = new Value(VirtualMachine.Void.Value); //create empty value with parent 'void'
+                                    Value thisVar = new Value(VirtualMachine.Void); //create empty value with parent 'void'
                                     position += 2;
                                     current = stack_code[position]; //skip whitespace
                                     buffer.Clear();

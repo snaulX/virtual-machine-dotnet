@@ -15,7 +15,7 @@ namespace wolvm
             };
             parents = new Dictionary<string, wolClass>
                     {
-                        { VirtualMachine.Void.Key, VirtualMachine.Void.Value }
+                        { "void", VirtualMachine.Void }
                     };
             fields = new Dictionary<string, Value>();
             methods = new Dictionary<string, wolFunction>();

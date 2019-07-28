@@ -40,7 +40,7 @@ namespace wolvm
                     fields = new Dictionary<string, Value>();
                     parents = new Dictionary<string, wolClass>
                     {
-                        { VirtualMachine.Void.Key, VirtualMachine.Void.Value }
+                        { "void", VirtualMachine.Void }
                     };
                     break;
                 case wolClassType.ENUM:
@@ -53,7 +53,7 @@ namespace wolvm
                 case wolClassType.STATIC:
                     parents = new Dictionary<string, wolClass>
                     {
-                        { VirtualMachine.Void.Key, VirtualMachine.Void.Value }
+                        { "void", VirtualMachine.Void }
                     };
                     fields = new Dictionary<string, Value>();
                     methods = new Dictionary<string, wolFunction>();
@@ -62,7 +62,7 @@ namespace wolvm
                     constants = new Dictionary<string, Value>();
                     parents = new Dictionary<string, wolClass>
                     {
-                        { VirtualMachine.Void.Key, VirtualMachine.Void.Value }
+                        { "void", VirtualMachine.Void }
                     };
                     fields = new Dictionary<string, Value>();
                     methods = new Dictionary<string, wolFunction>();
@@ -78,7 +78,7 @@ namespace wolvm
                 case wolClassType.ABSTRACT:
                     parents = new Dictionary<string, wolClass>
                     {
-                        { VirtualMachine.Void.Key, VirtualMachine.Void.Value }
+                        { "void", VirtualMachine.Void }
                     };
                     fields = new Dictionary<string, Value>();
                     methods = new Dictionary<string, wolFunction>();
