@@ -35,6 +35,14 @@ namespace wolvm
             {
                 { "null", new Value(this) }
             };
+            constructors = new Dictionary<string, wolFunction>
+            {
+                { "void", new wolFunction
+                {
+
+                }
+                }
+            };
         }
     }
 }
