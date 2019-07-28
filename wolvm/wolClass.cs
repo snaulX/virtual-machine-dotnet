@@ -47,7 +47,7 @@ namespace wolvm
                     constants = new Dictionary<string, Value>();
                     parents = new Dictionary<string, wolClass>
                     {
-                        { VirtualMachine.wolInt.Key, VirtualMachine.wolInt.Value }
+                        { "int", VirtualMachine.wolInt }
                     };
                     break;
                 case wolClassType.STATIC:

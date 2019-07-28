@@ -21,12 +21,11 @@ namespace wolvm
             new TypeofExpression()
         };
         //initilizate base classes
-        public static wolClass Void = new Void();
+        public static wolClass Void = new Void(), wolInt = new wolInt();
         public static KeyValuePair<string, wolClass>
             wolBool = new KeyValuePair<string, wolClass>("bool", new wolBool()),
             wolString = new KeyValuePair<string, wolClass>("string", new wolClass(SecurityModifer.PUBLIC, wolClassType.DEFAULT, "string")),
             wolDouble = new KeyValuePair<string, wolClass>("double", new wolClass(SecurityModifer.PUBLIC, wolClassType.STRUCT, "double")),
-            wolInt = new KeyValuePair<string, wolClass>("int", new wolInt()),
             wolType = new KeyValuePair<string, wolClass>("Type", new wolType()),
             wolFunc = new KeyValuePair<string, wolClass>("Func", new wolClass(SecurityModifer.PUBLIC, wolClassType.DEFAULT, "Function")),
             wolEnum = new KeyValuePair<string, wolClass>("Enum", new wolClass(SecurityModifer.PUBLIC, wolClassType.STATIC)),
@@ -77,17 +76,17 @@ namespace wolvm
 
                 //add base classes to stack
                 mainstack.classes.Add("void", Void);
-                mainstack.classes.Add(wolString.Key, wolString.Value);
-                mainstack.classes.Add(wolDouble.Key, wolDouble.Value);
-                mainstack.classes.Add(wolInt.Key, wolInt.Value);
-                mainstack.classes.Add(wolType.Key, wolType.Value);
-                mainstack.classes.Add(wolFunc.Key, wolFunc.Value);
-                mainstack.classes.Add(wolEnum.Key, wolEnum.Value);
-                mainstack.classes.Add(wolChar.Key, wolChar.Value);
-                mainstack.classes.Add(wolBlock.Key, wolBlock.Value);
-                mainstack.classes.Add(wolCollection.Key, wolCollection.Value);
-                mainstack.classes.Add(wolArray.Key, wolArray.Value);
-                mainstack.classes.Add(wolLink.Key, wolLink.Value);
+                mainstack.classes.Add("string", wolString.Value);
+                mainstack.classes.Add("double", wolDouble.Value);
+                mainstack.classes.Add("int", wolInt);
+                mainstack.classes.Add("Type", wolType.Value);
+                mainstack.classes.Add("Func", wolFunc.Value);
+                mainstack.classes.Add("Enum", wolEnum.Value);
+                mainstack.classes.Add("char", wolChar.Value);
+                mainstack.classes.Add("Block", wolBlock.Value);
+                mainstack.classes.Add("Collection", wolCollection.Value);
+                mainstack.classes.Add("Array", wolArray.Value);
+                mainstack.classes.Add("Link", wolLink.Value);
 
                 switch (args[0])
                 {
