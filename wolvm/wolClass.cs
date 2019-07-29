@@ -115,10 +115,7 @@ namespace wolvm
             };
         }
 
-        public override string ToString()
-        {
-            return strtype;
-        }
+        public override string ToString() => strtype;
     }
 
     public enum wolClassType
