@@ -12,10 +12,12 @@ namespace wolvm
             foreach (Value val in args)
             {
                 double numb = 0.0;
-                if (!double.TryParse(val.value, out numb))
+                wolDouble vald = (wolDouble) val.type;
+                /*if (!double.TryParse(vald.fields["val"], out numb))
                 {
-                    VirtualMachine.ThrowVMException(val.value + " isn`t double", VirtualMachine.position, ExceptionType.InvalidTypeException);
-                }
+                    VirtualMachine.ThrowVMException(vald.value + " isn`t double", VirtualMachine.position, ExceptionType.InvalidTypeException);
+                }*/
+                numb = vald.value;
                 sum += numb;
             }
             Console.WriteLine(sum);

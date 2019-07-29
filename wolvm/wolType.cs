@@ -26,7 +26,7 @@ namespace wolvm
             };
             fields = new Dictionary<string, Value>
             {
-                { "name",  new Value(VirtualMachine.wolString, "<null:void>", SecurityModifer.PUBLIC) }
+                { "name",  new Value(VirtualMachine.wolString, SecurityModifer.PUBLIC) }
             };
         }
 

@@ -22,10 +22,9 @@ namespace wolvm
         };
         //initilizate base classes
         public static wolClass Void = new Void(), wolInt = new wolInt(), wolString = new wolString(), wolBool = new wolBool(), 
-            wolCollection = new wolCollection(), wolArray = new wolArray();
+            wolCollection = new wolCollection(), wolArray = new wolArray(), wolType = new wolType();
         public static KeyValuePair<string, wolClass>
             wolDouble = new KeyValuePair<string, wolClass>("double", new wolClass("double", SecurityModifer.PUBLIC, wolClassType.STRUCT, "double")),
-            wolType = new KeyValuePair<string, wolClass>("Type", new wolType()),
             wolFunc = new KeyValuePair<string, wolClass>("Func", new wolClass("Func", SecurityModifer.PUBLIC, wolClassType.DEFAULT, "Function")),
             wolEnum = new KeyValuePair<string, wolClass>("Enum", new wolClass("Enum", SecurityModifer.PUBLIC, wolClassType.STATIC)),
             wolChar = new KeyValuePair<string, wolClass>("char", new wolClass("char", SecurityModifer.PUBLIC, wolClassType.STRUCT, "char")),
@@ -76,7 +75,7 @@ namespace wolvm
                 mainstack.classes.Add("string", wolString);
                 mainstack.classes.Add("double", wolDouble.Value);
                 mainstack.classes.Add("int", wolInt);
-                mainstack.classes.Add("Type", wolType.Value);
+                mainstack.classes.Add("Type", wolType);
                 mainstack.classes.Add("Func", wolFunc.Value);
                 mainstack.classes.Add("Enum", wolEnum.Value);
                 mainstack.classes.Add("char", wolChar.Value);

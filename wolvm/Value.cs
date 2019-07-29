@@ -7,12 +7,10 @@ namespace wolvm
     public class Value
     {
         public wolClass type;
-        public string value;
         public wolFunction getter, setter;
         
-        public Value(wolClass wolclass, string val = "<null:void>", SecurityModifer modifer = SecurityModifer.PRIVATE)
+        public Value(wolClass wolclass, SecurityModifer modifer = SecurityModifer.PRIVATE)
         {
-            value = val;
             type = wolclass;
             getter = new wolFunction(modifer);
             setter = new wolFunction(modifer);
@@ -20,7 +18,7 @@ namespace wolvm
             getter.body = "return @this ;";
         }
 
-        public Value(wolClass wolclass, string constr_name, params Value[] arguments) : this(wolclass, "<null:void", SecurityModifer.PUBLIC)
+        public Value(wolClass wolclass, string constr_name, params Value[] arguments) : this(wolclass, SecurityModifer.PUBLIC)
         {
             Script.Parse(type.constructors[constr_name].body, VirtualMachine.mainstack + new Stack
             {
@@ -53,8 +51,7 @@ namespace wolvm
         public static bool IsDouble(string val) => double.TryParse(val, out double gyg);
 
         public static bool IsInt(string val) => long.TryParse(val, out long gyg);
-
-        public static bool IsDouble(Value val, out double gyg) => double.TryParse(val.value, out gyg);
+        
 
         public static Value GetValue(string val)
         {
@@ -65,10 +62,7 @@ namespace wolvm
                 string[] vals = val.Split(':');
                 if (vals.Length == 2)
                 {
-                    Value value = new Value(VirtualMachine.GetWolClass(vals[1]))
-                    {
-                        value = vals[0]
-                    };
+                    Value value = new Value(VirtualMachine.GetWolClass(vals[1]));
                     return value;
                 }
                 else
@@ -98,7 +92,7 @@ namespace wolvm
             else if (val.StartsWith("$"))
             {
                 val = val.Remove(0, 1); //remove '$'
-                Value value = new Value(VirtualMachine.wolType.Value);
+                Value value = new Value(VirtualMachine.wolType);
                 return null;
             }
             else if (val.StartsWith("("))
@@ -151,7 +145,7 @@ namespace wolvm
 
         public static Value VoidValue => new Value(VirtualMachine.Void);
 
-        public override string ToString() => "VALUE:" + value + "\nTYPE:" + type.ToString();
+        public override string ToString() => $"VALUE:{type.fields.ToString()}\nTYPE:{type.ToString()}";
 
         /// <summary>
         /// Get not static method in this value
