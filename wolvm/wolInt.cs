@@ -8,6 +8,7 @@ namespace wolvm
     {
         public wolInt() : base()
         {
+            strtype = "int";
             constants = new Dictionary<string, Value>();
             parents = new Dictionary<string, wolClass>
                     {

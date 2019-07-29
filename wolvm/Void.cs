@@ -8,6 +8,7 @@ namespace wolvm
     {
         public Void() : base()
         {
+            strtype = "void";
             methods = new Dictionary<string, wolFunction>
             {
                 { "toString", new wolFunction

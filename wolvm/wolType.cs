@@ -10,6 +10,7 @@ namespace wolvm
 
         public wolType() : base()
         {
+            strtype = "Type";
             classType = wolClassType.DEFAULT;
             constructors = new Dictionary<string, wolFunction>
             {

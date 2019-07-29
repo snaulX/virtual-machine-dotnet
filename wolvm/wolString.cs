@@ -4,7 +4,11 @@ using System.Text;
 
 namespace wolvm
 {
-    public class wolString : wolClass
+    public class wolString : Void
     {
+        public wolString(): base()
+        {
+            strtype = "string";
+        }
     }
 }

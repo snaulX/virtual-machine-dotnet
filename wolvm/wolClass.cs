@@ -12,7 +12,7 @@ namespace wolvm
         public Dictionary<string, wolClass> parents;
         public SecurityModifer security;
         public wolClassType classType;
-        string strtype;
+        public string strtype;
         
         //for overriding
         public wolClass()

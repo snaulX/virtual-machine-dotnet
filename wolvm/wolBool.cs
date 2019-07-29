@@ -8,6 +8,7 @@ namespace wolvm
     {
         public wolBool() : base()
         {
+            strtype = "bool";
             constants = new Dictionary<string, Value>
             {
                 { "false", new Value(VirtualMachine.wolInt, "<0:int>") },
