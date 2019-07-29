@@ -110,7 +110,7 @@ namespace wolvm
                 fields = new Dictionary<string, Value>(),
                 parents = new Dictionary<string, wolClass>
                 {
-                    { VirtualMachine.wolCollection.Key, VirtualMachine.wolCollection.Value }
+                    { "Collection", VirtualMachine.wolCollection }
                 }
             };
         }

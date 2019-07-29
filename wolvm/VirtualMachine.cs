@@ -21,7 +21,8 @@ namespace wolvm
             new TypeofExpression()
         };
         //initilizate base classes
-        public static wolClass Void = new Void(), wolInt = new wolInt(), wolString = new wolString(), wolBool = new wolBool();
+        public static wolClass Void = new Void(), wolInt = new wolInt(), wolString = new wolString(), wolBool = new wolBool(), 
+            wolCollection = new wolCollection(), wolArray = new wolArray();
         public static KeyValuePair<string, wolClass>
             wolDouble = new KeyValuePair<string, wolClass>("double", new wolClass("double", SecurityModifer.PUBLIC, wolClassType.STRUCT, "double")),
             wolType = new KeyValuePair<string, wolClass>("Type", new wolType()),
@@ -29,8 +30,6 @@ namespace wolvm
             wolEnum = new KeyValuePair<string, wolClass>("Enum", new wolClass("Enum", SecurityModifer.PUBLIC, wolClassType.STATIC)),
             wolChar = new KeyValuePair<string, wolClass>("char", new wolClass("char", SecurityModifer.PUBLIC, wolClassType.STRUCT, "char")),
             wolBlock = new KeyValuePair<string, wolClass>("Block", new wolClass("Block", SecurityModifer.PUBLIC, wolClassType.DEFAULT, "Virtual")),
-            wolCollection = new KeyValuePair<string, wolClass>("Collection", new wolClass("Collection", SecurityModifer.PUBLIC, wolClassType.ABSTRACT, "Collection")),
-            wolArray = new KeyValuePair<string, wolClass>("Array", wolClass.CreateCollection(SecurityModifer.PUBLIC, "Array")),
             wolLink = new KeyValuePair<string, wolClass>("Link", new wolClass
             {
                 classType = wolClassType.DEFAULT,
@@ -52,7 +51,7 @@ namespace wolvm
                             arguments = new Dictionary<string, wolClass>
                             {
                                 { "method_name", wolString },
-                                { "arguments", wolArray.Value }
+                                { "arguments", wolArray }
                             },
                             body = "Call : &this, @method_name, @arguments ;"
                         }
@@ -82,8 +81,8 @@ namespace wolvm
                 mainstack.classes.Add("Enum", wolEnum.Value);
                 mainstack.classes.Add("char", wolChar.Value);
                 mainstack.classes.Add("Block", wolBlock.Value);
-                mainstack.classes.Add("Collection", wolCollection.Value);
-                mainstack.classes.Add("Array", wolArray.Value);
+                mainstack.classes.Add("Collection", wolCollection);
+                mainstack.classes.Add("Array", wolArray);
                 mainstack.classes.Add("Link", wolLink.Value);
 
                 switch (args[0])
