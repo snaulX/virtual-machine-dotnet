@@ -21,7 +21,7 @@ namespace wolvm
                 sum += numb;
             }
             Console.WriteLine(sum);
-            return new Value(VirtualMachine.wolDouble.Value, sum.ToString());
+            return new Value(VirtualMachine.wolDouble, sum.ToString());
         }
     }
 }
