@@ -20,13 +20,31 @@ namespace wolvm
 
         public Value(wolClass wolclass, string constr_name, params Value[] arguments) : this(wolclass, SecurityModifer.PUBLIC)
         {
-            Script.Parse(type.constructors[constr_name].body, VirtualMachine.mainstack + new Stack
+            if (wolclass.classType == wolClassType.STRUCT)
             {
-                values = new Dictionary<string, Value>
-            {
-                { "this", this }
+                //pass
             }
-            });
+            else if (wolclass.classType == wolClassType.ENUM)
+            {
+                //pass
+            }
+            else
+            {
+                try
+                {
+                    Script.Parse(type.constructors[constr_name].body, VirtualMachine.mainstack + new Stack
+                    {
+                        values = new Dictionary<string, Value>
+                    {
+                        { "this", this }
+                    }
+                    });
+                }
+                catch (KeyNotFoundException)
+                {
+                    VirtualMachine.ThrowVMException($"Constructor by name {constr_name} not found in {wolclass}", VirtualMachine.position, ExceptionType.NotFoundException);
+                }
+            }
         }
 
         public Value GetField(string name)

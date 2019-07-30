@@ -39,9 +39,10 @@ namespace wolvm
             constructors = new Dictionary<string, wolFunction>
             {
                 { "void", new wolFunction
-                {
-
-                }
+                    {
+                        body = "return <null:void>;",
+                        returnType = this
+                    }
                 }
             };
         }
