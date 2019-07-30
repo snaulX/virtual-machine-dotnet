@@ -39,7 +39,7 @@ enum public BaseType {
 
 function print(string text) -> Virtual { System.Print : @thisargs.text ; }; //а оператор -> просто выпоняет действие. После выражения всегда ставится ;
 
-operator int +(left int a, right int b) => Virtual { Plus : @thisargs.a , @thisargs.b ; }; //если после оператора => стоит Virtual то всё его содержимое перекидывается в Return
+operator int +(left int a, right int b) => Virtual { Plus : @thisargs.a , @thisargs.b ; }; //если после оператора => стоит Virtual то всё его содержимое перекидывается в return
 
 var int sum = 12 + 13 ; //call sum.set(12 + 13) and in arguments call operator + 
 print((string) sum); //call function print with arguments convertable variable sum

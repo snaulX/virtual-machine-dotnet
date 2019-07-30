@@ -12,7 +12,7 @@ stack {
 		],
 		func [
 			toString = PUBLIC string : [
-				Return : <Tuzik:string>;
+				return <Tuzik:string>;
 			],
 			greet = PUBLIC void (text: string) [
 				#print :(AddString : <Hello, :string>, @text );
@@ -23,7 +23,7 @@ stack {
 				Set : &this.age , @_age ;
 			]
 			PUBLIC get [
-				Return : @this.age ;
+				return @this.age ;
 			], 
 			name = string PUBLIC set (name: string) [
 				Set : &this.name , @name ;
@@ -31,7 +31,7 @@ stack {
 			]
 			PUBLIC get [
 				System.Print : <Your name is\u003A:string>, @this.name ;
-				Return : @this.name ;
+				return @this.name ;
 			]
 		];
 		BaseType = ENUM PUBLIC (int): 
@@ -56,7 +56,7 @@ stack {
 			System.Print : @text ;
 		],
 		+ = PRIVATE int (a: int, b: int): [
-			Return : ( Plus : @a , @b ) ;
+			return ( Plus : @a , @b ) ;
 		]
 	};
 	var {
@@ -64,7 +64,7 @@ stack {
 			Set : &sum , @_sum ;
 		]
 		PRIVATE get [
-			Return : @sum ;
+			return @sum ;
 		]
 	};
 }
