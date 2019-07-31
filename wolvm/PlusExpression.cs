@@ -13,10 +13,6 @@ namespace wolvm
             {
                 double numb = 0.0;
                 wolDouble vald = (wolDouble) val.type;
-                /*if (!double.TryParse(vald.fields["val"], out numb))
-                {
-                    VirtualMachine.ThrowVMException(vald.value + " isn`t double", VirtualMachine.position, ExceptionType.InvalidTypeException);
-                }*/
                 numb = vald.value;
                 sum += numb;
             }

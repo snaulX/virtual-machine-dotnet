@@ -20,7 +20,7 @@ namespace wolvm
             //pass
         }
 
-        public wolClass(string name, SecurityModifer securityModifer = SecurityModifer.PRIVATE, wolClassType type = wolClassType.DEFAULT, string ConstructorName = "init")
+        public wolClass(string name, SecurityModifer securityModifer = SecurityModifer.PUBLIC, wolClassType type = wolClassType.DEFAULT, string ConstructorName = "init")
         {
             strtype = name;
             security = securityModifer;
@@ -84,35 +84,6 @@ namespace wolvm
                     methods = new Dictionary<string, wolFunction>();
                     break;
             }
-        }
-
-        /// <summary>
-        /// Create World of Legends class how collection
-        /// </summary>
-        /// <param name="securityModifer"></param>
-        /// <param name="ConstructorName"></param>
-        /// <returns></returns>
-        public static wolClass CreateCollection(SecurityModifer securityModifer = SecurityModifer.PRIVATE, string ConstructorName = "Collection")
-        {
-            return new wolClass
-            {
-                security = securityModifer,
-                classType = wolClassType.DEFAULT,
-                methods = new Dictionary<string, wolFunction>(),
-                constructors = new Dictionary<string, wolFunction>
-                {
-                    { ConstructorName, new wolFunction() }
-                },
-                destructors = new List<wolFunction>
-                {
-                    new wolFunction()
-                },
-                fields = new Dictionary<string, Value>(),
-                parents = new Dictionary<string, wolClass>
-                {
-                    { "Collection", VirtualMachine.wolCollection }
-                }
-            };
         }
 
         public override string ToString() => strtype;
