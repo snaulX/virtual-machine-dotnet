@@ -39,7 +39,7 @@ namespace wolvm
         {
             if (!int.TryParse(val, out value))
             {
-                VirtualMachine.ThrowVMException("", VirtualMachine.position, ExceptionType.NumberFormatException);
+                VirtualMachine.ThrowVMException($"'{val}' cannot convert to int", VirtualMachine.position, ExceptionType.NumberFormatException);
             }
         }
     }
