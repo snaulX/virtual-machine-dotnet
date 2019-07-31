@@ -9,10 +9,13 @@ namespace wolvm
         public wolBool() : base()
         {
             strtype = "bool";
+            wolInt False = new wolInt(), True = new wolInt();
+            False.ParseInt("0");
+            True.ParseInt("1");
             constants = new Dictionary<string, Value>
             {
-                { "false", new Value(VirtualMachine.wolInt, "<0:int>") },
-                { "true", new Value(VirtualMachine.wolInt, "<1:int>") }
+                { "false", new Value(False) },
+                { "true", new Value(True) }
             };
             parents = new Dictionary<string, wolClass>
                     {
