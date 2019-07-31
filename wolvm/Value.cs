@@ -66,9 +66,9 @@ namespace wolvm
 
         public static bool IsBool(string val) => val.Trim() == "true" || val.Trim() == "false";
 
-        public static bool IsDouble(string val) => double.TryParse(val, out double gyg);
+        public static bool IsDouble(string val, out double ret) => double.TryParse(val, out ret);
 
-        public static bool IsInt(string val) => long.TryParse(val, out long gyg);
+        public static bool IsLong(string val) => long.TryParse(val, out long gyg);
         
 
         public static Value GetValue(string val)
@@ -80,12 +80,22 @@ namespace wolvm
                 string[] vals = val.Split(':');
                 if (vals.Length == 2)
                 {
-                    Value value = new Value(VirtualMachine.GetWolClass(vals[1]));
+                    Value value;
+                    if (vals[1] == "double")
+                    {
+                        wolDouble type = new wolDouble();
+                        IsDouble(vals[0], out type.value);
+                        value = new Value(type);
+                    }
+                    else
+                    {
+                        value = new Value(VirtualMachine.GetWolClass(vals[1]));
+                    }
                     return value;
                 }
                 else
                 {
-                    VirtualMachine.ThrowVMException("Value not found in this string", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                    VirtualMachine.ThrowVMException("Value and his type not found in this string", VirtualMachine.position, ExceptionType.BLDSyntaxException);
                     return null;
                 }
             }
