@@ -4,7 +4,7 @@ using System.Text;
 
 namespace wolvm
 {
-    public class wolInt : Void
+    public class wolInt : wolShort
     {
         public int value;
 
