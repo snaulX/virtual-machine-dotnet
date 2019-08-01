@@ -23,6 +23,7 @@ namespace wolvm
                     {
                         new wolFunction()
                     };
+            Implements();
         }
 
         public wolInt(int val) : this() => value = val;

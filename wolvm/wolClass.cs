@@ -100,11 +100,27 @@ namespace wolvm
                     foreach (KeyValuePair<string, wolFunction> method in parent.methods)
                     {
                         if (!method.Value.close)
-                            methods.Add(method.Key, method.Value);
+                        {
+                            try
+                            {
+                                methods.Add(method.Key, method.Value);
+                            }
+                            catch (ArgumentException)
+                            {
+                                continue;
+                            }
+                        }
                     }
                     foreach (KeyValuePair<string, Value> field in parent.fields)
                     {
-                        fields.Add(field.Key, field.Value);
+                        try
+                        {
+                            fields.Add(field.Key, field.Value);
+                        }
+                        catch (ArgumentException)
+                        {
+                            continue;
+                        }
                     }
                 }
                 if ((classType == wolClassType.DEFAULT) || (classType == wolClassType.STRUCT))
@@ -112,19 +128,44 @@ namespace wolvm
                     foreach (KeyValuePair<string, wolFunction> constructor in parent.constructors)
                     {
                         if (!constructor.Value.close)
-                            constructors.Add(constructor.Key, constructor.Value);
+                        {
+                            try
+                            {
+                                constructors.Add(constructor.Key, constructor.Value);
+                            }
+                            catch (ArgumentException)
+                            {
+                                continue;
+                            }
+                        }
                     }
                     foreach (wolFunction destructor in parent.destructors)
                     {
                         if (!destructor.close)
-                            destructors.Add(destructor);
+                        {
+                            try
+                            {
+                                destructors.Add(destructor);
+                            }
+                            catch (ArgumentException)
+                            {
+                                continue;
+                            }
+                        }
                     }
                 }
                 if ((classType == wolClassType.ENUM) || (classType == wolClassType.STRUCT))
                 {
                     foreach (KeyValuePair<string, Value> constant in parent.constants)
                     {
-                        constants.Add(constant.Key, constant.Value);
+                        try
+                        {
+                            constants.Add(constant.Key, constant.Value);
+                        }
+                        catch (ArgumentException)
+                        {
+                            continue;
+                        }
                     }
                 }
             }

@@ -11,6 +11,7 @@ namespace wolvm
         public wolString(): base()
         {
             strtype = "string";
+            Implements();
         }
 
         public wolString(string val) : this() => value = val;

@@ -24,6 +24,7 @@ namespace wolvm
             {
 
             };
+            Implements();
         }
 
         public wolDouble(double val) : this() => value = val;

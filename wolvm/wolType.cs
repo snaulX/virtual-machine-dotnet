@@ -28,6 +28,7 @@ namespace wolvm
             {
                 { "name",  new Value(VirtualMachine.wolString, SecurityModifer.PUBLIC) }
             };
+            Implements();
         }
 
         public wolType(string type_name) : this()

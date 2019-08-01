@@ -9,6 +9,7 @@ namespace wolvm
         public wolArray() : base()
         {
             strtype = "Array";
+            Implements();
         }
     }
 }

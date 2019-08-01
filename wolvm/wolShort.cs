@@ -11,6 +11,7 @@ namespace wolvm
         public wolShort() : base()
         {
             strtype = "short";
+            Implements();
         }
 
         public wolShort(short val) : this() => value = val;

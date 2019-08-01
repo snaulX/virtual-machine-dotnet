@@ -45,6 +45,12 @@ namespace wolvm
                     }
                 }
             };
+            fields = new Dictionary<string, Value>();
+            parents = new Dictionary<string, wolClass>();
+            destructors = new List<wolFunction>
+            {
+                new wolFunction(SecurityModifer.PUBLIC, "Destroy : &this ;")
+            };
         }
     }
 }

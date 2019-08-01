@@ -11,6 +11,11 @@ namespace wolvm
         public wolByte() : base()
         {
             strtype = "byte";
+            parents = new Dictionary<string, wolClass>
+            {
+                { "void", VirtualMachine.Void }
+            };
+            Implements();
         }
 
         public wolByte(byte val) : this() => value = val;

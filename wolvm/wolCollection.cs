@@ -20,6 +20,7 @@ namespace wolvm
         {
             classType = wolClassType.DEFAULT;
             strtype = "Collection";
+            Implements();
         }
     }
 }

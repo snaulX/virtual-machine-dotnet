@@ -11,6 +11,7 @@ namespace wolvm
         public wolLong() : base()
         {
             strtype = "long";
+            Implements();
         }
 
         public wolLong(long val) : this() => value = val;

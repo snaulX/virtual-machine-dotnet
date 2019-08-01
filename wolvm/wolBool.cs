@@ -31,6 +31,7 @@ namespace wolvm
                     {
                         new wolFunction()
                     };
+            Implements();
         }
     }
 }
