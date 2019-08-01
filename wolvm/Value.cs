@@ -66,8 +66,6 @@ namespace wolvm
 
         public static bool IsBool(string val) => val.Trim() == "true" || val.Trim() == "false";
 
-        public static bool IsDouble(string val, out double ret) => double.TryParse(val, out ret);
-
         public static bool IsLong(string val) => long.TryParse(val, out long gyg);
         
 
@@ -84,8 +82,18 @@ namespace wolvm
                     if (vals[1] == "double")
                     {
                         wolDouble type = new wolDouble();
-                        IsDouble(vals[0], out type.value);
+                        type.ParseDouble(vals[0]);
                         value = new Value(type);
+                    }
+                    else if (vals[1] == "int")
+                    {
+                        wolInt type = new wolInt();
+                        type.ParseInt(vals[0]);
+                        value = new Value(type);
+                    }
+                    else if (vals[1] == "string")
+                    {
+                        value = new Value(new wolString(vals[0]));
                     }
                     else
                     {

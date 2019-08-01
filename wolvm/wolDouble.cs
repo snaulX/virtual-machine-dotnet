@@ -26,6 +26,8 @@ namespace wolvm
             };
         }
 
+        public wolDouble(double val) : this() => value = val;
+
         public void ParseDouble(string val)
         {
             if (!double.TryParse(val, out value))

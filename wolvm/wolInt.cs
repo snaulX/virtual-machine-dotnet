@@ -28,10 +28,7 @@ namespace wolvm
                     };
         }
 
-        public wolInt(int val) : this()
-        {
-            value = val;
-        }
+        public wolInt(int val) : this() => value = val;
 
         public bool TryParseInt(string val) => int.TryParse(val, out value);
         
