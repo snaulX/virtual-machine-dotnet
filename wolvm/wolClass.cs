@@ -95,24 +95,37 @@ namespace wolvm
         {
             foreach (wolClass parent in parents.Values)
             {
-                foreach (KeyValuePair<string, wolFunction> method in parent.methods)
+                if (classType != wolClassType.ENUM)
                 {
-                    if (!(method.Value.security == SecurityModifer.CLOSE))
-                        methods.Add(method.Key, method.Value);
+                    foreach (KeyValuePair<string, wolFunction> method in parent.methods)
+                    {
+                        if (!(method.Value.security == SecurityModifer.CLOSE))
+                            methods.Add(method.Key, method.Value);
+                    }
+                    foreach (KeyValuePair<string, Value> field in parent.fields)
+                    {
+                        fields.Add(field.Key, field.Value);
+                    }
                 }
-                foreach (KeyValuePair<string, Value> field in parent.fields)
+                if ((classType == wolClassType.DEFAULT) || (classType == wolClassType.STRUCT))
                 {
-                    fields.Add(field.Key, field.Value);
+                    foreach (KeyValuePair<string, wolFunction> constructor in parent.constructors)
+                    {
+                        if (!(constructor.Value.security == SecurityModifer.CLOSE))
+                            constructors.Add(constructor.Key, constructor.Value);
+                    }
+                    foreach (wolFunction destructor in parent.destructors)
+                    {
+                        if (!(destructor.security == SecurityModifer.CLOSE))
+                            destructors.Add(destructor);
+                    }
                 }
-                foreach (KeyValuePair<string, wolFunction> constructor in parent.constructors)
+                if ((classType == wolClassType.ENUM) || (classType == wolClassType.STRUCT))
                 {
-                    if (!(constructor.Value.security == SecurityModifer.CLOSE))
-                        constructors.Add(constructor.Key, constructor.Value);
-                }
-                foreach (wolFunction destructor in parent.destructors)
-                {
-                    if (!(destructor.security == SecurityModifer.CLOSE))
-                        destructors.Add(destructor);
+                    foreach (KeyValuePair<string, Value> constant in parent.constants)
+                    {
+                        constants.Add(constant.Key, constant.Value);
+                    }
                 }
             }
         }
