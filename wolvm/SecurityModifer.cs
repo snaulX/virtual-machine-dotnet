@@ -7,6 +7,7 @@ namespace wolvm
     public enum SecurityModifer
     {
         PRIVATE,
-        PUBLIC
+        PUBLIC,
+        CLOSE
     }
 }

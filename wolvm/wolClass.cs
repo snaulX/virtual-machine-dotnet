@@ -87,6 +87,35 @@ namespace wolvm
         }
 
         public override string ToString() => strtype;
+
+        /// <summary>
+        /// Implement all parents
+        /// </summary>
+        public void Implements()
+        {
+            foreach (wolClass parent in parents.Values)
+            {
+                foreach (KeyValuePair<string, wolFunction> method in parent.methods)
+                {
+                    if (!(method.Value.security == SecurityModifer.CLOSE))
+                        methods.Add(method.Key, method.Value);
+                }
+                foreach (KeyValuePair<string, Value> field in parent.fields)
+                {
+                    fields.Add(field.Key, field.Value);
+                }
+                foreach (KeyValuePair<string, wolFunction> constructor in parent.constructors)
+                {
+                    if (!(constructor.Value.security == SecurityModifer.CLOSE))
+                        constructors.Add(constructor.Key, constructor.Value);
+                }
+                foreach (wolFunction destructor in parent.destructors)
+                {
+                    if (!(destructor.security == SecurityModifer.CLOSE))
+                        destructors.Add(destructor);
+                }
+            }
+        }
     }
 
     public enum wolClassType
