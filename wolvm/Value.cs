@@ -62,13 +62,6 @@ namespace wolvm
 
         public bool CheckType(string name) => VirtualMachine.GetWolClass(name) == type ? true : false; //thanks C# for one-string functions))
 
-        public static bool IsVoid(string val) => val.Trim() == "null";
-
-        public static bool IsBool(string val) => val.Trim() == "true" || val.Trim() == "false";
-
-        public static bool IsLong(string val) => long.TryParse(val, out long gyg);
-        
-
         public static Value GetValue(string val)
         {
             val = val.Trim();
