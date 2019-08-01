@@ -24,7 +24,14 @@ namespace wolvm
             {
 
             };
+        }
 
+        public void ParseDouble(string val)
+        {
+            if (!double.TryParse(val, out value))
+            {
+                VirtualMachine.ThrowVMException($"'{val}' cannot parsing to double", VirtualMachine.position, ExceptionType.NumberFormatException);
+            }
         }
     }
 }

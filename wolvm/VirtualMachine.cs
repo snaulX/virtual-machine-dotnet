@@ -356,7 +356,7 @@ namespace wolvm
         StackOverflowException, //... size of stack is bigger then memory
         InvalidTypeException, //... get type doesn`t fits
         NotFoundException, //... 'anything' not found
-        InitilizateException,
+        InitilizateException, //... problems made on initilization
         BLDSyntaxException, //... wrong syntax of build-file
         LoadsException, //... framework can`t load or other troubles with him
         FileNotFoundException, //... file not found
