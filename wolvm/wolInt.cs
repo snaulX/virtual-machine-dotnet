@@ -6,16 +6,13 @@ namespace wolvm
 {
     public class wolInt : wolShort
     {
-        public int value;
+        public new int value;
 
         public wolInt() : base()
         {
             strtype = "int";
             constants = new Dictionary<string, Value>();
-            parents = new Dictionary<string, wolClass>
-                    {
-                        { "void", VirtualMachine.Void }
-                    };
+            //parents.Add("short", VirtualMachine.wolShort);
             fields = new Dictionary<string, Value>();
             methods = new Dictionary<string, wolFunction>();
             constructors = new Dictionary<string, wolFunction>
