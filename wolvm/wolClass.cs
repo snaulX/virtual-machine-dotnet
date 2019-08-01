@@ -99,7 +99,7 @@ namespace wolvm
                 {
                     foreach (KeyValuePair<string, wolFunction> method in parent.methods)
                     {
-                        if (!(method.Value.security == SecurityModifer.CLOSE))
+                        if (!method.Value.close)
                             methods.Add(method.Key, method.Value);
                     }
                     foreach (KeyValuePair<string, Value> field in parent.fields)
@@ -111,12 +111,12 @@ namespace wolvm
                 {
                     foreach (KeyValuePair<string, wolFunction> constructor in parent.constructors)
                     {
-                        if (!(constructor.Value.security == SecurityModifer.CLOSE))
+                        if (!constructor.Value.close)
                             constructors.Add(constructor.Key, constructor.Value);
                     }
                     foreach (wolFunction destructor in parent.destructors)
                     {
-                        if (!(destructor.security == SecurityModifer.CLOSE))
+                        if (!destructor.close)
                             destructors.Add(destructor);
                     }
                 }

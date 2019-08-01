@@ -10,6 +10,7 @@ namespace wolvm
         public wolClass returnType;
         public Dictionary<string, wolClass> arguments;
         public string body;
+        public bool close = false;
 
         public wolFunction(SecurityModifer sec = SecurityModifer.PRIVATE, string _body = "return <null:void>;")
         {
