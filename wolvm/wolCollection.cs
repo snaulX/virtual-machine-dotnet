@@ -18,7 +18,7 @@ namespace wolvm
         /// </summary>
         public wolCollection() : base()
         {
-            classType = wolClassType.DEFAULT;
+            classType = wolClassType.ABSTRACT;
             strtype = "Collection";
             Implements();
         }

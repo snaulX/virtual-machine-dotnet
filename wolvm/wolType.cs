@@ -16,11 +16,13 @@ namespace wolvm
             {
                 { "Type", new wolFunction
                     {
+                        returnType = this,
                         arguments = new Dictionary<string, wolClass>
                         {
                             { "name", VirtualMachine.wolString }
                         },
-                        body = "@this.name#set : @name ;"
+                        body = "@this.name#set : @name ;",
+                        security = SecurityModifer.PUBLIC
                     }
                 }
             };
