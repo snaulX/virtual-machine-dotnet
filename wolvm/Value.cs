@@ -9,12 +9,15 @@ namespace wolvm
         public wolClass type;
         public wolFunction getter, setter;
         
-        public Value(wolClass wolclass, SecurityModifer modifer = SecurityModifer.PRIVATE)
+        public Value(wolClass wolclass, SecurityModifer modifer = SecurityModifer.PRIVATE, bool isConstant = false)
         {
             type = wolclass;
             getter = new wolFunction(modifer);
-            setter = new wolFunction(modifer);
-            setter.body = "Set : &this ;";
+            if (!isConstant)
+            {
+                setter = new wolFunction(modifer);
+                setter.body = "Set : &this ;";
+            }
             getter.body = "return @this ;";
         }
 
