@@ -19,5 +19,13 @@ namespace wolvm
         }
 
         public wolByte(byte val) : this() => value = val;
+
+        public void ParseByte(string val)
+        {
+            if (!byte.TryParse(val, out value))
+            {
+                VirtualMachine.ThrowVMException($"'{val}' cannot converted to byte", VirtualMachine.position, ExceptionType.NumberFormatException);
+            }
+        }
     }
 }

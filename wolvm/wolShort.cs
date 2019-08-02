@@ -15,5 +15,13 @@ namespace wolvm
         }
 
         public wolShort(short val) : this() => value = val;
+
+        public void ParseShort(string val)
+        {
+            if (!short.TryParse(val, out value))
+            {
+                VirtualMachine.ThrowVMException($"'{val}' cannot converted to short", VirtualMachine.position, ExceptionType.NumberFormatException);
+            }
+        }
     }
 }
