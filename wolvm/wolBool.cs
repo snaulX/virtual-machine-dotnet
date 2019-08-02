@@ -25,7 +25,7 @@ namespace wolvm
             methods = new Dictionary<string, wolFunction>();
             constructors = new Dictionary<string, wolFunction>
                     {
-                        { "bool", new wolFunction() }
+                        { "bool", wolFunction.NewDefaultConstructor(this) }
                     };
             destructors = new List<wolFunction>
                     {
