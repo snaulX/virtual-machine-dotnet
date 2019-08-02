@@ -21,41 +21,13 @@ namespace wolvm
         };
         //initilizate base classes
         public static wolClass Void = new Void(), wolInt = new wolInt(), wolString = new wolString(), wolBool = new wolBool(), 
-            wolCollection = new wolCollection(), wolArray = new wolArray(), wolType = new wolType(), wolDouble = new wolDouble();
+            wolCollection = new wolCollection(), wolArray = new wolArray(), wolType = new wolType(), wolDouble = new wolDouble(),
+            wolLink = new wolLink();
         public static KeyValuePair<string, wolClass>
             wolFunc = new KeyValuePair<string, wolClass>("Func", new wolClass("Func", SecurityModifer.PUBLIC, wolClassType.DEFAULT, "Function")),
             wolEnum = new KeyValuePair<string, wolClass>("Enum", new wolClass("Enum", SecurityModifer.PUBLIC, wolClassType.STATIC)),
             wolChar = new KeyValuePair<string, wolClass>("char", new wolClass("char", SecurityModifer.PUBLIC, wolClassType.STRUCT, "char")),
-            wolBlock = new KeyValuePair<string, wolClass>("Block", new wolClass("Block", SecurityModifer.PUBLIC, wolClassType.DEFAULT, "Virtual")),
-            wolLink = new KeyValuePair<string, wolClass>("Link", new wolClass
-            {
-                classType = wolClassType.DEFAULT,
-                security = SecurityModifer.PUBLIC,
-                constructors = new Dictionary<string, wolFunction>
-                {
-                    { "href", wolFunction.NewDefaultConstructor(wolLink.Value) }
-                },
-                fields = new Dictionary<string, Value>
-                {
-                    { "HasSetter", new Value(wolBool) },
-                    { "Address", new Value(wolString) }
-                },
-                methods = new Dictionary<string, wolFunction>
-                {
-                    { "Call", new wolFunction
-                        {
-                            security = SecurityModifer.PUBLIC,
-                            arguments = new Dictionary<string, wolClass>
-                            {
-                                { "method_name", wolString },
-                                { "arguments", wolArray }
-                            },
-                            body = "Call : &this, @method_name, @arguments ;"
-                        }
-                    }
-                }
-            }
-            );  
+            wolBlock = new KeyValuePair<string, wolClass>("Block", new wolClass("Block", SecurityModifer.PUBLIC, wolClassType.DEFAULT, "Virtual"));
 
         static void Main(string[] args)
         {
@@ -80,7 +52,7 @@ namespace wolvm
                 mainstack.classes.Add("Block", wolBlock.Value);
                 mainstack.classes.Add("Collection", wolCollection);
                 mainstack.classes.Add("Array", wolArray);
-                mainstack.classes.Add("Link", wolLink.Value);
+                mainstack.classes.Add("Link", wolLink);
 
                 switch (args[0])
                 {

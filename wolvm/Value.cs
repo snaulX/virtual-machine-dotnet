@@ -112,7 +112,7 @@ namespace wolvm
             else if (val.StartsWith("&"))
             {
                 val = val.Remove(0, 1); //remove '&'
-                Value value = new Value(VirtualMachine.wolLink.Value);
+                Value value = new Value(VirtualMachine.wolLink);
                 return value;
             }
             else if (val.StartsWith("#"))
