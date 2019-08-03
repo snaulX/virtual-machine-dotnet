@@ -1,15 +1,15 @@
-import std; //подключаем платформу std
-_loads("System"); //загружаем библиотеку виртуальной машины System используя встренную функцию из платформы std
+import std; //link platform std
+_loads("System"); //load library of vm (framework) System used встренную function from platform std
 Virtual {
 	Beep;
 	HelloWorld;
 	HelloWorld;
 	Plus : <12:double>, <10:double>, <678:double>;
-} //Virtual`ом задаём скрипт
+} //write script with operator Virtual
 class public Tuzik {
-	function public string toString() => "Tuzik"; //оператор => возвращает значение. После значения всегда ставится ;
-	function public greet(string text) -> print("Hello, " + text);
-	var public int age;
+	function public string toString() => "Tuzik"; //operator => return value. After value always ставится ;
+	function public greet(string text) -> print("Hello, " + text); //description of operator -> in bottom
+	var public int age; //create new variable with default getter and setter
 	var public string name = set (string name) {
 		Virtual {
 			Set : &this.name , @name ;
@@ -18,10 +18,10 @@ class public Tuzik {
 	}
 	get {
 		Virtual {
-			System.Print : <Your name is\u003A:string>, @this.name ;
+			System.Print : <Your name is \u003A:string>, @this.name ;
 			Return : @this.name ;
 		}
-	};
+	}; //add getter and setter
 }
 
 enum public BaseType {
@@ -34,12 +34,12 @@ enum public BaseType {
 	STRING,
 	LONG,
 	DOUBLE,
-	SHORT = 12
+	SHORT = 12 //set value to constant of enumeration
 }
 
-function print(string text) -> Virtual { System.Print : @text ; }; //а оператор -> просто выпоняет действие. После выражения всегда ставится ;
+function print(string text) -> Virtual { System.Print : @text ; }; //operator -> just run expression. After expression always ставится ;
 
-operator int +(left int a, right int b) => Virtual { Plus : @a , @b ; }; //если после оператора => стоит Virtual то всё его содержимое перекидывается в return
+operator int +(left int a, right int b) => Virtual { Plus : @a , @b ; }; //if after operator => стоит Virtual то all his body push to return
 
 var int sum = 12 + 13 ; //call sum.set(12 + 13) and in arguments call operator + 
 print((string) sum); //call function print with arguments convertable variable sum
