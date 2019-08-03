@@ -17,14 +17,14 @@ namespace wolvm
             new BeepExpression(),
             new PlusExpression(),
             new LoadsExpression(),
-            new TypeofExpression()
+            new TypeofExpression(),
+            new SetExpression()
         };
         //initilizate base classes
         public static wolClass Void = new Void(), wolInt = new wolInt(), wolString = new wolString(), wolBool = new wolBool(), 
             wolCollection = new wolCollection(), wolArray = new wolArray(), wolType = new wolType(), wolDouble = new wolDouble(),
-            wolLink = new wolLink();
+            wolLink = new wolLink(), wolFunc = new wolFunc();
         public static KeyValuePair<string, wolClass>
-            wolFunc = new KeyValuePair<string, wolClass>("Func", new wolClass("Func", SecurityModifer.PUBLIC, wolClassType.DEFAULT, "Function")),
             wolEnum = new KeyValuePair<string, wolClass>("Enum", new wolClass("Enum", SecurityModifer.PUBLIC, wolClassType.STATIC)),
             wolChar = new KeyValuePair<string, wolClass>("char", new wolClass("char", SecurityModifer.PUBLIC, wolClassType.STRUCT, "char")),
             wolBlock = new KeyValuePair<string, wolClass>("Block", new wolClass("Block", SecurityModifer.PUBLIC, wolClassType.DEFAULT, "Virtual"));
@@ -46,7 +46,7 @@ namespace wolvm
                 mainstack.classes.Add("double", wolDouble);
                 mainstack.classes.Add("int", wolInt);
                 mainstack.classes.Add("Type", wolType);
-                mainstack.classes.Add("Func", wolFunc.Value);
+                mainstack.classes.Add("Func", wolFunc);
                 mainstack.classes.Add("Enum", wolEnum.Value);
                 mainstack.classes.Add("char", wolChar.Value);
                 mainstack.classes.Add("Block", wolBlock.Value);

@@ -118,7 +118,7 @@ namespace wolvm
             else if (val.StartsWith("#"))
             {
                 val = val.Remove(0, 1); //remove '#'
-                Value value = new Value(VirtualMachine.wolFunc.Value);
+                Value value = new Value(VirtualMachine.wolFunc);
                 return value;
             }
             else if (val.StartsWith("$"))

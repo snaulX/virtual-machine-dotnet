@@ -4,11 +4,11 @@ using System.Text;
 
 namespace wolvm
 {
-    public class wolBlock : Void
+    public class wolFunc : Void
     {
-        public wolBlock() : base()
+        public wolFunc() : base()
         {
-            strtype = "Block";
+            strtype = "Func";
             classType = wolClassType.DEFAULT;
         }
     }
