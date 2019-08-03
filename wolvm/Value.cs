@@ -68,7 +68,7 @@ namespace wolvm
         public static Value GetValue(string val)
         {
             val = val.Trim();
-            if (val.StartsWith("<") && val.EndsWith(">"))
+            if (val.StartsWith("<") && val.EndsWith(">")) //example of syntax - Loads : <System:string> ;
             {
                 val = val.Remove(0, 1).Remove(val.Length - 2); //remove '<' and '>'
                 string[] vals = val.Split(':');
@@ -103,31 +103,34 @@ namespace wolvm
                     return null;
                 }
             }
-            else if (val.StartsWith("@"))
+            else if (val.StartsWith("@")) //example of syntax - Plus : @a, @b ;
             {
                 val = val.Remove(0, 1); //remove '@'
                 Console.WriteLine(val.IndexOf('.')); //test
                 return null;
             }
-            else if (val.StartsWith("&"))
+            else if (val.StartsWith("&")) //example of syntax - Set : &this, <null:void> ;
             {
                 val = val.Remove(0, 1); //remove '&'
-                Value value = new Value(VirtualMachine.wolLink);
+                string[] tokens = val.Split('.', '#');
+                wolLink type = (wolLink) VirtualMachine.wolLink;
+                type.Address = tokens[0];
+                Value value = type.GetValue();
                 return value;
             }
-            else if (val.StartsWith("#"))
+            else if (val.StartsWith("#")) //example of syntax - Set : &this, #sum ;
             {
                 val = val.Remove(0, 1); //remove '#'
                 Value value = new Value(VirtualMachine.wolFunc);
                 return value;
             }
-            else if (val.StartsWith("$"))
+            else if (val.StartsWith("$")) //example of syntax - Equals : $void, (Typeof : <null:void>) ;
             {
                 val = val.Remove(0, 1); //remove '$'
                 Value value = new Value(VirtualMachine.wolType);
-                return null;
+                return value;
             }
-            else if (val.StartsWith("("))
+            else if (val.StartsWith("(")) //example of syntax - return (Typeof : @this ) ;
             {
                 StringBuilder buffer = new StringBuilder();
                 char current = val[1];

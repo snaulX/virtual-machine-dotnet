@@ -134,6 +134,10 @@ namespace wolvm
                     }
                     func.Call(values); //call function with arguments
                 }
+                else if (tokens[0].StartsWith("^"))
+                {
+                    //this is constructor
+                }
                 else if (tokens[0] == "return")
                 {
                     //pass
