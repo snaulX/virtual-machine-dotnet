@@ -12,7 +12,7 @@ class public Tuzik {
 	var public int age;
 	var public string name = set (string name) {
 		Virtual {
-			Set : &this.name , @thisargs.name ;
+			Set : &this.name , @name ;
 			System.Print : <Your name is :string>, @this.name ;
 		}
 	}
@@ -37,9 +37,9 @@ enum public BaseType {
 	SHORT = 12
 }
 
-function print(string text) -> Virtual { System.Print : @thisargs.text ; }; //а оператор -> просто выпоняет действие. После выражения всегда ставится ;
+function print(string text) -> Virtual { System.Print : @text ; }; //а оператор -> просто выпоняет действие. После выражения всегда ставится ;
 
-operator int +(left int a, right int b) => Virtual { Plus : @thisargs.a , @thisargs.b ; }; //если после оператора => стоит Virtual то всё его содержимое перекидывается в return
+operator int +(left int a, right int b) => Virtual { Plus : @a , @b ; }; //если после оператора => стоит Virtual то всё его содержимое перекидывается в return
 
 var int sum = 12 + 13 ; //call sum.set(12 + 13) and in arguments call operator + 
 print((string) sum); //call function print with arguments convertable variable sum
