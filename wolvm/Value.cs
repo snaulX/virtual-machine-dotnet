@@ -77,19 +77,21 @@ namespace wolvm
                     Value value;
                     if (vals[1] == "double")
                     {
-                        wolDouble type = new wolDouble();
+                        wolDouble type = (wolDouble) VirtualMachine.wolDouble;
                         type.ParseDouble(vals[0]);
                         value = new Value(type);
                     }
                     else if (vals[1] == "int")
                     {
-                        wolInt type = new wolInt();
+                        wolInt type = (wolInt) VirtualMachine.wolInt;
                         type.ParseInt(vals[0]);
                         value = new Value(type);
                     }
                     else if (vals[1] == "string")
                     {
-                        value = new Value(new wolString(vals[0]));
+                        wolString type = (wolString) VirtualMachine.wolString;
+                        type.value = vals[0];
+                        value = new Value(type);
                     }
                     else
                     {
