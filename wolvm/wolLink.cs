@@ -6,6 +6,11 @@ namespace wolvm
 {
     public class wolLink : Void
     {
+        // ** Fields for simpler work with this type ** //
+        public Value LinkedValue;
+        public string Address;
+        public bool HasSetter;
+
         public wolLink() : base()
         {
             strtype = "Link";
@@ -27,6 +32,23 @@ namespace wolvm
                 }
             };
             Implements();
+        }
+        
+        public wolLink(string link_name) : this()
+        {
+            Address = link_name;
+            LinkedValue = VirtualMachine.mainstack.values[link_name];
+        }
+
+        public void RefreshLink()
+        {
+            LinkedValue = VirtualMachine.mainstack.values[Address];
+        }
+
+        public Value GetValue()
+        {
+            RefreshLink();
+            return LinkedValue;
         }
     }
 }
