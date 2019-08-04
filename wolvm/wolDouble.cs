@@ -4,9 +4,9 @@ using System.Text;
 
 namespace wolvm
 {
-    public class wolDouble : Void
+    public class wolDouble : wolFloat
     {
-        public double value;
+        public new double value;
 
         public wolDouble() : base()
         {
