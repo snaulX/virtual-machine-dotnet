@@ -10,7 +10,7 @@ namespace wolvm
         public wolChar() : base()
         {
             strtype = "char";
-            Enumerable.Range(Char.MinValue, Char.MaxValue).ToDictionary(x => x); //generate constants of wolChar
+            Enumerable.Range(Char.MinValue, Char.MaxValue); //generate constants of wolChar
         }
     }
 }
