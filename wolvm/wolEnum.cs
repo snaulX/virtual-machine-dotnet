@@ -10,6 +10,10 @@ namespace wolvm
         {
             strtype = "Enum";
             classType = wolClassType.STATIC;
+            parents = new Dictionary<string, wolClass>
+            {
+                { "void", VirtualMachine.Void }
+            };
         }
     }
 }

@@ -10,6 +10,10 @@ namespace wolvm
         {
             strtype = "Func";
             classType = wolClassType.DEFAULT;
+            parents = new Dictionary<string, wolClass>
+            {
+                { "void", VirtualMachine.Void }
+            };
         }
     }
 }

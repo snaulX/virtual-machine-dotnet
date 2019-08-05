@@ -11,19 +11,8 @@ namespace wolvm
         public wolInt() : base()
         {
             strtype = "int";
-            constants = new Dictionary<string, Value>();
-            //parents.Add("short", VirtualMachine.wolShort);
-            fields = new Dictionary<string, Value>();
-            methods = new Dictionary<string, wolFunction>();
-            constructors = new Dictionary<string, wolFunction>
-                    {
-                        { "int", wolFunction.NewDefaultConstructor(this) }
-                    };
-            destructors = new List<wolFunction>
-                    {
-                        new wolFunction()
-                    };
-            Implements();
+            parents.Add("short", VirtualMachine.wolShort);
+            constructors.Add("int", wolFunction.NewDefaultConstructor(this));
         }
 
         public wolInt(int val) : this() => value = val;

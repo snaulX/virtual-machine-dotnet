@@ -21,17 +21,10 @@ namespace wolvm
                     {
                         { "void", VirtualMachine.Void }
                     };
-            fields = new Dictionary<string, Value>();
-            methods = new Dictionary<string, wolFunction>();
             constructors = new Dictionary<string, wolFunction>
                     {
                         { "bool", wolFunction.NewDefaultConstructor(this) }
                     };
-            destructors = new List<wolFunction>
-                    {
-                        new wolFunction()
-                    };
-            Implements();
         }
     }
 }

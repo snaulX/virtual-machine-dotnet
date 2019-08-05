@@ -11,6 +11,10 @@ namespace wolvm
         public wolFloat() : base()
         {
             strtype = "float";
+            parents = new Dictionary<string, wolClass>
+            {
+                { "int", VirtualMachine.wolInt }
+            };
         }
 
         public wolFloat(float val) : this() => value = val;

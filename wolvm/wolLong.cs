@@ -11,7 +11,10 @@ namespace wolvm
         public wolLong() : base()
         {
             strtype = "long";
-            Implements();
+            parents = new Dictionary<string, wolClass>
+            {
+                { "int", VirtualMachine.wolInt }
+            };
         }
 
         public wolLong(long val) : this() => value = val;

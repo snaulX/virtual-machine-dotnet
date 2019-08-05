@@ -12,9 +12,7 @@ namespace wolvm
         {
             strtype = "Type";
             classType = wolClassType.DEFAULT;
-            constructors = new Dictionary<string, wolFunction>
-            {
-                { "Type", new wolFunction
+            constructors.Add("Type", new wolFunction
                     {
                         returnType = this,
                         arguments = new Dictionary<string, wolClass>
@@ -24,13 +22,8 @@ namespace wolvm
                         body = "@this.name#set : @name ;",
                         security = SecurityModifer.PUBLIC
                     }
-                }
-            };
-            fields = new Dictionary<string, Value>
-            {
-                { "name",  new Value(VirtualMachine.wolString, SecurityModifer.PUBLIC) }
-            };
-            Implements();
+                );
+            fields.Add("name",  new Value(VirtualMachine.wolString, SecurityModifer.PUBLIC));
         }
 
         public wolType(string type_name) : this()

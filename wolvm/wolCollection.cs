@@ -20,7 +20,10 @@ namespace wolvm
         {
             classType = wolClassType.ABSTRACT;
             strtype = "Collection";
-            Implements();
+            parents = new Dictionary<string, wolClass>
+            {
+                { "void", VirtualMachine.Void }
+            };
         }
     }
 }

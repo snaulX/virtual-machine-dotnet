@@ -15,7 +15,6 @@ namespace wolvm
             {
                 { "void", VirtualMachine.Void }
             };
-            Implements();
         }
 
         public wolByte(byte val) : this() => value = val;

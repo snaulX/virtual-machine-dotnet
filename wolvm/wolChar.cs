@@ -11,6 +11,10 @@ namespace wolvm
         {
             strtype = "char";
             Enumerable.Range(Char.MinValue, Char.MaxValue); //generate constants of wolChar
+            parents = new Dictionary<string, wolClass>
+            {
+                { "void", VirtualMachine.Void }
+            };
         }
     }
 }

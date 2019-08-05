@@ -11,7 +11,10 @@ namespace wolvm
         public wolShort() : base()
         {
             strtype = "short";
-            Implements();
+            parents = new Dictionary<string, wolClass>
+            {
+                { "byte", VirtualMachine.wolByte }
+            };
         }
 
         public wolShort(short val) : this() => value = val;

@@ -11,20 +11,10 @@ namespace wolvm
         public wolDouble() : base()
         {
             strtype = "double";
-            constants = new Dictionary<string, Value>();
-            methods = new Dictionary<string, wolFunction>
-            {
-
-            };
             parents = new Dictionary<string, wolClass>
             {
-                { "void", VirtualMachine.Void }
+                { "float", VirtualMachine.wolFloat }
             };
-            constructors = new Dictionary<string, wolFunction>
-            {
-
-            };
-            Implements();
         }
 
         public wolDouble(double val) : this() => value = val;
