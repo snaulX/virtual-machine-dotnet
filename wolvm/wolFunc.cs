@@ -6,6 +6,8 @@ namespace wolvm
 {
     public class wolFunc : Void
     {
+        public wolFunction value;
+
         public wolFunc() : base()
         {
             strtype = "Func";
@@ -14,6 +16,7 @@ namespace wolvm
             {
                 { "void", VirtualMachine.Void }
             };
+            constructors.Add("Func", wolFunction.NewDefaultConstructor(this)); //add empty constructor
         }
     }
 }

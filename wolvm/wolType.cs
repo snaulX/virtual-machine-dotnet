@@ -19,11 +19,11 @@ namespace wolvm
                         {
                             { "name", VirtualMachine.wolString }
                         },
-                        body = "@this.name#set : @name ;",
+                        body = "Set : &this.name, @name ;",
                         security = SecurityModifer.PUBLIC
                     }
                 );
-            fields.Add("name",  new Value(VirtualMachine.wolString, SecurityModifer.PUBLIC));
+            fields.Add("name",  new Value(VirtualMachine.wolString, SecurityModifer.PUBLIC, true));
         }
 
         public wolType(string type_name) : this()

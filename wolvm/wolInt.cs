@@ -11,7 +11,10 @@ namespace wolvm
         public wolInt() : base()
         {
             strtype = "int";
-            parents.Add("short", VirtualMachine.wolShort);
+            parents = new Dictionary<string, wolClass>
+            {
+                { "short", VirtualMachine.wolShort }
+            };
             constructors.Add("int", wolFunction.NewDefaultConstructor(this));
         }
 
