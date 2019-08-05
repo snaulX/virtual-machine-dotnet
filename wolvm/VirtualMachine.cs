@@ -24,9 +24,8 @@ namespace wolvm
         public static wolClass Void = new Void(), wolInt = new wolInt(), wolString = new wolString(), wolBool = new wolBool(), 
             wolCollection = new wolCollection(), wolArray = new wolArray(), wolType = new wolType(), wolDouble = new wolDouble(),
             wolLink = new wolLink(), wolFunc = new wolFunc(), wolByte = new wolByte(), wolShort = new wolShort(), wolFloat = new wolFloat(),
-            wolLong = new wolLong();
+            wolLong = new wolLong(), wolEnum = new wolEnum();
         public static KeyValuePair<string, wolClass>
-            wolEnum = new KeyValuePair<string, wolClass>("Enum", new wolClass("Enum", SecurityModifer.PUBLIC, wolClassType.STATIC)),
             wolChar = new KeyValuePair<string, wolClass>("char", new wolClass("char", SecurityModifer.PUBLIC, wolClassType.STRUCT, "char")),
             wolBlock = new KeyValuePair<string, wolClass>("Block", new wolClass("Block", SecurityModifer.PUBLIC, wolClassType.DEFAULT, "Virtual"));
 
@@ -52,7 +51,7 @@ namespace wolvm
                 mainstack.classes.Add("long", wolLong);
                 mainstack.classes.Add("Type", wolType);
                 mainstack.classes.Add("Func", wolFunc);
-                mainstack.classes.Add("Enum", wolEnum.Value);
+                mainstack.classes.Add("Enum", wolEnum);
                 mainstack.classes.Add("char", wolChar.Value);
                 mainstack.classes.Add("Block", wolBlock.Value);
                 mainstack.classes.Add("Collection", wolCollection);
