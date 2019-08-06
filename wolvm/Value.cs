@@ -33,19 +33,28 @@ namespace wolvm
             }
             else
             {
-                try
+                if (wolclass is wolDouble)
                 {
-                    Script.Parse(type.constructors[constr_name].body, VirtualMachine.mainstack + new Stack
-                    {
-                        values = new Dictionary<string, Value>
-                    {
-                        { "this", this }
-                    }
-                    });
+                    //pass
                 }
-                catch (KeyNotFoundException)
+                else if (wolclass is wolString)
                 {
-                    VirtualMachine.ThrowVMException($"Constructor by name {constr_name} not found in {wolclass}", VirtualMachine.position, ExceptionType.NotFoundException);
+                    //pass
+                }
+                else
+                {
+                    try
+                    {
+                        Script.Parse(type.constructors[constr_name].body, VirtualMachine.mainstack + new Dictionary<string, Value>
+                            {
+                                { "this", this }
+                            }
+                        );
+                    }
+                    catch (KeyNotFoundException)
+                    {
+                        VirtualMachine.ThrowVMException($"Constructor by name {constr_name} not found in {wolclass}", VirtualMachine.position, ExceptionType.NotFoundException);
+                    }
                 }
             }
         }

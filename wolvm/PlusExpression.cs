@@ -11,10 +11,8 @@ namespace wolvm
             double sum = 0.0;
             foreach (Value val in args)
             {
-                double numb = 0.0;
                 wolDouble vald = (wolDouble) val.type;
-                numb = vald.value;
-                sum += numb;
+                sum += vald.value;
             }
             Console.WriteLine(sum);
             return new Value(VirtualMachine.wolDouble, sum.ToString());
