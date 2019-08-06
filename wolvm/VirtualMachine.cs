@@ -36,24 +36,6 @@ namespace wolvm
             {
                 //create and start 'context of thread'
 
-                //add base classes to stack
-                mainstack.classes.Add("void", Void);
-                mainstack.classes.Add("byte", wolByte);
-                mainstack.classes.Add("short", wolShort);
-                mainstack.classes.Add("string", wolString);
-                mainstack.classes.Add("float", wolFloat);
-                mainstack.classes.Add("double", wolDouble);
-                mainstack.classes.Add("int", wolInt);
-                mainstack.classes.Add("long", wolLong);
-                mainstack.classes.Add("Type", wolType);
-                mainstack.classes.Add("Func", wolFunc);
-                mainstack.classes.Add("Enum", wolEnum);
-                mainstack.classes.Add("char", wolChar);
-                mainstack.classes.Add("Block", wolBlock);
-                mainstack.classes.Add("Collection", wolCollection);
-                mainstack.classes.Add("Array", wolArray);
-                mainstack.classes.Add("Link", wolLink);
-
                 switch (args[0])
                 {
                     case "-info":
@@ -63,13 +45,13 @@ namespace wolvm
                         Console.Write("World of Legends Virtual Machine v{0} Helper not found in files." +
                             " Please, wait or download new versions", version);
                         break;
-                    case "-run":
-                        TextReader reader = new StreamReader(File.OpenRead(args[1]));
-                        Run(reader.ReadToEnd());
+                    case "-encode":
+                        BinaryReader reader = new BinaryReader(File.OpenRead(args[1]));
+                        Run(reader.ReadString());
                         break;
                     default:
-                        reader = new StreamReader(File.OpenRead(args[0]));
-                        Run(reader.ReadToEnd());
+                        TextReader text_reader = new StreamReader(File.OpenRead(args[0]));
+                        Run(text_reader.ReadToEnd());
                         break;
                 }
             }
@@ -97,6 +79,24 @@ namespace wolvm
         
         public static void Run(string input)
         {
+            //add base classes to stack
+            mainstack.classes.Add("void", Void);
+            mainstack.classes.Add("byte", wolByte);
+            mainstack.classes.Add("short", wolShort);
+            mainstack.classes.Add("string", wolString);
+            mainstack.classes.Add("float", wolFloat);
+            mainstack.classes.Add("double", wolDouble);
+            mainstack.classes.Add("int", wolInt);
+            mainstack.classes.Add("long", wolLong);
+            mainstack.classes.Add("Type", wolType);
+            mainstack.classes.Add("Func", wolFunc);
+            mainstack.classes.Add("Enum", wolEnum);
+            mainstack.classes.Add("char", wolChar);
+            mainstack.classes.Add("Block", wolBlock);
+            mainstack.classes.Add("Collection", wolCollection);
+            mainstack.classes.Add("Array", wolArray);
+            mainstack.classes.Add("Link", wolLink);
+
             position = 0;
             char current = input[0];
             int time = Environment.TickCount;
