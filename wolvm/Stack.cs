@@ -1462,5 +1462,26 @@ namespace wolvm
             ret.Add(left);
             return ret;
         }
+
+        public static Stack operator +(Stack right, Dictionary<string, Value> left)
+        {
+            foreach (KeyValuePair<string, Value> vari in left)
+                right.values.Add(vari.Key, vari.Value);
+            return right;
+        }
+
+        public static Stack operator +(Stack right, Dictionary<string, wolClass> left)
+        {
+            foreach (KeyValuePair<string, wolClass> vari in left)
+                right.classes.Add(vari.Key, vari.Value);
+            return right;
+        }
+
+        public static Stack operator +(Stack right, Dictionary<string, wolFunction> left)
+        {
+            foreach (KeyValuePair<string, wolFunction> vari in left)
+                right.functions.Add(vari.Key, vari.Value);
+            return right;
+        }
     }
 }
