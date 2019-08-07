@@ -20,13 +20,13 @@ stack {
 		],
 		var [
 			age = int PUBLIC set (_age: int) [
-				Set : &this.age , @_age ;
+				set : &this.age , @_age ;
 			]
 			PUBLIC get [
 				return @this.age ;
 			], 
 			name = string PUBLIC set (name: string) [
-				Set : &this.name , @name ;
+				set : &this.name , @name ;
 				System.Print : <Your new name is :string>,  @this.name ;
 			]
 			PUBLIC get [
@@ -50,18 +50,18 @@ stack {
 	};
 	func {
 		_loads = PRIVATE void (fwname: string): [
-			Loads : @fwname ;
+			_loads : @fwname ;
 		],
 		print = PRIVATE void (text: string): [
 			System.Print : @text ;
 		],
 		+ = PRIVATE int (a: int, b: int): [
-			return ( Plus : @a , @b ) ;
+			return ( plus : @a , @b ) ;
 		]
 	};
 	var {
 		sum = int PRIVATE set (_sum: int) [
-			Set : &sum , @_sum ;
+			set : &sum , @_sum ;
 		]
 		PRIVATE get [
 			return @sum ;
@@ -70,8 +70,8 @@ stack {
 }
 main {
 	#_loads : <System:string>;
-	Beep;
-	Plus : <12:double>, <10:double>, <678:double>;
+	beep;
+	plus : <12:double>, <10:double>, <678:double>;
 	@sum#set : ( #+ : <12:int>, <13:int> ) ;
 	#print : ( IntToStr : @sum )  ;
 }

@@ -14,11 +14,11 @@ namespace wolvm
         public static int position = 0;
         public static Dictionary<string, VMExpression> expressions = new Dictionary<string, VMExpression>
         {
-            { "Beep",  new BeepExpression() },
-            { "Plus", new PlusExpression() },
-            { "Loads", new LoadsExpression() },
-            { "Typeof", new TypeofExpression() },
-            { "Set",  new SetExpression() }
+            { "beep",  new BeepExpression() },
+            { "plus", new PlusExpression() },
+            { "_loads", new LoadsExpression() },
+            { "typeof", new TypeofExpression() },
+            { "set",  new SetExpression() }
         };
         //initilizate base classes
         public static wolClass Void = new Void(), wolInt = new wolInt(), wolString = new wolString(), wolBool = new wolBool(), 
