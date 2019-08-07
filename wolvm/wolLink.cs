@@ -24,7 +24,7 @@ namespace wolvm
                     {
                         { "link_name", VirtualMachine.wolString }
                     },
-                body = "Set : &this.Address, @link_name ;\n",
+                body = "set : &this.Address, @link_name ;\n",
                 security = SecurityModifer.PUBLIC
             });
         }

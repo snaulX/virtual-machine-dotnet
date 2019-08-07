@@ -19,7 +19,7 @@ namespace wolvm
                         {
                             { "name", VirtualMachine.wolString }
                         },
-                        body = "Set : &this.name, @name ;",
+                        body = "set : &this.name, @name ;",
                         security = SecurityModifer.PUBLIC
                     }
                 );

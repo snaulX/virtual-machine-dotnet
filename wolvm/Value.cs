@@ -16,7 +16,7 @@ namespace wolvm
             if (!isConstant)
             {
                 setter = new wolFunction(modifer);
-                setter.body = "Set : &this ;";
+                setter.body = "set : &this ;";
             }
             getter.body = "return @this ;";
         }
@@ -114,13 +114,13 @@ namespace wolvm
                     return null;
                 }
             }
-            else if (val.StartsWith("@")) //example of syntax - Plus : @a, @b ;
+            else if (val.StartsWith("@")) //example of syntax - plus : @a, @b ;
             {
                 val = val.Remove(0, 1); //remove '@'
                 Console.WriteLine(val.IndexOf('.')); //test
                 return null;
             }
-            else if (val.StartsWith("&")) //example of syntax - Set : &this, <null:void> ;
+            else if (val.StartsWith("&")) //example of syntax - set : &this, <null:void> ;
             {
                 val = val.Remove(0, 1); //remove '&'
                 string[] tokens = val.Split('.', '#');
@@ -129,19 +129,19 @@ namespace wolvm
                 Value value = type.GetValue();
                 return value;
             }
-            else if (val.StartsWith("#")) //example of syntax - Set : &this, #sum ;
+            else if (val.StartsWith("#")) //example of syntax - set : &this, #sum ;
             {
                 val = val.Remove(0, 1); //remove '#'
                 Value value = new Value(VirtualMachine.wolFunc);
                 return value;
             }
-            else if (val.StartsWith("$")) //example of syntax - Equals : $void, (Typeof : <null:void>) ;
+            else if (val.StartsWith("$")) //example of syntax - equals : $void, (typeof : <null:void>) ;
             {
                 val = val.Remove(0, 1); //remove '$'
                 Value value = new Value(VirtualMachine.wolType);
                 return value;
             }
-            else if (val.StartsWith("(")) //example of syntax - return (Typeof : @this ) ;
+            else if (val.StartsWith("(")) //example of syntax - return (typeof : @this ) ;
             {
                 StringBuilder buffer = new StringBuilder();
                 char current = val[1];

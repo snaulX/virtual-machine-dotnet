@@ -18,7 +18,7 @@ namespace wolvm
                             { "this", this }
                         },
                         returnType = VirtualMachine.wolString,
-                        body = "return ( AddString : ( Typeof : @this ; ), <^:string>; );",
+                        body = "return ( AddString : ( typeof : @this ; ), <^:string>; );",
                         security = SecurityModifer.PUBLIC
                     }
                 },
@@ -29,7 +29,7 @@ namespace wolvm
                             { "this", this }
                         },
                         returnType = VirtualMachine.wolType,
-                        body = "return ( Typeof : @this ; );",
+                        body = "return ( typeof : @this ; );",
                         security = SecurityModifer.PUBLIC
                     }
                 }
@@ -52,7 +52,7 @@ namespace wolvm
             parents = new Dictionary<string, wolClass>();
             destructors = new List<wolFunction>
             {
-                new wolFunction(SecurityModifer.PUBLIC, "Destroy : &this ;")
+                new wolFunction(SecurityModifer.PUBLIC, "destroy : &this ;")
             };
         }
     }
