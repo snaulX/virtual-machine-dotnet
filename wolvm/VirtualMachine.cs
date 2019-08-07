@@ -42,8 +42,13 @@ namespace wolvm
                         Console.Write("World of Legends Virtual Machine v{0}\nCopyright snaulX 2019", version);
                         break;
                     case "-help":
-                        Console.Write("World of Legends Virtual Machine v{0} Helper not found in files." +
-                            " Please, wait or download new versions", version);
+                        Console.WriteLine("World of Legends Virtual Machine v{0} Helper", version);
+                        Console.WriteLine();
+                        Console.WriteLine("Arguments:");
+                        Console.WriteLine($"-help ; call World of Legends Virtual Machine v{version} Helper");
+                        Console.WriteLine("-info ; print info about this vm");
+                        Console.WriteLine("-encode <full file name> ; encode and run build-file");
+                        Console.WriteLine("<full file name> ; run build-file");
                         break;
                     case "-encode":
                         BinaryReader reader = new BinaryReader(File.OpenRead(args[1]));
