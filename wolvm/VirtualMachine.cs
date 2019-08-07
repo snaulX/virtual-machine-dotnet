@@ -12,13 +12,13 @@ namespace wolvm
         public static Stack mainstack = new Stack();
         public static string[] wol_args;
         public static int position = 0;
-        public static List<VMExpression> expressions = new List<VMExpression>
+        public static Dictionary<string, VMExpression> expressions = new Dictionary<string, VMExpression>
         {
-            new BeepExpression(),
-            new PlusExpression(),
-            new LoadsExpression(),
-            new TypeofExpression(),
-            new SetExpression()
+            { "Beep",  new BeepExpression() },
+            { "Plus", new PlusExpression() },
+            { "Loads", new LoadsExpression() },
+            { "Typeof", new TypeofExpression() },
+            { "Set",  new SetExpression() }
         };
         //initilizate base classes
         public static wolClass Void = new Void(), wolInt = new wolInt(), wolString = new wolString(), wolBool = new wolBool(), 
@@ -34,8 +34,6 @@ namespace wolvm
             }
             else
             {
-                //create and start 'context of thread'
-
                 switch (args[0])
                 {
                     case "-info":
@@ -317,7 +315,7 @@ namespace wolvm
     public abstract class VMLibrary
     {
         public Stack stack = new Stack();
-        List<VMExpression> expressions = new List<VMExpression>();
+        Dictionary<string, VMExpression> expressions = new Dictionary<string, VMExpression>();
         public void Load()
         {
             VirtualMachine.expressions = expressions;

@@ -8,7 +8,7 @@ namespace wolvm
     {
         public wolClass type;
         public wolFunction getter, setter;
-        
+
         public Value(wolClass wolclass, SecurityModifer modifer = SecurityModifer.PRIVATE, bool isConstant = false)
         {
             type = wolclass;
@@ -86,19 +86,19 @@ namespace wolvm
                     Value value;
                     if (vals[1] == "double")
                     {
-                        wolDouble type = (wolDouble) VirtualMachine.wolDouble;
+                        wolDouble type = (wolDouble)VirtualMachine.wolDouble;
                         type.ParseDouble(vals[0]);
                         value = new Value(type);
                     }
                     else if (vals[1] == "int")
                     {
-                        wolInt type = (wolInt) VirtualMachine.wolInt;
+                        wolInt type = (wolInt)VirtualMachine.wolInt;
                         type.ParseInt(vals[0]);
                         value = new Value(type);
                     }
                     else if (vals[1] == "string")
                     {
-                        wolString type = (wolString) VirtualMachine.wolString;
+                        wolString type = (wolString)VirtualMachine.wolString;
                         type.value = vals[0];
                         value = new Value(type);
                     }
@@ -124,7 +124,7 @@ namespace wolvm
             {
                 val = val.Remove(0, 1); //remove '&'
                 string[] tokens = val.Split('.', '#');
-                wolLink type = (wolLink) VirtualMachine.wolLink;
+                wolLink type = (wolLink)VirtualMachine.wolLink;
                 type.Address = tokens[0];
                 Value value = type.GetValue();
                 return value;
@@ -160,26 +160,27 @@ namespace wolvm
                 }
                 string string_expression = buffer.ToString();
                 string[] tokens = string_expression.Split(new char[4] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (VMExpression expression in VirtualMachine.expressions)
+                foreach (KeyValuePair<string, VMExpression> expression in VirtualMachine.expressions)
                 {
-                    if (expression.GetType().Name.Remove(expression.GetType().Name.Length - 10) == tokens[0])
+                    string[] argums = new string[0];
+                    if (string_expression.Contains(":"))
                     {
-                        string args = string_expression.Substring(tokens[0].Length); //code after name of expression (string with arguments)
-                        string[] argums = string_expression.Split(','); //array with arguments of expression
-                        if (argums.Length == 1)
-                        {
-                            return expression.ParseExpression();
-                        }
-                        Value[] values = new Value[argums.Length]; //array with arguments who converted to Value
-                        for (int i = 0; i < argums.Length; i++)
-                        {
-                            values[i] = GetValue(argums[i]);
-                            //convert string arguments to Value arguments
-                        }
-                        return expression.ParseExpression(values);
+                        string args = string_expression.Substring(string_expression.IndexOf(':') + 1).Trim(); //code after name of expression (string with arguments)
+                        argums = args.Split(','); //array with arguments of expression
                     }
+                    else
+                    {
+                        return expression.Value.ParseExpression();
+                    }
+                    Value[] values = new Value[argums.Length]; //array with arguments who converted to Value
+                    for (int i = 0; i < argums.Length; i++)
+                    {
+                        values[i] = GetValue(argums[i]);
+                        //convert string arguments to Value arguments
+                    }
+                    return expression.Value.ParseExpression(values);
                 }
-                VirtualMachine.ThrowVMException("VM Expression by name " + tokens[0] + " not found and will cannot parse", VirtualMachine.position, ExceptionType.NotFoundException);
+                VirtualMachine.ThrowVMException($"VM Expression by name {tokens[0]} not found and will cannot parse", VirtualMachine.position, ExceptionType.NotFoundException);
                 return null;
             }
             else

@@ -149,9 +149,9 @@ namespace wolvm
                 else
                 {
                     bool haveExpression = true; //check on found expression by this name
-                    foreach (VMExpression expression in VirtualMachine.expressions)
+                    foreach (KeyValuePair<string, VMExpression> expression in VirtualMachine.expressions)
                     {
-                        if (expression.GetType().Name.Remove(expression.GetType().Name.Length - 10) == tokens[0])
+                        if (expression.Key == tokens[0])
                         {
                             string[] argums = new string[0];
                             if (string_expression.Contains(":"))
@@ -162,7 +162,7 @@ namespace wolvm
                             else
                             {
                                 haveExpression = true;
-                                expression.ParseExpression();
+                                expression.Value.ParseExpression();
                                 break;
                             }
                             Value[] values = new Value[argums.Length]; //array with arguments who converted to Value
@@ -172,7 +172,7 @@ namespace wolvm
                                 //convert string arguments to Value arguments
                             }
                             haveExpression = true;
-                            expression.ParseExpression(values);
+                            expression.Value.ParseExpression(values);
                             break;
                         }
                         else
