@@ -49,8 +49,7 @@ namespace wolvm
                         Console.WriteLine("<full file name> ; run build-file");
                         break;
                     case "-encode":
-                        BinaryReader reader = new BinaryReader(File.OpenRead(args[1]));
-                        Run(reader.ReadString());
+                        Run(Encoding.UTF8.GetString(File.ReadAllBytes(args[1])));
                         break;
                     default:
                         TextReader text_reader = new StreamReader(File.OpenRead(args[0]));
@@ -281,7 +280,7 @@ namespace wolvm
                     {
                         Console.WriteLine(keyValuePair.Key + ' ' + keyValuePair.Value);
                     }
-
+                    Console.WriteLine($"Time of program: {time - Environment.TickCount}");
                     return;
                 }
                 else if (buffer.ToString() == "}")
@@ -294,7 +293,6 @@ namespace wolvm
                     ThrowVMException($"Unknown keyword {buffer.ToString()}", position, ExceptionType.BLDSyntaxException);
                 }
             }
-            Console.WriteLine($"Time of program: {time - Environment.TickCount}");
         }
 
         /// <summary>
