@@ -10,7 +10,6 @@ namespace wolvm
     public static class VirtualMachine
     {
         public static Stack mainstack = new Stack();
-        public static string[] wol_args;
         public static int position = 0;
         public static Dictionary<string, VMExpression> expressions = new Dictionary<string, VMExpression>
         {
@@ -182,7 +181,7 @@ namespace wolvm
                             }
                             else
                             {
-                                ThrowVMException($"Library by name {dllName}haven`t main class and will cannot loaded", position, ExceptionType.LoadsException);
+                                ThrowVMException($"Library by name {dllName} haven`t main class and will cannot loaded", position, ExceptionType.LoadsException);
                             }
                             
                         } 

@@ -11,5 +11,10 @@ namespace wolvm
             strtype = "Array";
             Implements();
         }
+
+        public wolArray(wolClass type) : this()
+        {
+            generic_type = type;
+        }
     }
 }
