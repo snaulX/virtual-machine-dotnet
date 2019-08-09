@@ -280,7 +280,7 @@ namespace wolvm
                     {
                         Console.WriteLine(keyValuePair.Key + ' ' + keyValuePair.Value);
                     }
-                    Console.WriteLine($"Time of program: {time - Environment.TickCount}");
+                    Console.WriteLine($"Time of program: {Environment.TickCount - time}");
                     return;
                 }
                 else if (buffer.ToString() == "}")
