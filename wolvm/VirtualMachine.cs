@@ -9,6 +9,7 @@ namespace wolvm
 {
     public static class VirtualMachine
     {
+        public static Dictionary<string, string> labels = new Dictionary<string, string>();
         public static Stack mainstack = new Stack();
         public static int position = 0;
         public static Dictionary<string, VMExpression> expressions = new Dictionary<string, VMExpression>
@@ -99,6 +100,7 @@ namespace wolvm
             mainstack.classes.Add("Array", wolArray);
             mainstack.classes.Add("Link", wolLink);
 
+            //main cycle
             position = 0;
             char current = input[0];
             int time = Environment.TickCount;
@@ -324,7 +326,7 @@ namespace wolvm
     public enum ExceptionType
     {
         //this type throws when ...
-        TypeNotSupportedException, //... when in enum init method and more
+        TypeNotSupportedException, //... when in enum init method and etc.
         StackOverflowException, //... size of stack is bigger then memory
         InvalidTypeException, //... get type doesn`t fits
         NotFoundException, //... 'anything' not found

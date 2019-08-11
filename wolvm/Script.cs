@@ -11,7 +11,7 @@ namespace wolvm
         /// </summary>
         /// <param name="script_code">Code who will parsing to script</param>
         /// <param name="_stack">Stack who will import to script</param>
-        public static void Parse(string script_code, Stack _stack)
+        public static Value Parse(string script_code, Stack _stack)
         {
             string[] string_expressions = script_code.Split(new char[1] { ';' }, StringSplitOptions.RemoveEmptyEntries); //split to lines
             foreach (string string_expression in string_expressions)
@@ -140,7 +140,14 @@ namespace wolvm
                 }
                 else if (tokens[0] == "return")
                 {
-                    //pass
+                    try
+                    {
+                        return Value.GetValue(tokens[1]);
+                    }
+                    catch (IndexOutOfRangeException)
+                    {
+                        return Value.VoidValue;
+                    }
                 }
                 else if (tokens[0] == "label")
                 {
@@ -186,6 +193,7 @@ namespace wolvm
                     }
                 }
             }
+            return Value.VoidValue;
         }
     }
 }
