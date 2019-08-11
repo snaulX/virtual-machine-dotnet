@@ -138,6 +138,10 @@ namespace wolvm
                 {
                     //this is constructor
                 }
+                else if (tokens[0].StartsWith("$"))
+                {
+                    //if call static method
+                }
                 else if (tokens[0] == "return")
                 {
                     try
