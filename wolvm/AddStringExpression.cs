@@ -8,7 +8,15 @@ namespace wolvm
     {
         public Value ParseExpression(params Value[] args)
         {
-            throw new NotImplementedException();
+            string result = "";
+            foreach (Value arg in args)
+            {
+                if (arg.type is wolString)
+                    result += ((wolString)arg.type).value;
+                else
+                    VirtualMachine.ThrowVMException("Argument in AddString haven`t type 'string'", VirtualMachine.position, ExceptionType.InvalidTypeException);
+            }
+            return new Value(new wolString(result));
         }
     }
 }
