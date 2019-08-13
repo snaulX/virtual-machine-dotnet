@@ -179,7 +179,11 @@ namespace wolvm
                             Value[] values = new Value[argums.Length]; //array with arguments who converted to Value
                             for (int i = 0; i < argums.Length; i++)
                             {
-                                values[i] = Value.GetValue(argums[i]);
+                                string normstr = argums[i].TrimStart();
+                                if (normstr.StartsWith("goto"))
+                                    VirtualMachine.Goto(normstr.Remove(0, 4));
+                                else
+                                    values[i] = Value.GetValue(normstr);
                                 //convert string arguments to Value arguments
                             }
                             haveExpression = true;

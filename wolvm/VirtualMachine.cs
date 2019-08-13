@@ -79,7 +79,23 @@ namespace wolvm
                 return null;
             }
         }
-        
+
+        /// <summary>
+        /// Goto to block by label name and run this
+        /// </summary>
+        /// <param name="label_name">Name of running label</param>
+        public static void Goto(string label_name)
+        {
+            try
+            {
+                Script.Parse(labels[label_name], mainstack);
+            }
+            catch (KeyNotFoundException)
+            {
+                ThrowVMException($"Block by name {label_name} not found", position, ExceptionType.NotFoundException);
+            }
+        }
+
         public static void Run(string input)
         {
             //add base classes to stack
