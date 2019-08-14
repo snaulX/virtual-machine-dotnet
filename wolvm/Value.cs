@@ -118,39 +118,40 @@ namespace wolvm
             {
                 val = val.Remove(0, 1); //remove '@'
                 Console.WriteLine(val.IndexOf('.')); //test
-                return null;
+                Value value = VoidValue; //create empty value
+                return value;
             }
             else if (val.StartsWith("&")) //example of syntax - set : &this, <null:void> ;
             {
                 val = val.Remove(0, 1); //remove '&'
                 string[] tokens = val.Split('.', '#');
-                wolLink type = (wolLink)VirtualMachine.wolLink;
-                type.Address = tokens[0];
-                Value value = type.GetValue();
+                wolLink type = (wolLink)VirtualMachine.wolLink; //create empty link
+                type.Address = tokens[0]; //get address of value
+                Value value = type.GetValue(); //get value from address
                 return value;
             }
             else if (val.StartsWith("#")) //example of syntax - set : &this, #sum ;
             {
                 val = val.Remove(0, 1); //remove '#'
-                Value value = new Value(VirtualMachine.wolFunc);
+                Value value = new Value(VirtualMachine.wolFunc); //create empty value with type Func
                 return value;
             }
             else if (val.StartsWith("$")) //example of syntax - equals : $void, (typeof : <null:void>) ;
             {
                 val = val.Remove(0, 1); //remove '$'
-                Value value = new Value(VirtualMachine.wolType);
+                Value value = new Value(VirtualMachine.wolType); //create empty value with type Type
                 return value;
             }
             else if (val.StartsWith("goto")) //example of syntax - if : ( equals : $void, (typeof : <null:void>) ), goto if_block1 ;
             {
                 val = val.Remove(0, 4).TrimStart(); //remove 'goto'
-                Value value = new Value(VirtualMachine.wolBlock);
+                Value value = new Value(VirtualMachine.wolBlock); //create empty value with type Block
                 return value;
             }
             else if (val.StartsWith("(")) //example of syntax - return (typeof : @this ) ;
             {
                 StringBuilder buffer = new StringBuilder();
-                char current = val[1];
+                char current = val[1]; //skip '('
                 int pos = 1;
                 while (current != ')')
                 {
@@ -164,9 +165,9 @@ namespace wolvm
                         VirtualMachine.ThrowVMException("End of string expression not found", VirtualMachine.position - val.Length + pos, ExceptionType.BLDSyntaxException);
                     }
                 }
-                string string_expression = buffer.ToString();
-                string[] tokens = string_expression.Split(new char[4] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
-                foreach (KeyValuePair<string, VMExpression> expression in VirtualMachine.expressions)
+                string string_expression = buffer.ToString(); //get string with expression
+                string[] tokens = string_expression.Split(new char[4] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries); //get tokens
+                foreach (KeyValuePair<string, VMExpression> expression in VirtualMachine.expressions) //parse tokens
                 {
                     string[] argums = new string[0];
                     if (string_expression.Contains(":"))
@@ -198,7 +199,7 @@ namespace wolvm
 
         public static Value VoidValue => new Value(VirtualMachine.Void);
 
-        public override string ToString() => $"VALUE:{type.fields.ToString()}\nTYPE:{type.ToString()}";
+        public override string ToString() => $"VALUE:{type.fields.ToString()}\nTYPE:{type.ToString()}"; //is test version
 
         /// <summary>
         /// Get not static method in this value
@@ -207,8 +208,16 @@ namespace wolvm
         /// <returns></returns>
         public wolFunction GetMethod(string name)
         {
-            wolFunction meth = type.methods[name];
-            if (meth.arguments.ContainsKey("this")) return meth;
+            wolFunction meth = new wolFunction(); //create empty funciton for that compiler don`t get error
+            try
+            {
+                meth = type.methods[name];
+            }
+            catch (KeyNotFoundException)
+            {
+                VirtualMachine.ThrowVMException("Method by name  not found", VirtualMachine.position, ExceptionType.NotFoundException);
+            }
+            if (meth.arguments.ContainsKey("this")) return meth; //check on 'static'
             else return null;
         }
     }
