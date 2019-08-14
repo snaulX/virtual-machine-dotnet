@@ -141,6 +141,12 @@ namespace wolvm
                 Value value = new Value(VirtualMachine.wolType);
                 return value;
             }
+            else if (val.StartsWith("goto")) //example of syntax - if : ( equals : $void, (typeof : <null:void>) ), goto if_block1 ;
+            {
+                val = val.Remove(0, 4).TrimStart(); //remove 'goto'
+                Value value = new Value(VirtualMachine.wolBlock);
+                return value;
+            }
             else if (val.StartsWith("(")) //example of syntax - return (typeof : @this ) ;
             {
                 StringBuilder buffer = new StringBuilder();
