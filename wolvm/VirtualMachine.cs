@@ -84,15 +84,16 @@ namespace wolvm
         /// Goto to block by label name and run this
         /// </summary>
         /// <param name="label_name">Name of running label</param>
-        public static void Goto(string label_name)
+        public static wolBlock Goto(string label_name)
         {
             try
             {
-                Script.Parse(labels[label_name], mainstack);
+                return new wolBlock(labels[label_name]);
             }
             catch (KeyNotFoundException)
             {
                 ThrowVMException($"Block by name {label_name} not found", position, ExceptionType.NotFoundException);
+                return null;
             }
         }
 
