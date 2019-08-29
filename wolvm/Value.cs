@@ -160,30 +160,7 @@ namespace wolvm
                         VirtualMachine.ThrowVMException("End of string expression not found", VirtualMachine.position - val.Length + pos, ExceptionType.BLDSyntaxException);
                     }
                 }
-                string string_expression = buffer.ToString(); //get string with expression
-                string[] tokens = string_expression.Split(new char[4] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries); //get tokens
-                foreach (KeyValuePair<string, VMExpression> expression in VirtualMachine.expressions) //parse tokens
-                {
-                    string[] argums = new string[0];
-                    if (string_expression.Contains(":"))
-                    {
-                        string args = string_expression.Substring(string_expression.IndexOf(':') + 1).Trim(); //code after name of expression (string with arguments)
-                        argums = args.Split(','); //array with arguments of expression
-                    }
-                    else
-                    {
-                        return expression.Value.ParseExpression();
-                    }
-                    Value[] values = new Value[argums.Length]; //array with arguments who converted to Value
-                    for (int i = 0; i < argums.Length; i++)
-                    {
-                        values[i] = GetValue(argums[i]);
-                        //convert string arguments to Value arguments
-                    }
-                    return expression.Value.ParseExpression(values);
-                }
-                VirtualMachine.ThrowVMException($"VM Expression by name {tokens[0]} not found and will cannot parse", VirtualMachine.position, ExceptionType.NotFoundException);
-                return null;
+                return Script.ParseExpression(buffer.ToString());
             }
             else
             {
