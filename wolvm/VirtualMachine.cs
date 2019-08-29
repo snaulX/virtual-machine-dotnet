@@ -9,7 +9,6 @@ namespace wolvm
 {
     public static class VirtualMachine
     {
-        public static Dictionary<string, string> labels = new Dictionary<string, string>();
         public static Stack mainstack = new Stack();
         public static int position = 0;
         public static Dictionary<string, VMExpression> expressions = new Dictionary<string, VMExpression>
@@ -76,23 +75,6 @@ namespace wolvm
             catch (KeyNotFoundException)
             {
                 ThrowVMException($"Class by name {name.Trim()} not found", position, ExceptionType.NotFoundException);
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Goto to block by label name and run this
-        /// </summary>
-        /// <param name="label_name">Name of running label</param>
-        public static wolBlock Goto(string label_name)
-        {
-            try
-            {
-                return new wolBlock(labels[label_name]);
-            }
-            catch (KeyNotFoundException)
-            {
-                ThrowVMException($"Block by name {label_name} not found", position, ExceptionType.NotFoundException);
                 return null;
             }
         }

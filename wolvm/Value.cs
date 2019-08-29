@@ -142,10 +142,10 @@ namespace wolvm
                 value = new Value(VirtualMachine.wolType); //create empty value with type Type
                 return value;
             }
-            else if (val.StartsWith("goto")) //example of syntax - if : ( equals : $void, (typeof : <null:void>) ), goto if_block1 ;
+            else if (val.StartsWith("%")) //example of syntax - if : ( equals : $void, (typeof : <null:void>) ), %if_block1 ;
             {
-                val = val.Remove(0, 4).TrimStart(); //remove 'goto'
-                return new Value(VirtualMachine.Goto(val)); //create value with type Block with global block (labels)
+                val = val.Remove(0, 1).TrimStart(); //remove '%'
+                return new Value(VirtualMachine.wolBlock); //create value with type Block with global block
             }
             else if (val.StartsWith("(")) //example of syntax - return (typeof : @this ) ;
             {
