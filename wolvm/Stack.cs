@@ -1429,6 +1429,11 @@ namespace wolvm
             }
         }
 
+        public void Remove(Value[] elems)
+        {
+            //pass
+        }
+
         public void Dispose()
         {
             classes.Clear();

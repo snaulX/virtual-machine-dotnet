@@ -11,7 +11,7 @@ namespace wolvm
         /// </summary>
         /// <param name="script_code">Code who will parsing to script</param>
         /// <param name="_stack">Stack who will import to script</param>
-        public static void Parse(string script_code)
+        public static Value Parse(string script_code)
         {
             string[] string_expressions = script_code.Split(new char[1] { ';' }, StringSplitOptions.RemoveEmptyEntries); //split to lines
             foreach (string string_expression in string_expressions)
@@ -28,21 +28,30 @@ namespace wolvm
                         break;
                 }
             }
+            return Value.VoidValue;
         }
 
         public static Value ParseExpression(string string_expression)
         {
             string[] tokens = string_expression.Split(new char[4] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
-            if (tokens[0].StartsWith("@"))
+            string keyword = tokens[0];
+            if (keyword.StartsWith("@") || keyword.StartsWith("#") || keyword.StartsWith("$") 
+                || keyword.StartsWith("%") || keyword.StartsWith("<") || keyword.StartsWith("&"))
             {
-                return Value.GetValue(tokens[0]); //it`s pass
+                wolFunc value = (wolFunc) Value.GetValue(keyword).type;
+                string args = string_expression.Substring(string_expression.IndexOf(':') + 1).Trim(); //code after name of function (string with arguments)
+                string[] argums = args.Split(','); //array with arguments of expression
+                Value[] values = new Value[argums.Length]; //array with arguments who converted to Value
+                for (int i = 0; i < argums.Length; i++)
+                    values[i] = Value.GetValue(argums[i].TrimStart()); //convert string arguments to Value arguments
+                return value.Call(values);
             } 
             else
             {
                 bool haveExpression = true; //check on found expression by this name
                 foreach (KeyValuePair<string, VMExpression> expression in VirtualMachine.expressions)
                 {
-                    if (expression.Key == tokens[0])
+                    if (expression.Key == keyword)
                     {
                         string[] argums = new string[0];
                         if (string_expression.Contains(":"))
@@ -57,11 +66,7 @@ namespace wolvm
                         }
                         Value[] values = new Value[argums.Length]; //array with arguments who converted to Value
                         for (int i = 0; i < argums.Length; i++)
-                        {
-                            string normstr = argums[i].TrimStart();
-                            values[i] = Value.GetValue(normstr);
-                            //convert string arguments to Value arguments
-                        }
+                            values[i] = Value.GetValue(argums[i].TrimStart()); //convert string arguments to Value arguments
                         haveExpression = true;
                         return expression.Value.ParseExpression(values);
                     }
@@ -72,7 +77,7 @@ namespace wolvm
                 }
                 if (!haveExpression)
                 {
-                    VirtualMachine.ThrowVMException($"VM Expression by name {tokens[0]} not found and will cannot parse", VirtualMachine.position, ExceptionType.NotFoundException);
+                    VirtualMachine.ThrowVMException($"VM Expression by name {keyword} not found and will cannot parse", VirtualMachine.position, ExceptionType.NotFoundException);
                 }
                 return null;
             }
