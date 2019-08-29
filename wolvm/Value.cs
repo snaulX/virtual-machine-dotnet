@@ -74,8 +74,9 @@ namespace wolvm
 
         public bool CheckType(string name) => VirtualMachine.GetWolClass(name) == type ? true : false; //thanks C# for one-string functions))
 
-        public static Value GetValue(string val)
+        public static Value GetSmallValue(string val)
         {
+            Value value;
             val = val.Trim();
             if (val.StartsWith("<") && val.EndsWith(">")) //example of syntax - Loads : <System:string> ;
             {
@@ -83,7 +84,6 @@ namespace wolvm
                 string[] vals = val.Split(':');
                 if (vals.Length == 2)
                 {
-                    Value value;
                     if (vals[1] == "double")
                     {
                         wolDouble type = (wolDouble)VirtualMachine.wolDouble;
@@ -118,7 +118,7 @@ namespace wolvm
             {
                 val = val.Remove(0, 1); //remove '@'
                 Console.WriteLine(val.IndexOf('.')); //test
-                Value value = VoidValue; //create empty value
+                value = VoidValue; //create empty value
                 return value;
             }
             else if (val.StartsWith("&")) //example of syntax - set : &this, <null:void> ;
@@ -127,19 +127,19 @@ namespace wolvm
                 string[] tokens = val.Split('.', '#');
                 wolLink type = (wolLink)VirtualMachine.wolLink; //create empty link
                 type.Address = tokens[0]; //get address of value
-                Value value = type.GetValue(); //get value from address
+                value = type.GetValue(); //get value from address
                 return value;
             }
             else if (val.StartsWith("#")) //example of syntax - set : &this, #sum ;
             {
                 val = val.Remove(0, 1); //remove '#'
-                Value value = new Value(VirtualMachine.wolFunc); //create empty value with type Func
+                value = new Value(VirtualMachine.wolFunc); //create empty value with type Func
                 return value;
             }
             else if (val.StartsWith("$")) //example of syntax - equals : $void, (typeof : <null:void>) ;
             {
                 val = val.Remove(0, 1); //remove '$'
-                Value value = new Value(VirtualMachine.wolType); //create empty value with type Type
+                value = new Value(VirtualMachine.wolType); //create empty value with type Type
                 return value;
             }
             else if (val.StartsWith("goto")) //example of syntax - if : ( equals : $void, (typeof : <null:void>) ), goto if_block1 ;
@@ -194,6 +194,13 @@ namespace wolvm
                 VirtualMachine.ThrowVMException("Value cannot find", VirtualMachine.position, ExceptionType.BLDSyntaxException);
                 return null;
             }
+        }
+
+        public static Value GetValue(string val)
+        {
+            string[] small_vals = val.Trim().Split('.');
+            Value value = VoidValue; //it`s pass
+            return value;
         }
 
         public static Value VoidValue => new Value(VirtualMachine.Void);
