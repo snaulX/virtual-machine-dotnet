@@ -8,7 +8,7 @@ Virtual {
 } //write script with operator Virtual
 class public Tuzik {
 	function public string toString() => "Tuzik"; //operator => return value. After value always ставится ;
-	function public greet(string text) -> print("Hello, " + text); //description of operator -> in bottom
+	function public greet(string text) -> print("Hello, " + text); //operator -> just run expression. After expression always ставится ;
 	var public int age; //create new variable with default getter and setter
 	var public string name = set (string name) {
 		Virtual {
@@ -37,9 +37,17 @@ enum public BaseType {
 	SHORT = 12 //set value to constant of enumeration
 }
 
-function print(string text) -> Virtual { System.Print : @text ; }; //operator -> just run expression. After expression always ставится ;
+function print(string text) { 
+	Virtual {
+		System.Print : @text ; 
+	}
+} //if in body of function be block - all body of function transferred to block
 
-operator int +(left int a, right int b) => Virtual { Plus : @a , @b ; }; //if after operator => стоит Virtual то all his body push to return
+operator int +(left int a, right int b) {
+	Virtual {
+		Plus : @a , @b ; 
+	}
+} //operators have left and right arguments
 
 var int sum = 12 + 13 ; //call sum.set(12 + 13) and in arguments call operator + 
 print((string) sum); //call function print with arguments convertable variable sum

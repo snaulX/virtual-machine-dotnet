@@ -6,8 +6,8 @@ stack {
 		Tuzik = DEFAULT PUBLIC (void) : 
 		constructor [
 			Tuzik = PUBLIC : [
-				&this.age#set : <null:void>;
-				&this.name#set : <null:void>;
+				&this.@age#set : <null:void>;
+				&this.@name#set : <null:void>;
 			]
 		],
 		func [
@@ -20,18 +20,18 @@ stack {
 		],
 		var [
 			age = int PUBLIC set (_age: int) [
-				set : &this.age , @_age ;
+				set : @this.&age , @_age ;
 			]
 			PUBLIC get [
-				return @this.age ;
+				return @this.@age ;
 			], 
 			name = string PUBLIC set (name: string) [
 				set : &this.name , @name ;
-				System.Print : <Your new name is :string>,  @this.name ;
+				System.Print : <Your new name is :string>,  @this.@name ;
 			]
 			PUBLIC get [
-				System.Print : <Your name is\u003A:string>, @this.name ;
-				return @this.name ;
+				System.Print : <Your name is\u003A:string>, @this.@name ;
+				return @this.@name ;
 			]
 		];
 		BaseType = ENUM PUBLIC (int): 
@@ -72,7 +72,7 @@ main {
 	#_loads : <System:string>;
 	beep;
 	plus : <12:double>, <10:double>, <678:double>;
-	@sum#set : ( #+ : <12:int>, <13:int> ) ;
+	@sum.#set : ( #+ : <12:int>, <13:int> ) ;
 	#print : ( IntToStr : @sum )  ;
 }
 end 
