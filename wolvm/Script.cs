@@ -11,14 +11,23 @@ namespace wolvm
         /// </summary>
         /// <param name="script_code">Code who will parsing to script</param>
         /// <param name="_stack">Stack who will import to script</param>
-        public static Value Parse(string script_code)
+        public static void Parse(string script_code)
         {
             string[] string_expressions = script_code.Split(new char[1] { ';' }, StringSplitOptions.RemoveEmptyEntries); //split to lines
             foreach (string string_expression in string_expressions)
             {
-                ParseExpression(string_expression);
+                string keyword = string_expression.Split(new char[4] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)[0];
+                switch (keyword)
+                {
+                    case "return":
+                        break;
+                    case "block":
+                        break;
+                    default:
+                        ParseExpression(string_expression);
+                        break;
+                }
             }
-            return Value.VoidValue;
         }
 
         public static Value ParseExpression(string string_expression)
@@ -27,22 +36,7 @@ namespace wolvm
             if (tokens[0].StartsWith("@"))
             {
                 return Value.GetValue(tokens[0]); //it`s pass
-            }
-            else if (tokens[0] == "return")
-            {
-                try
-                {
-                    return Value.GetValue(tokens[1]);
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    return Value.VoidValue;
-                }
-            }
-            else if (tokens[0] == "block")
-            {
-                return new Value(VirtualMachine.wolBlock);
-            }
+            } 
             else
             {
                 bool haveExpression = true; //check on found expression by this name
