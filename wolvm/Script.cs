@@ -153,7 +153,7 @@ namespace wolvm
                         return Value.VoidValue;
                     }
                 }
-                else if (tokens[0] == "label")
+                else if (tokens[0] == "block")
                 {
                     //pass
                 }
@@ -180,10 +180,7 @@ namespace wolvm
                             for (int i = 0; i < argums.Length; i++)
                             {
                                 string normstr = argums[i].TrimStart();
-                                if (normstr.StartsWith("goto"))
-                                    VirtualMachine.Goto(normstr.Remove(0, 4));
-                                else
-                                    values[i] = Value.GetValue(normstr);
+                                values[i] = Value.GetValue(normstr);
                                 //convert string arguments to Value arguments
                             }
                             haveExpression = true;

@@ -151,8 +151,8 @@ namespace wolvm
             {
                 StringBuilder buffer = new StringBuilder();
                 char current = val[1]; //skip '('
-                int pos = 1;
-                while (current != ')')
+                int pos = 1; //skip '('
+                while (current != ')') //add body of expression
                 {
                     try
                     {
