@@ -19,6 +19,6 @@ namespace wolvm
             body = _body;
         }
 
-        public void Run() => Script.Parse(body, VirtualMachine.mainstack);
+        public void Run() => Script.Parse(body);
     }
 }

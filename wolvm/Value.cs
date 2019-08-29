@@ -45,11 +45,7 @@ namespace wolvm
                 {
                     try
                     {
-                        Script.Parse(type.constructors[constr_name].body, VirtualMachine.mainstack + new Dictionary<string, Value>
-                            {
-                                { "this", this }
-                            }
-                        );
+                        Script.Parse(type.constructors[constr_name].body);
                     }
                     catch (KeyNotFoundException)
                     {

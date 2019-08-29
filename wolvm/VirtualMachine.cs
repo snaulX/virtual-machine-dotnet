@@ -259,7 +259,7 @@ namespace wolvm
                             }
                             current = input[position];
                         }
-                        Script.Parse(buffer.ToString().Trim().Remove(0, 1), mainstack);
+                        Script.Parse(buffer.ToString().Trim().Remove(0, 1));
                     }
                     else
                     {

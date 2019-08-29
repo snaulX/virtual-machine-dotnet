@@ -58,7 +58,7 @@ namespace wolvm
         {
             Dictionary<string, Value> fullargs = new Dictionary<string, Value>(); //create dictionary who will full by args
 
-            Script.Parse(body, VirtualMachine.mainstack);
+            Script.Parse(body);
         }
     }
 }
