@@ -11,7 +11,7 @@ namespace wolvm
         /// </summary>
         /// <param name="script_code">Code who will parsing to script</param>
         /// <param name="_stack">Stack who will import to script</param>
-        public static Value Parse(string script_code)
+        public static Value Parse(string script_code, params Value[] args)
         {
             string[] string_expressions = script_code.Split(new char[1] { ';' }, StringSplitOptions.RemoveEmptyEntries); //split to lines
             foreach (string string_expression in string_expressions)
@@ -24,14 +24,14 @@ namespace wolvm
                     case "block":
                         break;
                     default:
-                        ParseExpression(string_expression);
+                        ParseExpression(string_expression, args);
                         break;
                 }
             }
             return Value.VoidValue;
         }
 
-        public static Value ParseExpression(string string_expression)
+        public static Value ParseExpression(string string_expression, params Value[] arguments)
         {
             string[] tokens = string_expression.Split(new char[4] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
             string keyword = tokens[0];
