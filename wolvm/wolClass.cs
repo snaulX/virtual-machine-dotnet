@@ -170,6 +170,93 @@ namespace wolvm
                 }
             }
         }
+
+        public wolClass ToParentClass(string parent_name)
+        {
+            wolClass parent = null;
+            try
+            {
+                parent = parents[parent_name];
+            }
+            catch (KeyNotFoundException)
+            {
+                VirtualMachine.ThrowVMException($"Parent by name '{parent_name}' not found of '{strtype}'", VirtualMachine.position, ExceptionType.NotFoundException);
+            }
+            if (parent.classType != wolClassType.ENUM)
+            {
+                foreach (KeyValuePair<string, wolFunction> method in methods)
+                {
+                    if (!method.Value.close)
+                    {
+                        try
+                        {
+                            parent.methods.Add(method.Key, method.Value);
+                        }
+                        catch (ArgumentException)
+                        {
+                            continue;
+                        }
+                    }
+                }
+                foreach (KeyValuePair<string, Value> field in fields)
+                {
+                    try
+                    {
+                        parent.fields.Add(field.Key, field.Value);
+                    }
+                    catch (ArgumentException)
+                    {
+                        continue;
+                    }
+                }
+            }
+            if ((parent.classType == wolClassType.DEFAULT) || (parent.classType == wolClassType.STRUCT))
+            {
+                foreach (KeyValuePair<string, wolFunction> constructor in constructors)
+                {
+                    if (!constructor.Value.close)
+                    {
+                        try
+                        {
+                            parent.constructors.Add(constructor.Key, constructor.Value);
+                        }
+                        catch (ArgumentException)
+                        {
+                            continue;
+                        }
+                    }
+                }
+                foreach (wolFunction destructor in destructors)
+                {
+                    if (!destructor.close)
+                    {
+                        try
+                        {
+                            parent.destructors.Add(destructor);
+                        }
+                        catch (ArgumentException)
+                        {
+                            continue;
+                        }
+                    }
+                }
+            }
+            if ((parent.classType == wolClassType.ENUM) || (parent.classType == wolClassType.STRUCT))
+            {
+                foreach (KeyValuePair<string, Value> constant in parent.constants)
+                {
+                    try
+                    {
+                        parent.constants.Add(constant.Key, constant.Value);
+                    }
+                    catch (ArgumentException)
+                    {
+                        continue;
+                    }
+                }
+            }
+            return parent;
+        }
     }
 
     public enum wolClassType
