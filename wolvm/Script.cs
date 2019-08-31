@@ -11,16 +11,19 @@ namespace wolvm
         /// </summary>
         /// <param name="script_code">Code who will parsing to script</param>
         /// <param name="_stack">Stack who will import to script</param>
-        public static Value Parse(string script_code, params Value[] args)
+        public static Value Parse(string script_code, Dictionary<string, Value> args)
         {
             string[] string_expressions = script_code.Split(new char[1] { ';' }, StringSplitOptions.RemoveEmptyEntries); //split to lines
             foreach (string string_expression in string_expressions)
             {
-                string keyword = string_expression.Split(new char[4] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries)[0];
-                switch (keyword)
+                string[] tokens = string_expression.Split(new char[4] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
+                switch (tokens[0])
                 {
-                    case "return":
+                    case "push-local":
+                        args.Add(tokens[1], Value.GetValue(tokens[2]));
                         break;
+                    case "return":
+                        return Value.GetValue(tokens[1]);
                     case "block":
                         break;
                     default:
@@ -31,7 +34,11 @@ namespace wolvm
             return Value.VoidValue;
         }
 
-        public static Value ParseExpression(string string_expression, params Value[] arguments)
+        public static Value Parse(string code) => Parse(code, new Dictionary<string, Value>());
+
+        public static Value ParseExpression(string expr) => ParseExpression(expr, new Dictionary<string, Value>());
+
+        public static Value ParseExpression(string string_expression, Dictionary<string, Value> arguments)
         {
             string[] tokens = string_expression.Split(new char[4] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
             string keyword = tokens[0];
