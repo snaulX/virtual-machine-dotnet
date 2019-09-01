@@ -29,8 +29,10 @@ namespace wolvm
                         string body = "";
                         for (int j = i; j < string_expressions.Length; j++)
                         {
-                            body += string_expressions[j];
                             i = j;
+                            if (string_expressions[j].Trim() == "end")
+                                break;
+                            body += string_expressions[j];
                         }
                         VirtualMachine.mainstack.values.Add(tokens[1], new Value(new wolBlock(body)));
                         break;
