@@ -14,8 +14,9 @@ namespace wolvm
         public static Value Parse(string script_code, Dictionary<string, Value> args)
         {
             string[] string_expressions = script_code.Split(new char[1] { ';' }, StringSplitOptions.RemoveEmptyEntries); //split to lines
-            foreach (string string_expression in string_expressions)
+            for (int i = 0; i < string_expressions.Length; i++)
             {
+                string string_expression = string_expressions[i];
                 string[] tokens = string_expression.Split(new char[4] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
                 switch (tokens[0])
                 {
@@ -25,6 +26,13 @@ namespace wolvm
                     case "return":
                         return Value.GetValue(tokens[1]);
                     case "block":
+                        string body = "";
+                        for (int j = i; j < string_expressions.Length; j++)
+                        {
+                            body += string_expressions[j];
+                            i = j;
+                        }
+                        VirtualMachine.mainstack.values.Add(tokens[1], new Value(new wolBlock(body)));
                         break;
                     default:
                         ParseExpression(string_expression, args);
