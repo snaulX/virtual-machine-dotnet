@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace wolvm
 {
@@ -95,12 +96,24 @@ namespace wolvm
                     else if (vals[1] == "string")
                     {
                         wolString type = (wolString)VirtualMachine.wolString;
-                        type.value = vals[0];
+                        type.value = Regex.Unescape(vals[0]);
                         value = new Value(type);
                     }
                     else
                     {
                         value = new Value(VirtualMachine.GetWolClass(vals[1]));
+                        foreach (string f in vals[0].Split(','))
+                        {
+                            string[] fs = f.Split('=');
+                            try
+                            {
+                                value.type.fields[fs[0].Trim()] = GetValue(fs[1]);
+                            }
+                            catch (KeyNotFoundException)
+                            {
+                                VirtualMachine.ThrowVMException($"Field by name {fs[0]} not found", VirtualMachine.position, ExceptionType.NotFoundException);
+                            }
+                        }
                     }
                     return value;
                 }
