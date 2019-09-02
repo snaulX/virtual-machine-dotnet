@@ -83,20 +83,26 @@ namespace wolvm
                 {
                     if (vals[1] == "double")
                     {
-                        wolDouble type = (wolDouble)VirtualMachine.wolDouble;
+                        wolDouble type = new wolDouble();
                         type.ParseDouble(vals[0]);
                         value = new Value(type);
                     }
                     else if (vals[1] == "int")
                     {
-                        wolInt type = (wolInt)VirtualMachine.wolInt;
+                        wolInt type = new wolInt();
                         type.ParseInt(vals[0]);
                         value = new Value(type);
                     }
                     else if (vals[1] == "string")
                     {
-                        wolString type = (wolString)VirtualMachine.wolString;
+                        wolString type = new wolString();
                         type.value = Regex.Unescape(vals[0]);
+                        value = new Value(type);
+                    }
+                    else if (vals[1] == "long")
+                    {
+                        wolLong type = new wolLong();
+                        type.ParseLong(vals[0]);
                         value = new Value(type);
                     }
                     else
@@ -125,10 +131,7 @@ namespace wolvm
             }
             else if (val.StartsWith("@")) //example of syntax - plus : @a, @b ;
             {
-                val = val.Remove(0, 1); //remove '@'
-                Console.WriteLine(val.IndexOf('.')); //test
-                value = VoidValue; //create empty value
-                return value;
+                return VoidValue; //pass
             }
             else if (val.StartsWith("&")) //example of syntax - set : &this, <null:void> ;
             {
