@@ -355,6 +355,7 @@ namespace wolvm
         ChildException, //... class or functions hasn`t child
         SecurityException, //... call private property
         ArgumentsOutOfRangeException, //... arguments bigger or lower than need
-        NumberFormatException //... parsing not valid string (to any number)
+        NumberFormatException, //... parsing not valid string (to any number)
+        FormatException //... parsing not valid string (to any type)
     }
 }

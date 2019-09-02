@@ -6,8 +6,11 @@ namespace wolvm
 {
     public class wolBool : Void
     {
+        public bool value;
+
         public wolBool() : base()
         {
+            value = true;
             strtype = "bool";
             wolInt False = new wolInt(), True = new wolInt();
             False.ParseInt("0");
@@ -25,6 +28,12 @@ namespace wolvm
                     {
                         { "bool", wolFunction.NewDefaultConstructor(this) }
                     };
+        }
+
+        public void ParseBool(string val)
+        {
+            if (!bool.TryParse(val, out value))
+                VirtualMachine.ThrowVMException($"'{val}' is not bool", VirtualMachine.position, ExceptionType.FormatException);
         }
     }
 }
