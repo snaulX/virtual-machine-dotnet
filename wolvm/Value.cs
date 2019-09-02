@@ -147,8 +147,7 @@ namespace wolvm
             }
             else if (val.StartsWith("%")) //example of syntax - if : ( equals : $void, (typeof : <null:void>) ), %if_block1 ;
             {
-                val = val.Remove(0, 1).TrimStart(); //remove '%'
-                return new Value(VirtualMachine.wolBlock); //create value with type Block with global block
+                return VirtualMachine.FindBlock(val.Remove(0, 1)); //one string again!
             }
             else if (val.StartsWith("(")) //example of syntax - return (typeof : @this ) ;
             {

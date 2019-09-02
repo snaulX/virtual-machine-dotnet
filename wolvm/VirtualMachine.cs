@@ -79,6 +79,22 @@ namespace wolvm
             }
         }
 
+        public static Value FindBlock(string name)
+        {
+            Value value = null;
+            try
+            {
+                value = mainstack.values[name];
+            }
+            catch (KeyNotFoundException)
+            {
+                ThrowVMException($"Variable by name {name} not found", position, ExceptionType.NotFoundException);
+            }
+            if (!value.CheckType("Block"))
+                ThrowVMException($"Type of variable with name {name} is not Block", position, ExceptionType.InvalidTypeException);
+            return value;
+        }
+
         public static void Run(string input)
         {
             //add base classes to stack
