@@ -132,17 +132,13 @@ namespace wolvm
             }
             else if (val.StartsWith("&")) //example of syntax - set : &this, <null:void> ;
             {
-                val = val.Remove(0, 1); //remove '&'
-                string[] tokens = val.Split('.', '#');
-                wolLink type = (wolLink)VirtualMachine.wolLink; //create empty link
-                type.Address = tokens[0]; //get address of value
-                value = type.GetValue(); //get value from address
-                return value;
+                return new wolLink(val.Remove(0, 1)).GetValue(); //one string!!!
             }
             else if (val.StartsWith("#")) //example of syntax - set : &this, #sum ;
             {
                 val = val.Remove(0, 1); //remove '#'
-                value = new Value(VirtualMachine.wolFunc); //create empty value with type Func
+                wolFunc type = new wolFunc();
+                value = new Value(type); //create empty value with type Func
                 return value;
             }
             else if (val.StartsWith("$")) //example of syntax - equals : $void, (typeof : <null:void>) ;
