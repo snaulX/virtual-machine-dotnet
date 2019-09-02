@@ -81,33 +81,43 @@ namespace wolvm
                 string[] vals = val.Split(':');
                 if (vals.Length == 2)
                 {
-                    if (vals[1] == "double")
+                    string type_word = vals[1].Trim(), val_word = vals[0].Trim();
+                    if (type_word == "double")
                     {
                         wolDouble type = new wolDouble();
-                        type.ParseDouble(vals[0]);
+                        type.ParseDouble(val_word);
                         value = new Value(type);
                     }
-                    else if (vals[1] == "int")
+                    else if (type_word == "int")
                     {
                         wolInt type = new wolInt();
-                        type.ParseInt(vals[0]);
+                        type.ParseInt(val_word);
                         value = new Value(type);
                     }
-                    else if (vals[1] == "string")
+                    else if (type_word == "string")
                     {
                         wolString type = new wolString();
                         type.value = Regex.Unescape(vals[0]);
                         value = new Value(type);
                     }
-                    else if (vals[1] == "long")
+                    else if (type_word == "long")
                     {
                         wolLong type = new wolLong();
-                        type.ParseLong(vals[0]);
+                        type.ParseLong(val_word);
                         value = new Value(type);
+                    }
+                    else if (type_word == "bool")
+                    {
+                        wolBool type = new wolBool();
+                        value = new Value(type);
+                    }
+                    else if (type_word == "void")
+                    {
+                        value = VoidValue;
                     }
                     else
                     {
-                        value = new Value(VirtualMachine.GetWolClass(vals[1]));
+                        value = new Value(VirtualMachine.GetWolClass(type_word));
                         foreach (string f in vals[0].Split(','))
                         {
                             string[] fs = f.Split('=');
