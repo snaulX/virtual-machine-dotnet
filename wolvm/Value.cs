@@ -143,9 +143,7 @@ namespace wolvm
             }
             else if (val.StartsWith("$")) //example of syntax - equals : $void, (typeof : <null:void>) ;
             {
-                val = val.Remove(0, 1); //remove '$'
-                value = new Value(VirtualMachine.wolType); //create empty value with type Type
-                return value;
+                return new Value(new wolType(val.Remove(0, 1))); //let`s write in one string!!!
             }
             else if (val.StartsWith("%")) //example of syntax - if : ( equals : $void, (typeof : <null:void>) ), %if_block1 ;
             {
