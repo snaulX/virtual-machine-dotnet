@@ -73,7 +73,7 @@ namespace wolvm
 
         public static Value GetSmallValue(string val, Value parent = null)
         {
-            Value value;
+            Value value = VoidValue;
             val = val.Trim();
             if (val.StartsWith("<") && val.EndsWith(">")) //example of syntax - Loads : <System:string> ;
             {
@@ -145,13 +145,22 @@ namespace wolvm
             }
             else if (val.StartsWith("@")) //example of syntax - plus : @a, @b ;
             {
+                val = val.Remove(0, 1); //skip '@'
                 if (parent != null)
                 {
                     return VoidValue; //pass
                 }
                 else
                 {
-                    return VoidValue; //pass
+                    try
+                    {
+                        value = VirtualMachine.mainstack.values[val];
+                    }
+                    catch (KeyNotFoundException)
+                    {
+                        VirtualMachine.ThrowVMException($"", VirtualMachine.position, ExceptionType.NotFoundException);
+                    }
+                    return value;
                 }
             }
             else if (val.StartsWith("&")) //example of syntax - set : &this, <null:void> ;
@@ -167,10 +176,14 @@ namespace wolvm
             }
             else if (val.StartsWith("#")) //example of syntax - set : &this, #sum ;
             {
-                val = val.Remove(0, 1); //remove '#'
-                wolFunc type = new wolFunc();
-                value = new Value(type); //create empty value with type Func
-                return value;
+                if (parent != null)
+                {
+                    return VoidValue; //pass
+                }
+                else
+                {
+                    return VirtualMachine.FindFunc(val.Remove(0, 1)); //one string)
+                }
             }
             else if (val.StartsWith("$")) //example of syntax - equals : $void, (typeof : <null:void>) ;
             {

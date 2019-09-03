@@ -6,7 +6,7 @@ namespace wolvm
 {
     public class wolType : Void
     {
-        wolClass type;
+        public wolClass value;
 
         public wolType() : base()
         {
@@ -28,7 +28,7 @@ namespace wolvm
 
         public wolType(string type_name) : this()
         {
-            type = VirtualMachine.GetWolClass(type_name);
+            value = VirtualMachine.GetWolClass(type_name);
         }
     }
 }
