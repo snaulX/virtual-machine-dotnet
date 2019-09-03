@@ -192,7 +192,7 @@ namespace wolvm
             {
                 if (parent != null)
                 {
-                    VirtualMachine.ThrowVMException("expression cannot have parent value", VirtualMachine.position, ExceptionType.ValueException);
+                    VirtualMachine.ThrowVMException("Expression cannot have parent value", VirtualMachine.position, ExceptionType.ValueException);
                 }
                 StringBuilder buffer = new StringBuilder();
                 char current = val[1]; //skip '('

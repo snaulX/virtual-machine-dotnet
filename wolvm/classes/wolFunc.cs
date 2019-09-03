@@ -19,6 +19,11 @@ namespace wolvm
             constructors.Add("Func", wolFunction.NewDefaultConstructor(this)); //add empty constructor
         }
 
+        public wolFunc(wolFunction func): this()
+        {
+            value = func;
+        }
+
         public Value Call(params Value[] args) => Script.Parse(value.body); //will be fill soon
     }
 }

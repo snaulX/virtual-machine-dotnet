@@ -81,7 +81,7 @@ namespace wolvm
 
         public static Value FindBlock(string name)
         {
-            Value value = null;
+            Value value = Value.VoidValue;
             try
             {
                 value = mainstack.values[name];
@@ -92,6 +92,29 @@ namespace wolvm
             }
             if (!value.CheckType("Block"))
                 ThrowVMException($"Type of variable with name {name} is not Block", position, ExceptionType.InvalidTypeException);
+            return value;
+        }
+
+        public static Value FindFunc(string name)
+        {
+            Value value = Value.VoidValue;
+            try
+            {
+                value = new Value(new wolFunc(mainstack.functions[name]));
+            }
+            catch (KeyNotFoundException)
+            {
+                try
+                {
+                    value = mainstack.values[name];
+                    if (!value.CheckType("Func"))
+                        ThrowVMException($"Type of variable by name {name} is not Func", position, ExceptionType.InvalidTypeException);
+                }
+                catch (KeyNotFoundException)
+                {
+                    ThrowVMException($"Function by name {name} not found in main stack", position, ExceptionType.NotFoundException);
+                }
+            }
             return value;
         }
 
