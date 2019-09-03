@@ -71,12 +71,16 @@ namespace wolvm
 
         public bool CheckType(string name) => VirtualMachine.GetWolClass(name) == type ? true : false; //thanks C# for one-string functions))
 
-        public static Value GetSmallValue(string val)
+        public static Value GetSmallValue(string val, Value parent = null)
         {
             Value value;
             val = val.Trim();
             if (val.StartsWith("<") && val.EndsWith(">")) //example of syntax - Loads : <System:string> ;
             {
+                if (parent != null)
+                {
+                    VirtualMachine.ThrowVMException("Default value cannot have parent value", VirtualMachine.position, ExceptionType.ValueException);
+                }
                 val = val.Remove(0, 1).Remove(val.Length - 2); //remove '<' and '>'
                 string[] vals = val.Split(':');
                 if (vals.Length == 2)
@@ -141,11 +145,25 @@ namespace wolvm
             }
             else if (val.StartsWith("@")) //example of syntax - plus : @a, @b ;
             {
-                return VoidValue; //pass
+                if (parent != null)
+                {
+                    return VoidValue; //pass
+                }
+                else
+                {
+                    return VoidValue; //pass
+                }
             }
             else if (val.StartsWith("&")) //example of syntax - set : &this, <null:void> ;
             {
-                return new wolLink(val.Remove(0, 1)).GetValue(); //one string!!!
+                if (parent != null)
+                {
+                    return null; //pass
+                }
+                else
+                {
+                    return new wolLink(val.Remove(0, 1)).GetValue(); //one string!!!
+                }
             }
             else if (val.StartsWith("#")) //example of syntax - set : &this, #sum ;
             {
@@ -156,14 +174,26 @@ namespace wolvm
             }
             else if (val.StartsWith("$")) //example of syntax - equals : $void, (typeof : <null:void>) ;
             {
+                if (parent != null)
+                {
+                    VirtualMachine.ThrowVMException("Class (Type) cannot have parent value", VirtualMachine.position, ExceptionType.ValueException);
+                }
                 return new Value(new wolType(val.Remove(0, 1))); //let`s write in one string!!!
             }
             else if (val.StartsWith("%")) //example of syntax - if : ( equals : $void, (typeof : <null:void>) ), %if_block1 ;
             {
+                if (parent != null)
+                {
+                    VirtualMachine.ThrowVMException("Block cannot have parent value", VirtualMachine.position, ExceptionType.ValueException);
+                }
                 return VirtualMachine.FindBlock(val.Remove(0, 1)); //one string again!
             }
             else if (val.StartsWith("(")) //example of syntax - return (typeof : @this ) ;
             {
+                if (parent != null)
+                {
+                    VirtualMachine.ThrowVMException("expression cannot have parent value", VirtualMachine.position, ExceptionType.ValueException);
+                }
                 StringBuilder buffer = new StringBuilder();
                 char current = val[1]; //skip '('
                 int pos = 1; //skip '('
