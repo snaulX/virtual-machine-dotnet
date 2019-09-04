@@ -234,8 +234,12 @@ namespace wolvm
         public static Value GetValue(string val)
         {
             string[] small_vals = val.Trim().Split('.');
-            Value value = VoidValue; //it`s pass
-            return value;
+            Value parent = null; //it`s parent value
+            foreach (string strval in small_vals)
+            {
+                parent = GetSmallValue(strval, parent);
+            }
+            return parent;
         }
 
         public static Value VoidValue => new Value(VirtualMachine.Void);
