@@ -178,7 +178,19 @@ namespace wolvm
             {
                 if (parent != null)
                 {
-                    return VoidValue; //pass
+                    if (parent.CheckType("Type"))
+                    {
+                        return VoidValue; //pass
+                    }
+                    else if (parent.CheckType("Func"))
+                    {
+                        VirtualMachine.ThrowVMException("Function cannot have parent with type 'Func'", VirtualMachine.position, ExceptionType.ValueException);
+                        return VoidValue;
+                    }
+                    else
+                    {
+                        return VoidValue; //pass
+                    }
                 }
                 else
                 {
