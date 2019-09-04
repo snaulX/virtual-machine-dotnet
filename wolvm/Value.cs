@@ -180,7 +180,8 @@ namespace wolvm
                 {
                     if (parent.CheckType("Type"))
                     {
-                        return VoidValue; //pass
+                        wolType type = (wolType) parent.type;
+                        return new Value(type);
                     }
                     else if (parent.CheckType("Func"))
                     {

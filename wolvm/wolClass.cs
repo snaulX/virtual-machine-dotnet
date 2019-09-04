@@ -257,6 +257,31 @@ namespace wolvm
             }
             return parent;
         }
+
+        public wolFunction GetStaticMethod(string name)
+        {
+            wolFunction func = null;
+            try
+            {
+                func = methods[name];
+            }
+            catch (KeyNotFoundException)
+            {
+                VirtualMachine.ThrowVMException($"Method by name {name} not found in {strtype}", VirtualMachine.position, ExceptionType.NotFoundException);
+            }
+            try
+            {
+                if (func.arguments["this"] == this)
+                {
+                    VirtualMachine.ThrowVMException($"Method by name {name} in {strtype} is not static", VirtualMachine.position, ExceptionType.InitilizateException);
+                }
+            }
+            catch (KeyNotFoundException)
+            {
+                //so ok
+            }
+            return func;
+        }
     }
 
     public enum wolClassType
