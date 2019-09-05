@@ -180,8 +180,7 @@ namespace wolvm
                 {
                     if (parent.CheckType("Type"))
                     {
-                        wolType type = (wolType) parent.type;
-                        return new Value(type);
+                        return new Value(new wolFunc(((wolType) parent.type).value.GetStaticMethod(val.Remove(0, 1)))); //one string or how make code unreadable
                     }
                     else if (parent.CheckType("Func"))
                     {
