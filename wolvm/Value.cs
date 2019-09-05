@@ -189,7 +189,7 @@ namespace wolvm
                     }
                     else
                     {
-                        return VoidValue; //pass
+                        return new Value(new wolFunc(parent.GetMethod(val.Remove(0, 1)))); //return not static method of ParentValue by name
                     }
                 }
                 else
