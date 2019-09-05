@@ -8,10 +8,9 @@ namespace wolvm
     {
         public Value ParseExpression(params Value[] args)
         {
-            string result = "";
             foreach (Value arg in args)
-                result += ((wolString) arg.type).value;
-            Console.Write(result);
+                Console.Write(((wolString) arg.type).value);
+            Console.WriteLine();
             return Value.VoidValue;
         }
     }
