@@ -1,10 +1,8 @@
 import std; //link platform std
 _loads("System"); //load library of vm (framework) System used встренную function from platform std
 Virtual {
-	Beep;
-	HelloWorld;
-	HelloWorld;
-	Plus : <12:double>, <10:double>, <678:double>;
+	beep;
+	plus : <12:double>, <10:double>, <678:double>;
 } //write script with operator Virtual
 class public Tuzik {
 	function public string toString() => "Tuzik"; //operator => return value. After value always ставится ;
@@ -13,12 +11,12 @@ class public Tuzik {
 	var public string name = set (string name) {
 		Virtual {
 			Set : &this.name , @name ;
-			System.Print : <Your name is :string>, @this.name ;
+			System.print : <Your name is :string>, @this.name ;
 		}
 	}
 	get {
 		Virtual {
-			System.Print : <Your name is \u003A:string>, @this.name ;
+			System.print : <Your name is \u003A:string>, @this.name ;
 			Return : @this.name ;
 		}
 	}; //add getter and setter
@@ -39,7 +37,7 @@ enum public BaseType {
 
 function print(string text) { 
 	Virtual {
-		System.Print : @text ; 
+		System.print : @text ; 
 	}
 } //if in body of function be block - all body of function transferred to block
 

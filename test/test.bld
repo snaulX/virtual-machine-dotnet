@@ -27,10 +27,10 @@ stack {
 			], 
 			name = string PUBLIC set (name: string) [
 				set : &this.name , @name ;
-				System.Print : <Your new name is :string>,  @this.@name ;
+				System.print : <Your new name is :string>,  @this.@name ;
 			]
 			PUBLIC get [
-				System.Print : <Your name is\u003A:string>, @this.@name ;
+				System.print : <Your name is\u003A:string>, @this.@name ;
 				return @this.@name ;
 			]
 		];
@@ -53,7 +53,7 @@ stack {
 			_loads : @fwname ;
 		],
 		print = PRIVATE void (text: string): [
-			System.Print : @text ;
+			System.print : @text ;
 		],
 		+ = PRIVATE int (a: int, b: int): [
 			return ( plus : @a , @b ) ;

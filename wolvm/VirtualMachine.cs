@@ -18,7 +18,8 @@ namespace wolvm
             { "_loads", new LoadsExpression() },
             { "typeof", new TypeofExpression() },
             { "set",  new SetExpression() },
-            { "AddString", new AddStringExpression() }
+            { "AddString", new AddStringExpression() },
+            { "System.print", new PrintExpression() }
         };
         //initilizate base classes
         public static wolClass Void = new Void(), wolInt = new wolInt(), wolString = new wolString(), wolBool = new wolBool(), 
