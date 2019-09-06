@@ -73,6 +73,11 @@ namespace wolvm
 
         public static Value GetSmallValue(string val, Value parent = null)
         {
+            if (parent.CheckType("Func"))
+            {
+                VirtualMachine.ThrowVMException("Parent cannot have type 'Func'", VirtualMachine.position, ExceptionType.InvalidTypeException);
+                return VoidValue;
+            }
             Value value = VoidValue;
             val = val.Trim();
             if (val.StartsWith("<") && val.EndsWith(">")) //example of syntax - Loads : <System:string> ;
@@ -205,11 +210,6 @@ namespace wolvm
                     if (parent.CheckType("Type"))
                     {
                         return new Value(new wolFunc(((wolType) parent.type).value.GetStaticMethod(val.Remove(0, 1)))); //one string or how make code unreadable
-                    }
-                    else if (parent.CheckType("Func"))
-                    {
-                        VirtualMachine.ThrowVMException("Function cannot have parent with type 'Func'", VirtualMachine.position, ExceptionType.ValueException);
-                        return VoidValue;
                     }
                     else
                     {
