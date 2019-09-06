@@ -128,6 +128,7 @@ namespace wolvm
                     else if (type_word == "float")
                     {
                         wolFloat type = new wolFloat();
+                        type.ParseFloat(val_word);
                         value = new Value(type);
                     }
                     else if (type_word == "byte")
@@ -139,6 +140,7 @@ namespace wolvm
                     else if (type_word == "char")
                     {
                         wolChar type = new wolChar();
+                        type.ParseChar(val_word);
                         value = new Value(type);
                     }
                     else
