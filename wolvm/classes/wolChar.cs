@@ -17,10 +17,7 @@ namespace wolvm
             };
         }
 
-        public wolChar(char val) : this()
-        {
-            value = val;
-        }
+        public wolChar(char val) : this() => value = val;
 
         public void ParseChar(string val)
         {

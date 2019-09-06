@@ -18,5 +18,11 @@ namespace wolvm
         }
 
         public wolFloat(float val) : this() => value = val;
+
+        public void ParseFloat(string val)
+        {
+            if (!float.TryParse(val, out value))
+                VirtualMachine.ThrowVMException($"'{val}' is not float", VirtualMachine.position, ExceptionType.NumberFormatException);
+        }
     }
 }
