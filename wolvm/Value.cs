@@ -119,6 +119,28 @@ namespace wolvm
                     {
                         value = VoidValue;
                     }
+                    else if (type_word == "short")
+                    {
+                        wolShort type = new wolShort();
+                        type.ParseShort(val_word);
+                        value = new Value(type);
+                    }
+                    else if (type_word == "float")
+                    {
+                        wolFloat type = new wolFloat();
+                        value = new Value(type);
+                    }
+                    else if (type_word == "byte")
+                    {
+                        wolByte type = new wolByte();
+                        type.ParseByte(val_word);
+                        value = new Value(type);
+                    }
+                    else if (type_word == "char")
+                    {
+                        wolChar type = new wolChar();
+                        value = new Value(type);
+                    }
                     else
                     {
                         value = new Value(VirtualMachine.GetWolClass(type_word));
