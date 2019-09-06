@@ -7,6 +7,7 @@ namespace wolvm
 {
     public class wolChar : Void
     {
+        public char value;
         public wolChar() : base()
         {
             strtype = "char";
@@ -14,6 +15,17 @@ namespace wolvm
             {
                 { "void", VirtualMachine.Void }
             };
+        }
+
+        public wolChar(char val) : this()
+        {
+            value = val;
+        }
+
+        public void ParseChar(string val)
+        {
+            if (!char.TryParse(val, out value))
+                VirtualMachine.ThrowVMException($"'{val}' is not char", VirtualMachine.position, ExceptionType.FormatException);
         }
     }
 }
