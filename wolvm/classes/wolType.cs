@@ -17,13 +17,13 @@ namespace wolvm
                         returnType = this,
                         arguments = new Dictionary<string, wolClass>
                         {
-                            { "name", VirtualMachine.wolString }
+                            { "name", new wolString() }
                         },
                         body = "set : &this.name, @name ;",
                         security = SecurityModifer.PUBLIC
                     }
                 );
-            fields.Add("name",  new Value(VirtualMachine.wolString, SecurityModifer.PUBLIC, true));
+            fields.Add("name",  new Value(new wolString(), SecurityModifer.PUBLIC, true));
         }
 
         public wolType(string type_name) : this()

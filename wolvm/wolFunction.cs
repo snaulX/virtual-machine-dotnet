@@ -15,7 +15,7 @@ namespace wolvm
         public wolFunction(SecurityModifer sec = SecurityModifer.PRIVATE, string _body = "return <null:void>;")
         {
             security = sec;
-            returnType = VirtualMachine.Void;
+            returnType = new Void();
             arguments = new Dictionary<string, wolClass>();
             body = _body;
         }
@@ -29,7 +29,7 @@ namespace wolvm
                 arguments.Add(args[i].Key, args[i].Value); //да я знаю про foreach, но for быстрее
             }
             body = "return <null:void>;";
-            returnType = VirtualMachine.Void;
+            returnType = new Void();
         }
 
         /// <summary>

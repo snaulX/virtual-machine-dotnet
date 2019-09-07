@@ -13,7 +13,7 @@ namespace wolvm
             strtype = "double";
             parents = new Dictionary<string, wolClass>
             {
-                { "float", VirtualMachine.wolFloat }
+                { "float", VirtualMachine.GetWolClass("float") }
             };
         }
 

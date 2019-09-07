@@ -13,7 +13,7 @@ namespace wolvm
             strtype = "long";
             parents = new Dictionary<string, wolClass>
             {
-                { "int", VirtualMachine.wolInt }
+                { "int", VirtualMachine.GetWolClass("int") }
             };
         }
 

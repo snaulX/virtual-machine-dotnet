@@ -41,20 +41,20 @@ namespace wolvm
                     static_fields = new Dictionary<string, Value>();
                     parents = new Dictionary<string, wolClass>
                     {
-                        { "void", VirtualMachine.Void }
+                        { "void", VirtualMachine.GetWolClass("void") }
                     };
                     break;
                 case wolClassType.ENUM:
                     constants = new Dictionary<string, Value>();
                     parents = new Dictionary<string, wolClass>
                     {
-                        { "int", VirtualMachine.wolInt }
+                        { "int", VirtualMachine.GetWolClass("int") }
                     };
                     break;
                 case wolClassType.STATIC:
                     parents = new Dictionary<string, wolClass>
                     {
-                        { "void", VirtualMachine.Void }
+                        { "void", VirtualMachine.GetWolClass("void") }
                     };
                     static_fields = new Dictionary<string, Value>();
                     methods = new Dictionary<string, wolFunction>();
@@ -63,7 +63,7 @@ namespace wolvm
                     constants = new Dictionary<string, Value>();
                     parents = new Dictionary<string, wolClass>
                     {
-                        { "void", VirtualMachine.Void }
+                        { "void", VirtualMachine.GetWolClass("void") }
                     };
                     fields = new Dictionary<string, Value>();
                     methods = new Dictionary<string, wolFunction>();
@@ -79,7 +79,7 @@ namespace wolvm
                 case wolClassType.ABSTRACT:
                     parents = new Dictionary<string, wolClass>
                     {
-                        { "void", VirtualMachine.Void }
+                        { "void", VirtualMachine.GetWolClass("void") }
                     };
                     fields = new Dictionary<string, Value>();
                     static_fields = new Dictionary<string, Value>();

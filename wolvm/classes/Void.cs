@@ -17,7 +17,7 @@ namespace wolvm
                         {
                             { "this", this }
                         },
-                        returnType = VirtualMachine.wolString,
+                        returnType = new wolString(),
                         body = "return ( AddString : ( typeof : @this ; ), <^:string>; );",
                         security = SecurityModifer.PUBLIC
                     }
@@ -28,7 +28,7 @@ namespace wolvm
                         {
                             { "this", this }
                         },
-                        returnType = VirtualMachine.wolType,
+                        returnType = new wolType(),
                         body = "return ( typeof : @this ; );",
                         security = SecurityModifer.PUBLIC
                     }

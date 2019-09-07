@@ -273,7 +273,7 @@ namespace wolvm
             return parent;
         }
 
-        public static Value VoidValue => new Value(VirtualMachine.Void);
+        public static Value VoidValue => new Value(VirtualMachine.GetWolClass("void"));
 
         public override string ToString() => $"VALUE:{type.fields.ToString()}\nTYPE:{type.ToString()}"; //is test version
 

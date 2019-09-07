@@ -22,7 +22,7 @@ namespace wolvm
             };
             parents = new Dictionary<string, wolClass>
                     {
-                        { "void", VirtualMachine.Void }
+                        { "void", VirtualMachine.GetWolClass("void") }
                     };
             constructors = new Dictionary<string, wolFunction>
                     {

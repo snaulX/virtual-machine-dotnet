@@ -9,7 +9,7 @@ namespace wolvm
         public Value ParseExpression(params Value[] args)
         {
             Console.Beep();
-            return new Value(VirtualMachine.Void);
+            return Value.VoidValue;
         }
     }
 }

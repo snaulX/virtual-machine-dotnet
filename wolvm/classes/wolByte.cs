@@ -13,7 +13,7 @@ namespace wolvm
             strtype = "byte";
             parents = new Dictionary<string, wolClass>
             {
-                { "void", VirtualMachine.Void }
+                { "void", VirtualMachine.GetWolClass("void") }
             };
         }
 

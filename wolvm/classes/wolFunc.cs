@@ -14,7 +14,7 @@ namespace wolvm
             classType = wolClassType.DEFAULT;
             parents = new Dictionary<string, wolClass>
             {
-                { "void", VirtualMachine.Void }
+                { "void", VirtualMachine.GetWolClass("void") }
             };
             constructors.Add("Func", wolFunction.NewDefaultConstructor(this)); //add empty constructor
         }

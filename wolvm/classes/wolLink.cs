@@ -15,14 +15,14 @@ namespace wolvm
         {
             strtype = "Link";
             classType = wolClassType.DEFAULT;
-            fields.Add("Address", new Value(VirtualMachine.wolString, SecurityModifer.PUBLIC, true));
-            fields.Add("HasSetter", new Value(VirtualMachine.wolBool, SecurityModifer.PUBLIC, true));
+            fields.Add("Address", new Value(new wolString(), SecurityModifer.PUBLIC, true));
+            fields.Add("HasSetter", new Value(new wolBool(), SecurityModifer.PUBLIC, true));
             constructors.Add("href", new wolFunction
             {
                 returnType = this,
                 arguments = new Dictionary<string, wolClass>
                     {
-                        { "link_name", VirtualMachine.wolString }
+                        { "link_name", new wolString() }
                     },
                 body = "set : &this.Address, @link_name ;\n",
                 security = SecurityModifer.PUBLIC
