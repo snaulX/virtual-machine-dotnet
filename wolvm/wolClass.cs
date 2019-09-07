@@ -312,6 +312,20 @@ namespace wolvm
             }
             return func;
         }
+
+        public Value GetStaticField(string name)
+        {
+            Value field = null;
+            try
+            {
+                field = static_fields[name];
+            }
+            catch (KeyNotFoundException)
+            {
+                VirtualMachine.ThrowVMException($"In class '{strtype}' not found static field by name '{name}'", VirtualMachine.position, ExceptionType.NotFoundException);
+            }
+            return field;
+        }
     }
 
     public enum wolClassType
