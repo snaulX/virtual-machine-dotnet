@@ -8,7 +8,7 @@ namespace wolvm
     {
         public Dictionary<string, wolFunction> methods, constructors;
         public List<wolFunction> destructors;
-        public Dictionary<string, Value> fields, constants;
+        public Dictionary<string, Value> fields, constants, static_fields;
         public Dictionary<string, wolClass> parents;
         public SecurityModifer security;
         public wolClassType classType;
@@ -38,6 +38,7 @@ namespace wolvm
                         new wolFunction()
                     };
                     fields = new Dictionary<string, Value>();
+                    static_fields = new Dictionary<string, Value>();
                     parents = new Dictionary<string, wolClass>
                     {
                         { "void", VirtualMachine.Void }
@@ -55,7 +56,7 @@ namespace wolvm
                     {
                         { "void", VirtualMachine.Void }
                     };
-                    fields = new Dictionary<string, Value>();
+                    static_fields = new Dictionary<string, Value>();
                     methods = new Dictionary<string, wolFunction>();
                     break;
                 case wolClassType.STRUCT:
@@ -81,6 +82,7 @@ namespace wolvm
                         { "void", VirtualMachine.Void }
                     };
                     fields = new Dictionary<string, Value>();
+                    static_fields = new Dictionary<string, Value>();
                     methods = new Dictionary<string, wolFunction>();
                     break;
             }
@@ -168,6 +170,20 @@ namespace wolvm
                         }
                     }
                 }
+                else
+                {
+                    foreach (KeyValuePair<string, Value> stfield in parent.static_fields)
+                    {
+                        try
+                        {
+                            static_fields.Add(stfield.Key, stfield.Value);
+                        }
+                        catch (ArgumentException)
+                        {
+                            continue;
+                        }
+                    }
+                }
             }
         }
 
@@ -248,6 +264,20 @@ namespace wolvm
                     try
                     {
                         parent.constants.Add(constant.Key, constant.Value);
+                    }
+                    catch (ArgumentException)
+                    {
+                        continue;
+                    }
+                }
+            }
+            else
+            {
+                foreach (KeyValuePair<string, Value> stfield in static_fields)
+                {
+                    try
+                    {
+                        parent.static_fields.Add(stfield.Key, stfield.Value);
                     }
                     catch (ArgumentException)
                     {

@@ -182,7 +182,7 @@ namespace wolvm
                     }
                     catch (KeyNotFoundException)
                     {
-                        VirtualMachine.ThrowVMException($"", VirtualMachine.position, ExceptionType.NotFoundException);
+                        VirtualMachine.ThrowVMException($"Variable by name '{val}' not found in main stack", VirtualMachine.position, ExceptionType.NotFoundException);
                     }
                     return value;
                 }
