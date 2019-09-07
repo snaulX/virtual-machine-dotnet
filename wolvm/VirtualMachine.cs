@@ -122,22 +122,22 @@ namespace wolvm
         public static void Run(string input)
         {
             //add base classes to stack
-            mainstack.classes.Add("void", Void);
-            mainstack.classes.Add("byte", wolByte);
-            mainstack.classes.Add("short", wolShort);
-            mainstack.classes.Add("string", wolString);
-            mainstack.classes.Add("float", wolFloat);
-            mainstack.classes.Add("double", wolDouble);
-            mainstack.classes.Add("int", wolInt);
-            mainstack.classes.Add("long", wolLong);
-            mainstack.classes.Add("Type", wolType);
-            mainstack.classes.Add("Func", wolFunc);
-            mainstack.classes.Add("Enum", wolEnum);
-            mainstack.classes.Add("char", wolChar);
-            mainstack.classes.Add("Block", wolBlock);
-            mainstack.classes.Add("Collection", wolCollection);
-            mainstack.classes.Add("Array", wolArray);
-            mainstack.classes.Add("Link", wolLink);
+            mainstack.classes.Add("void", new Void());
+            mainstack.classes.Add("byte", new wolByte());
+            mainstack.classes.Add("short", new wolShort());
+            mainstack.classes.Add("string", new wolString());
+            mainstack.classes.Add("float", new wolFloat());
+            mainstack.classes.Add("double", new wolDouble());
+            mainstack.classes.Add("int", new wolInt());
+            mainstack.classes.Add("long", new wolLong());
+            mainstack.classes.Add("Type", new wolType());
+            mainstack.classes.Add("Func", new wolFunc());
+            mainstack.classes.Add("Enum", new wolEnum());
+            mainstack.classes.Add("char", new wolChar());
+            mainstack.classes.Add("Block", new wolBlock());
+            mainstack.classes.Add("Collection", new wolCollection());
+            mainstack.classes.Add("Array", new wolArray());
+            mainstack.classes.Add("Link", new wolLink());
 
             //main cycle
             position = 0;
