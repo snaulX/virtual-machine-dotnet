@@ -21,11 +21,7 @@ namespace wolvm
             { "AddString", new AddStringExpression() },
             { "System.print", new PrintExpression() }
         };
-        //initilizate base classes
-        public static wolClass Void = new Void(), wolInt = new wolInt(), wolString = new wolString(), wolBool = new wolBool(), 
-            wolCollection = new wolCollection(), wolArray = new wolArray(), wolType = new wolType(), wolDouble = new wolDouble(),
-            wolLink = new wolLink(), wolFunc = new wolFunc(), wolByte = new wolByte(), wolShort = new wolShort(), wolFloat = new wolFloat(),
-            wolLong = new wolLong(), wolEnum = new wolEnum(), wolChar = new wolChar(), wolBlock = new wolBlock();
+
         static void Main(string[] args)
         {
             Version version = Assembly.GetEntryAssembly().GetName().Version;
