@@ -172,7 +172,14 @@ namespace wolvm
                 val = val.Remove(0, 1); //skip '@'
                 if (parent != null)
                 {
-                    return VoidValue; //pass
+                    if (parent.CheckType("Type"))
+                    {
+                        return ((wolType) parent.type).value.GetStaticField(val);
+                    }
+                    else
+                    {
+                        return parent.GetField(val);
+                    }
                 }
                 else
                 {
