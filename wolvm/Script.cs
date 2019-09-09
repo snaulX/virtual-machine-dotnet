@@ -62,7 +62,17 @@ namespace wolvm
                 for (int i = 0; i < argums.Length; i++)
                     values[i] = Value.GetValue(argums[i].TrimStart()); //convert string arguments to Value arguments
                 return value.Call(values);
-            } 
+            }
+            else if (keyword.StartsWith("^"))
+            {
+                string[] toks = keyword.Remove(0, 1).Split('.');
+                string args = string_expression.Substring(string_expression.IndexOf(':') + 1).Trim(); //code after constructor (string with arguments)
+                string[] argums = args.Split(','); //array with arguments of constructor
+                Value[] values = new Value[argums.Length]; //array with arguments who converted to Value
+                for (int i = 0; i < argums.Length; i++)
+                    values[i] = Value.GetValue(argums[i].TrimStart()); //convert string arguments to Value arguments
+                return new Value(VirtualMachine.GetWolClass(toks[0]), toks[1], values);
+            }
             else
             {
                 bool haveExpression = true; //check on found expression by this name
