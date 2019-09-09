@@ -198,7 +198,14 @@ namespace wolvm
             {
                 if (parent != null)
                 {
-                    return null; //pass
+                    if (parent.CheckType("Type"))
+                    {
+                        return ((wolType)parent.type).value.GetStaticField(val);
+                    }
+                    else
+                    {
+                        return parent.GetField(val);
+                    }
                 }
                 else
                 {
