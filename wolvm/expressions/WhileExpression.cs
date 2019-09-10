@@ -8,7 +8,11 @@ namespace wolvm
     {
         public Value ParseExpression(params Value[] args)
         {
-            return Value.VoidValue; //pass
+            while (((wolBool) args[0].type).value)
+            {
+                Script.Parse(((wolBlock) args[1].type).body);
+            }
+            return Value.VoidValue;
         }
     }
 }
