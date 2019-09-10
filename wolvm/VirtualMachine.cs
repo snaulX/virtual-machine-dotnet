@@ -19,7 +19,9 @@ namespace wolvm
             { "typeof", new TypeofExpression() },
             { "set",  new SetExpression() },
             { "AddString", new AddStringExpression() },
-            { "System.print", new PrintExpression() }
+            { "System.print", new PrintExpression() },
+            { "ifelse", new IfExpression() },
+            { "while", new WhileExpression() }
         };
 
         static void Main(string[] args)
