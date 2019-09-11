@@ -9,7 +9,10 @@ namespace wolvm
         public wolArray() : base()
         {
             strtype = "Array";
-            Implements();
+            parents = new Dictionary<string, wolClass>
+            {
+                { "Collection", VirtualMachine.GetWolClass("Collection") }
+            };
         }
 
         public wolArray(wolClass type) : this()
