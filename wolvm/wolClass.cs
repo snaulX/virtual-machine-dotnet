@@ -13,11 +13,10 @@ namespace wolvm
         public SecurityModifer security;
         public wolClassType classType;
         public string strtype;
-        
-        //for overriding
+
         public wolClass()
         {
-            //pass
+            //for overriding
         }
 
         public wolClass(string name, SecurityModifer securityModifer = SecurityModifer.PUBLIC, wolClassType type = wolClassType.DEFAULT, string ConstructorName = "init")
