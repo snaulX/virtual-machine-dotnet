@@ -38,7 +38,7 @@ namespace wolvm
                         }
                         else
                         {
-                            VirtualMachine.mainstack.values.Remove(tokens[2]);
+                            VirtualMachine.mainstack.values.Remove(tokens[1]);
                         }
                         break;
                     case "return":
