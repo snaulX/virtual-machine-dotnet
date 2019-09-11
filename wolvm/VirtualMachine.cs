@@ -120,23 +120,23 @@ namespace wolvm
 
         public static void Run(string input)
         {
-            //add base classes to stack
-            mainstack.classes.Add("void", new Void());
-            mainstack.classes.Add("byte", new wolByte());
-            mainstack.classes.Add("short", new wolShort());
-            mainstack.classes.Add("string", new wolString());
-            mainstack.classes.Add("float", new wolFloat());
-            mainstack.classes.Add("double", new wolDouble());
-            mainstack.classes.Add("int", new wolInt());
-            mainstack.classes.Add("long", new wolLong());
-            mainstack.classes.Add("Type", new wolType());
-            mainstack.classes.Add("Func", new wolFunc());
-            mainstack.classes.Add("Enum", new wolEnum());
-            mainstack.classes.Add("char", new wolChar());
-            mainstack.classes.Add("Block", new wolBlock());
-            mainstack.classes.Add("Collection", new wolCollection());
-            mainstack.classes.Add("Array", new wolArray());
-            mainstack.classes.Add("Link", new wolLink());
+            //add base classes to stack                 parents:
+            mainstack.classes.Add("void", new Void()); //no
+            mainstack.classes.Add("byte", new wolByte()); //void
+            mainstack.classes.Add("short", new wolShort()); //byte
+            mainstack.classes.Add("string", new wolString()); //void
+            mainstack.classes.Add("int", new wolInt()); //short
+            mainstack.classes.Add("float", new wolFloat()); //int
+            mainstack.classes.Add("long", new wolLong()); //int
+            mainstack.classes.Add("double", new wolDouble()); //float
+            mainstack.classes.Add("Type", new wolType()); //void
+            mainstack.classes.Add("Func", new wolFunc()); //void
+            mainstack.classes.Add("Enum", new wolEnum()); //void
+            mainstack.classes.Add("char", new wolChar()); //void
+            mainstack.classes.Add("Block", new wolBlock()); //void
+            mainstack.classes.Add("Collection", new wolCollection()); //void
+            mainstack.classes.Add("Array", new wolArray()); //Collection
+            mainstack.classes.Add("Link", new wolLink()); //void
 
             //main cycle
             position = 0;
