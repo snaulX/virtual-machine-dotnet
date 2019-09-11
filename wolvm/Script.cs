@@ -23,24 +23,6 @@ namespace wolvm
                     case "push-local":
                         args.Add(tokens[1], Value.GetValue(tokens[2]));
                         break;
-                    case "delete":
-                        if (tokens[1] == "local")
-                        {
-                            args.Add(tokens[2], Value.GetValue(tokens[3]));
-                        }
-                        else if (tokens[1] == "class")
-                        {
-                            VirtualMachine.mainstack.classes.Remove(tokens[2]);
-                        }
-                        else if (tokens[1] == "func")
-                        {
-                            VirtualMachine.mainstack.functions.Remove(tokens[2]);
-                        }
-                        else
-                        {
-                            VirtualMachine.mainstack.values.Remove(tokens[2]);
-                        }
-                        break;
                     case "return":
                         return Value.GetValue(tokens[1]);
                     case "block":
