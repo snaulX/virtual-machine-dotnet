@@ -21,7 +21,8 @@ namespace wolvm
             { "AddString", new AddStringExpression() },
             { "System.print", new PrintExpression() },
             { "ifelse", new IfExpression() },
-            { "while", new WhileExpression() }
+            { "while", new WhileExpression() },
+            { "run", new RunExpression() }
         };
 
         static void Main(string[] args)
