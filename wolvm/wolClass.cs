@@ -325,6 +325,18 @@ namespace wolvm
             }
             return field;
         }
+
+        public void CallDestructor(int index, params Value[] args)
+        {
+            try
+            {
+                destructors[index].Call(args);
+            }
+            catch (IndexOutOfRangeException)
+            {
+                VirtualMachine.ThrowVMException("Index in stack of destructor is bigger than count of destructors", VirtualMachine.position, ExceptionType.IndexOutOfRangeException);
+            }
+        }
     }
 
     public enum wolClassType
