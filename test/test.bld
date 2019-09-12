@@ -6,8 +6,8 @@ stack {
 		Tuzik = DEFAULT PUBLIC (void) : 
 		constructor [
 			Tuzik = PUBLIC : [
-				&this.@age#set : <null:void>;
-				&this.@name#set : <null:void>;
+				@this.@age.#set : <null:void>;
+				@this.@name.#set : <null:void>;
 			]
 		],
 		func [
@@ -26,7 +26,7 @@ stack {
 				return @this.@age ;
 			], 
 			name = string PUBLIC set (name: string) [
-				set : &this.name , @name ;
+				set : @this.&name , @name ;
 				System.print : <Your new name is :string>,  @this.@name ;
 			]
 			PUBLIC get [
@@ -73,6 +73,6 @@ main {
 	beep;
 	plus : <12:double>, <10:double>, <678:double>;
 	@sum.#set : ( #+ : <12:int>, <13:int> ) ;
-	#print : ( IntToStr : @sum )  ;
+	#print : ( ParseInt : @sum )  ;
 }
 end 
