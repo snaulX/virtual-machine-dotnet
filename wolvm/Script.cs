@@ -73,7 +73,15 @@ namespace wolvm
             if (keyword.StartsWith("@") || keyword.StartsWith("#") || keyword.StartsWith("$") 
                 || keyword.StartsWith("%") || keyword.StartsWith("<") || keyword.StartsWith("&"))
             {
-                wolFunc value = (wolFunc) Value.GetValue(keyword).type;
+                wolFunc value = null;
+                try
+                {
+                    value = (wolFunc) Value.GetValue(keyword).type;
+                }
+                catch (InvalidCastException)
+                {
+                    VirtualMachine.ThrowVMException($"'{keyword}' haven`t type Func", VirtualMachine.position, ExceptionType.InvalidTypeException);
+                }
                 string args = string_expression.Substring(string_expression.IndexOf(':') + 1).Trim(); //code after name of function (string with arguments)
                 string[] argums = args.Split(','); //array with arguments of expression
                 Value[] values = new Value[argums.Length]; //array with arguments who converted to Value
