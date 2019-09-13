@@ -17,16 +17,7 @@ namespace wolvm
             classType = wolClassType.DEFAULT;
             fields.Add("Address", new Value(new wolString(), SecurityModifer.PUBLIC, true));
             fields.Add("HasSetter", new Value(new wolBool(), SecurityModifer.PUBLIC, true));
-            /*constructors.Add("href", new wolFunction
-            {
-                returnType = this,
-                arguments = new Dictionary<string, wolClass>
-                    {
-                        { "link_name", new wolString() }
-                    },
-                body = "set : &this.Address, @link_name ;\n",
-                security = SecurityModifer.PUBLIC
-            });*/ //constructor add in extenstion constructors in libraries (not in vm)
+            //constructor add in extenstion constructors in libraries (not in vm)
         }
 
         public wolLink(string link_name) : this()
@@ -37,13 +28,13 @@ namespace wolvm
 
         public static Value ParseLink(string address)
         {
-            string[] small_vals = address.Trim().Split(':');
+            string[] small_vals = address.Trim().Split('?'); //get parts of address
             Value parent = null; //it`s parent value
             foreach (string strval in small_vals)
             {
-                parent = Value.GetSmallValue(strval, parent);
+                parent = Value.GetSmallValue(strval, parent); //get value from every part of address
             }
-            return parent;
+            return parent; //last getting value is return out function
         }
 
         public Value GetValue()
