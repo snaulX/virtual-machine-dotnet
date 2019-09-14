@@ -8,6 +8,7 @@ namespace wolvm
     {
         public Value ParseExpression(params Value[] args)
         {
+            ((wolLink)args[0].type).SetValue(args[1]);
             return Value.VoidValue;
         }
     }

@@ -9,7 +9,7 @@ namespace wolvm
         // ** Fields for simpler work with this type ** //
         public Value LinkedValue;
         public string Address;
-        public bool HasSetter;
+        public bool HasSetter = true;
 
         public wolLink() : base()
         {
@@ -23,7 +23,11 @@ namespace wolvm
         public wolLink(string link_name) : this()
         {
             Address = link_name;
-            LinkedValue = VirtualMachine.mainstack.values[link_name];
+            LinkedValue = ParseLink(link_name);
+            if (LinkedValue.setter == null)
+            {
+                HasSetter = false;
+            }
         }
 
         public static Value ParseLink(string address)
@@ -40,7 +44,27 @@ namespace wolvm
         public Value GetValue()
         {
             LinkedValue = ParseLink(Address);
+            if (LinkedValue.setter == null)
+            {
+                HasSetter = false;
+            }
+            else
+            {
+                HasSetter = true;
+            }
             return LinkedValue;
+        }
+
+        public void SetValue(Value value)
+        {
+            if (HasSetter)
+            {
+                //pass
+            }
+            else
+            {
+                VirtualMachine.ThrowVMException("Value on this Link haven`t setter", VirtualMachine.position, ExceptionType.NotFoundException);
+            }
         }
     }
 }
