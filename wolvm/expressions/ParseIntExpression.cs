@@ -8,7 +8,9 @@ namespace wolvm
     {
         public Value ParseExpression(params Value[] args)
         {
-            throw new NotImplementedException();
+            wolInt type = new wolInt();
+            type.ParseInt(((wolString)args[0].type).value);
+            return new Value(type);
         }
     }
 }
