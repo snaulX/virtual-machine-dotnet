@@ -17,7 +17,6 @@ namespace wolvm
             { "plus", new PlusExpression() },
             { "_loads", new LoadsExpression() },
             { "typeof", new TypeofExpression() },
-            { "set",  new SetExpression() },
             { "AddString", new AddStringExpression() },
             { "System.print", new PrintExpression() },
             { "ifelse", new IfExpression() },
