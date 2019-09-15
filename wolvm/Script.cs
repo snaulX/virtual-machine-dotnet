@@ -26,7 +26,7 @@ namespace wolvm
                     case "delete":
                         if (tokens[1] == "local")
                         {
-                            args.Add(tokens[2], Value.GetValue(tokens[3]));
+                            args.Remove(tokens[2]);
                         }
                         else if (tokens[1] == "class")
                         {
