@@ -41,9 +41,6 @@ namespace wolvm
                             VirtualMachine.mainstack.values.Remove(tokens[1]);
                         }
                         break;
-                    case "set":
-                        VirtualMachine.mainstack.values[tokens[1]] = Value.GetValue(tokens[2]);
-                        break;
                     case "return":
                         return Value.GetValue(tokens[1]);
                     case "block":
