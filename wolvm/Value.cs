@@ -196,6 +196,7 @@ namespace wolvm
             }
             else if (val.StartsWith("&")) //example of syntax - set : &this, <null:void> ;
             {
+                val = val.Remove(0, 1); //remove '&'
                 if (parent != null)
                 {
                     if (parent.CheckType("Type"))
@@ -209,25 +210,26 @@ namespace wolvm
                 }
                 else
                 {
-                    return new wolLink(val.Remove(0, 1)).GetValue(); //one string!!!
+                    return VirtualMachine.mainstack.values[val]; //one string!!!
                 }
             }
             else if (val.StartsWith("#")) //example of syntax - set : &this, #sum ;
             {
+                val = val.Remove(0, 1); //remove '#'
                 if (parent != null)
                 {
                     if (parent.CheckType("Type"))
                     {
-                        return new Value(new wolFunc(((wolType) parent.type).value.GetStaticMethod(val.Remove(0, 1)))); //one string or how make code unreadable
+                        return new Value(new wolFunc(((wolType) parent.type).value.GetStaticMethod(val))); //one string or how make code unreadable
                     }
                     else
                     {
-                        return new Value(new wolFunc(parent.GetMethod(val.Remove(0, 1)))); //return not static method of ParentValue by name
+                        return new Value(new wolFunc(parent.GetMethod(val))); //return not static method of ParentValue by name
                     }
                 }
                 else
                 {
-                    return VirtualMachine.FindFunc(val.Remove(0, 1)); //one string)
+                    return VirtualMachine.FindFunc(val); //one string)
                 }
             }
             else if (val.StartsWith("$")) //example of syntax - equals : $void, (typeof : <null:void>) ;
