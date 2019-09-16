@@ -22,7 +22,8 @@ namespace wolvm
             { "ifelse", new IfExpression() },
             { "while", new WhileExpression() },
             { "run", new RunExpression() },
-            { "ParseInt", new ParseIntExpression() }
+            { "ParseInt", new ParseIntExpression() },
+            { "set", new SetExpression() }
         };
 
         static void Main(string[] args)
