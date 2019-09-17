@@ -10,14 +10,14 @@ class public Tuzik {
 	var public int age; //create new variable with default getter and setter
 	var public string name = set (string name) {
 		Virtual {
-			Set : &this.name , @name ;
-			System.print : <Your name is :string>, @this.name ;
+			set : @this.&name , @name ;
+			System.print : <Your name is :string>, @this.@name ;
 		}
 	}
 	get {
 		Virtual {
-			System.print : <Your name is \u003A:string>, @this.name ;
-			Return : @this.name ;
+			System.print : <Your name is \u003A:string>, @this.@name ;
+			return @this.@name ;
 		}
 	}; //add getter and setter
 }
@@ -43,7 +43,7 @@ function print(string text) {
 
 operator int +(left int a, right int b) {
 	Virtual {
-		Plus : @a , @b ; 
+		plus : @a , @b ; 
 	}
 } //operators have left and right arguments
 
