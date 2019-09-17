@@ -1198,6 +1198,7 @@ namespace wolvm
                             while (current != '}')
                             {
                                 variable:
+                                current = stack_code[++position]; //skip '{'
                                 while (char.IsWhiteSpace(current)) //skip whitespaces
                                 {
                                     try
