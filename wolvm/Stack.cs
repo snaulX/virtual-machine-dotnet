@@ -1231,7 +1231,7 @@ namespace wolvm
                                 else
                                 {
 
-                                    Value thisVar = new Value(VirtualMachine.GetWolClass("void")); //create empty value with parent 'void'
+                                    Value thisVar = Value.VoidValue; //create empty value with parent 'void'
                                     position += 2;
                                     current = stack_code[position]; //skip whitespace
                                     buffer.Clear();
@@ -1354,6 +1354,39 @@ namespace wolvm
                                         {
                                             VirtualMachine.ThrowVMException("Start of setter block not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                         }
+                                        current = stack_code[++position]; //skip ']'
+                                        while (char.IsWhiteSpace(current))
+                                        {
+                                            try
+                                            {
+                                                current = stack_code[++position];
+                                            }
+                                            catch (IndexOutOfRangeException)
+                                            {
+                                                VirtualMachine.ThrowVMException("Getter security not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                            }
+                                        }
+                                        buffer.Clear();
+                                        while (!char.IsWhiteSpace(current))
+                                        {
+                                            try
+                                            {
+                                                buffer.Append(current);
+                                                current = stack_code[++position];
+                                            }
+                                            catch (IndexOutOfRangeException)
+                                            {
+                                                VirtualMachine.ThrowVMException("Getter security not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                            }
+                                        }
+                                        try
+                                        {
+                                            thisVar.getter.security = (SecurityModifer)Enum.Parse(typeof(SecurityModifer), buffer.ToString());
+                                        }
+                                        catch (ArgumentException)
+                                        {
+                                            VirtualMachine.ThrowVMException($"{buffer.ToString()} is not security modifer", VirtualMachine.position - stack_code.Length + position, ExceptionType.NotFoundException);
+                                        }
                                         while (char.IsWhiteSpace(current))
                                         {
                                             try
@@ -1364,6 +1397,23 @@ namespace wolvm
                                             {
                                                 VirtualMachine.ThrowVMException("Getter not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                             }
+                                        }
+                                        buffer.Clear();
+                                        while (!char.IsWhiteSpace(current))
+                                        {
+                                            try
+                                            {
+                                                buffer.Append(current);
+                                                current = stack_code[++position];
+                                            }
+                                            catch (IndexOutOfRangeException)
+                                            {
+                                                VirtualMachine.ThrowVMException("Getter not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                            }
+                                        }
+                                        if (buffer.ToString() != "get")
+                                        {
+                                            VirtualMachine.ThrowVMException($"Unknown keyword {buffer.ToString()}", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                         }
                                     }
                                     else if (buffer.ToString() != "get")
