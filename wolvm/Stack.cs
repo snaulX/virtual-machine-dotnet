@@ -718,7 +718,6 @@ namespace wolvm
                                                                     }
                                                                     catch (NullReferenceException)
                                                                     {
-                                                                        //VirtualMachine.ThrowVMException("")
                                                                         //don`t need now throw vm exception becouse in GetWolClass was throw exception
                                                                     }
                                                                     buffer.Clear();
@@ -735,12 +734,12 @@ namespace wolvm
                                                                             VirtualMachine.ThrowVMException("Field`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                         }
                                                                     }
-                                                                    SecurityModifer security = SecurityModifer.PRIVATE; //костыль
+                                                                    SecurityModifer security = SecurityModifer.PRIVATE;
                                                                     try
                                                                     {
                                                                         security = (SecurityModifer)Enum.Parse(typeof(SecurityModifer), buffer.ToString(), true); //write this modifer to our variable
                                                                     }
-                                                                    catch (IndexOutOfRangeException)
+                                                                    catch (ArgumentException)
                                                                     {
                                                                         VirtualMachine.ThrowVMException($"{buffer.ToString()} is not security modifer of setter (getter)", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                     }
