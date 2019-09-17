@@ -662,6 +662,7 @@ namespace wolvm
                                                             while (current != ']')
                                                             {
                                                                 variable:
+                                                                current = stack_code[++position];
                                                                 while (char.IsWhiteSpace(current)) //skip whitespaces
                                                                 {
                                                                     try
@@ -695,7 +696,7 @@ namespace wolvm
                                                                 else
                                                                 {
 
-                                                                    Value thisVar = new Value(VirtualMachine.GetWolClass("void")); //create empty value with parent 'void'
+                                                                    Value thisVar = Value.VoidValue; //create empty value with parent 'void'
                                                                     position += 2;
                                                                     current = stack_code[position]; //skip whitespace
                                                                     buffer.Clear();
