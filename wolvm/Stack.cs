@@ -182,7 +182,7 @@ namespace wolvm
 
                                         }
                                     }
-                                    wolClass newWolClass = new wolClass(className ,SecurityModifer.PRIVATE, wolClassType.DEFAULT, "init"); //create class
+                                    wolClass newWolClass = new wolClass(className, SecurityModifer.PUBLIC, wolClassType.DEFAULT, "init"); //create class
                                     try
                                     {
                                         newWolClass.classType = (wolClassType)Enum.Parse(typeof(wolClassType), buffer.ToString(), true); //give type to our class from buffer without case sensetive
@@ -275,10 +275,10 @@ namespace wolvm
                                     }
                                     if ((current == ':') || (current == '>')) //check start of class
                                     {
-                                        while (current != ';') //parse class body
+                                        while (true) //parse class body
                                         {
                                             current = stack_code[++position]; //skip start of class (':' or '>')
-                                            block_class: while (char.IsWhiteSpace(current)) //skip whitespaces
+                                            while (char.IsWhiteSpace(current)) //skip whitespaces
                                             {
                                                 try
                                                 {
@@ -317,8 +317,8 @@ namespace wolvm
                                                         {
                                                             while (current != ']')
                                                             {
-                                                                current = stack_code[++position]; //skip open bracket
                                                                 constructor:
+                                                                current = stack_code[++position]; //skip open bracket
                                                                 while (char.IsWhiteSpace(current)) //skip whitespaces
                                                                 {
                                                                     try
@@ -441,8 +441,9 @@ namespace wolvm
                                                                             }
                                                                         }
                                                                         constr.body = buffer.ToString();
-                                                                        if (stack_code[position + 1] == ',') goto constructor;
-                                                                        else newWolClass.constructors.Add(constrnanme, constr);
+                                                                        buffer.Clear();
+                                                                        newWolClass.constructors.Add(constrnanme, constr);
+                                                                        if (stack_code[++position] == ',') goto constructor;
                                                                     }
                                                                     else
                                                                     {
@@ -650,13 +651,14 @@ namespace wolvm
                                                     }
                                                     break;
                                                 case "var":
+                                                    buffer.Clear();
                                                     if (newWolClass.classType == wolClassType.ENUM)
                                                     {
                                                         VirtualMachine.ThrowVMException("Enum don`t support variables", VirtualMachine.position - stack_code.Length + position, ExceptionType.TypeNotSupportedException);
                                                     }
                                                     else
                                                     {
-                                                        current = stack_code[++position];
+                                                        current = stack_code[++position]; //skip whitespace
                                                         if (current == '[')
                                                         {
                                                             while (current != ']')
@@ -920,13 +922,14 @@ namespace wolvm
                                                                             }
                                                                         }
                                                                         thisVar.getter.body = buffer.ToString();
+                                                                        buffer.Clear();
+                                                                        newWolClass.fields.Add(var_name, thisVar);
+                                                                        if (stack_code[++position] == ',') goto variable;
                                                                     }
                                                                     else
                                                                     {
                                                                         VirtualMachine.ThrowVMException("Start of block not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                                     }
-                                                                    newWolClass.fields.Add(var_name, thisVar);
-                                                                    if (stack_code[++position] == ',') goto variable;
                                                                 }
                                                             }
                                                         }
@@ -975,19 +978,23 @@ namespace wolvm
                                                     }
                                                     break;
                                                 case "],": //костыль(
-                                                    goto block_class;
+                                                    continue;
+                                                case "];":
+                                                case ";": //тоже костыли но без них никак :)
+                                                    goto out_cycle; 
                                                 default:
                                                     VirtualMachine.ThrowVMException($"Unknown keyword {buffer.ToString()} in the class initilization", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                                     break;
                                             }
-                                            try
-                                            {
-                                                stack.classes.Add(className, newWolClass); //add to return stack this class
-                                            }
-                                            catch (ArgumentException)
-                                            {
-                                                break;
-                                            }
+                                        }
+                                        out_cycle:
+                                        try
+                                        {
+                                            stack.classes.Add(className, newWolClass); //add to return stack this class
+                                        }
+                                        catch (ArgumentException)
+                                        {
+                                            break;
                                         }
                                     }
                                     else
@@ -1486,7 +1493,7 @@ namespace wolvm
                 {
                     if (stack_code[++position] == ';')
                     {
-                        current = stack_code[++position];
+                        current = stack_code[++position]; //skip semicolon
                         goto start;
                     }
                 }
