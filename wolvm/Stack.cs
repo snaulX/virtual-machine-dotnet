@@ -1022,6 +1022,7 @@ namespace wolvm
                         {
                             VirtualMachine.ThrowVMException("Classes`s start not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                         }
+                        buffer.Clear();
                     }
                     else if (buffer.ToString() == "func")
                     {
@@ -1492,24 +1493,16 @@ namespace wolvm
                     }
                     try
                     {
-                        current = stack_code[++position];
+                        if (stack_code[++position] == ';')
+                        {
+                            current = stack_code[++position]; //skip semicolon
+                            goto start;
+                        }
                     }
                     catch (IndexOutOfRangeException)
                     {
                         return stack;
                     }
-                }
-                try
-                {
-                    if (stack_code[++position] == ';')
-                    {
-                        current = stack_code[++position]; //skip semicolon
-                        goto start;
-                    }
-                }
-                catch (IndexOutOfRangeException)
-                {
-                    //pass
                 }
                 //Console.WriteLine($"Classes length {stack.classes.Count}  funс {stack.functions.Count} vars {stack.values.Count}"); //test
                 return stack;
