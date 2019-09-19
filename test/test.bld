@@ -73,6 +73,6 @@ main {
 	beep;
 	plus : <12:double>, <10:double>, <678:double>;
 	@sum.#set : ( #+ : <12:int>, <13:int> ) ;
-	#print : ( ParseInt : @sum )  ;
+	#print : ( ParseInt : @sum ) ;
 }
 end 

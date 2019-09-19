@@ -1303,7 +1303,15 @@ namespace wolvm
                                             VirtualMachine.ThrowVMException("Variable`s end not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                         }
                                     }
-                                    SecurityModifer security = (SecurityModifer)Enum.Parse(typeof(SecurityModifer), buffer.ToString(), true); //write this modifer to our variable
+                                    SecurityModifer security = SecurityModifer.PRIVATE;
+                                    try
+                                    {
+                                        security = (SecurityModifer)Enum.Parse(typeof(SecurityModifer), buffer.ToString(), true); //write this modifer to our variable
+                                    }
+                                    catch (Exception)
+                                    {
+                                        VirtualMachine.ThrowVMException($"{buffer.ToString()} is not security modifer", VirtualMachine.position - stack_code.Length + position, ExceptionType.NotFoundException);
+                                    }
                                     current = stack_code[++position]; //skip whitespace
                                     buffer.Clear();
                                     while (!char.IsWhiteSpace(current)) //get name - 'set' or 'get'
@@ -1488,10 +1496,22 @@ namespace wolvm
                                         VirtualMachine.ThrowVMException("Start of getter block not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                     }
                                     stack.values.Add(var_name, thisVar);
-                                    if (stack_code[++position] == ',')
+                                    current = stack_code[++position]; //skip ']'
+                                    if (current == ',')
                                     {
                                         current = stack_code[++position];
                                         goto variable;
+                                    }
+                                    while (char.IsWhiteSpace(current))
+                                    {
+                                        try
+                                        {
+                                            current = stack_code[++position];
+                                        }
+                                        catch (IndexOutOfRangeException)
+                                        {
+                                            VirtualMachine.ThrowVMException("End of functions not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                        }
                                     }
                                 }
                             }
