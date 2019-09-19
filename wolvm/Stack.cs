@@ -646,7 +646,6 @@ namespace wolvm
                                                                 current = stack_code[++position];
                                                                 goto function;
                                                             }
-                                                            Console.WriteLine(Regex.Escape($"{position} {current} ('{stack_code[position]}') (\"{stack_code[position + 1]} {stack_code[position - 1]}\")")); //debug
                                                         }
                                                     }
                                                     break;
@@ -994,7 +993,7 @@ namespace wolvm
                                         }
                                         catch (ArgumentException)
                                         {
-                                            break;
+                                            //pass
                                         }
                                     }
                                     else
@@ -1005,6 +1004,17 @@ namespace wolvm
                                 else
                                 {
                                     VirtualMachine.ThrowVMException($"Assigment operator in class initilization is not valid ('{current}')", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                }
+                                while (char.IsWhiteSpace(current))
+                                {
+                                    try
+                                    {
+                                        current = stack_code[++position];
+                                    }
+                                    catch (IndexOutOfRangeException)
+                                    {
+                                        VirtualMachine.ThrowVMException("End of classes not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                    }
                                 }
                             }
                         }
