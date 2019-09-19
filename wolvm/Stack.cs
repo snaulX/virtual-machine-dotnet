@@ -1043,6 +1043,7 @@ namespace wolvm
                             while (current != '}')
                             {
                                 function:
+                                current = stack_code[++position]; //skip '{'
                                 while (char.IsWhiteSpace(current)) //skip whitespaces
                                 {
                                     try
@@ -1071,7 +1072,7 @@ namespace wolvm
                                 current = stack_code[++position];
                                 if (current != '=') //check assignment operator
                                 {
-                                    VirtualMachine.ThrowVMException("Assigment operator isn`t right in fucntion", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                    VirtualMachine.ThrowVMException($"Assigment operator isn`t right in fucntion ('{current}')", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                 }
                                 else
                                 {
@@ -1112,9 +1113,9 @@ namespace wolvm
                                     }
                                     catch (NullReferenceException)
                                     {
-                                        //VirtualMachine.ThrowVMException("")
                                         //don`t need now throw vm exception becouse in GetWolClass was throw exception
                                     }
+                                    current = stack_code[++position]; //skip whitespace
                                     if (current == ':')
                                     {
                                         //start parse block
@@ -1147,7 +1148,7 @@ namespace wolvm
                                     }
                                     else
                                     {
-                                        VirtualMachine.ThrowVMException("Arguments or start of function not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                        VirtualMachine.ThrowVMException($"Arguments or start of function not found ('{current}')", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                     }
                                     current = stack_code[++position];
                                     //parse block
@@ -1179,10 +1180,22 @@ namespace wolvm
                                         }
                                         func.body = buffer.ToString();
                                         stack.functions.Add(func_name, func);
-                                        if (stack_code[++position] == ',')
+                                        current = stack_code[++position]; //skip ']' (peek next char)
+                                        if (current == ',')
                                         {
-                                            current = stack_code[++position];
+                                            current = stack_code[++position]; //skip ','
                                             goto function;
+                                        }
+                                        while (char.IsWhiteSpace(current))
+                                        {
+                                            try
+                                            {
+                                                current = stack_code[++position];
+                                            }
+                                            catch (IndexOutOfRangeException)
+                                            {
+                                                VirtualMachine.ThrowVMException("End of functions not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
+                                            }
                                         }
                                     }
                                     else
@@ -1196,6 +1209,7 @@ namespace wolvm
                         {
                             VirtualMachine.ThrowVMException("Functions`s start not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                         }
+                        buffer.Clear();
                     }
                     else if (buffer.ToString() == "var")
                     {

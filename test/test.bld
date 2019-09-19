@@ -49,13 +49,13 @@ stack {
 		];
 	};
 	func {
-		_loads = PRIVATE void (fwname: string): [
+		_loads = PRIVATE void (fwname: string) [
 			_loads : @fwname ;
 		],
-		print = PRIVATE void (text: string): [
+		print = PRIVATE void (text: string) [
 			System.print : @text ;
 		],
-		+ = PRIVATE int (a: int, b: int): [
+		+ = PRIVATE int (a: int, b: int) [
 			return ( plus : @a , @b ) ;
 		]
 	};
