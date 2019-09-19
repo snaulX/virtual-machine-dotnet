@@ -428,6 +428,7 @@ namespace wolvm
                                                                     if (current == '[')
                                                                     {
                                                                         buffer.Clear();
+                                                                        current = stack_code[++position];
                                                                         while (current != ']')
                                                                         {
                                                                             try
@@ -620,6 +621,7 @@ namespace wolvm
                                                                     if (current == '[')
                                                                     {
                                                                         buffer.Clear();
+                                                                        current = stack_code[++position];
                                                                         while (current != ']')
                                                                         {
                                                                             try
@@ -808,6 +810,7 @@ namespace wolvm
                                                                         if (current == '[')
                                                                         {
                                                                             buffer.Clear();
+                                                                            current = stack_code[++position];
                                                                             while (current != ']')
                                                                             {
                                                                                 try
@@ -908,6 +911,7 @@ namespace wolvm
                                                                     if (current == '[')
                                                                     {
                                                                         buffer.Clear();
+                                                                        current = stack_code[++position];
                                                                         while (current != ']')
                                                                         {
                                                                             try
@@ -1166,6 +1170,7 @@ namespace wolvm
                                     if (current == '[')
                                     {
                                         buffer.Clear();
+                                        current = stack_code[++position];
                                         while (current != ']')
                                         {
                                             try
@@ -1377,6 +1382,7 @@ namespace wolvm
                                         if (current == '[')
                                         {
                                             buffer.Clear();
+                                            current = stack_code[++position];
                                             while (current != ']')
                                             {
                                                 try
@@ -1477,6 +1483,7 @@ namespace wolvm
                                     if (current == '[')
                                     {
                                         buffer.Clear();
+                                        current = stack_code[++position];
                                         while (current != ']')
                                         {
                                             try
@@ -1520,6 +1527,7 @@ namespace wolvm
                         {
                             VirtualMachine.ThrowVMException("Variables`s start not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                         }
+                        buffer.Clear();
                     }
                     else
                     {

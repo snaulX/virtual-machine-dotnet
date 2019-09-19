@@ -70,6 +70,7 @@ namespace wolvm
         {
             string[] tokens = string_expression.Split(new char[4] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
             string keyword = tokens[0];
+            Console.WriteLine(string_expression);
             if (keyword.StartsWith("@") || keyword.StartsWith("#") || keyword.StartsWith("$") 
                 || keyword.StartsWith("%") || keyword.StartsWith("<") || keyword.StartsWith("&"))
             {
