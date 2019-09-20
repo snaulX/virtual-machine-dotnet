@@ -291,7 +291,11 @@ namespace wolvm
 
         public static Value VoidValue => new Value(VirtualMachine.GetWolClass("void"));
 
-        public override string ToString() => $"VALUE:{type.fields.ToString()}\nTYPE:{type.ToString()}"; //is test version
+        public override string ToString()
+        {
+            string str = ((wolString)type).value; //it`s a pass
+            return $"VALUE:{str}\nTYPE:{type.ToString()}";
+        }
 
         /// <summary>
         /// Get not static method in this value

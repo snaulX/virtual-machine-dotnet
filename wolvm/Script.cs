@@ -17,6 +17,7 @@ namespace wolvm
             for (int i = 0; i < string_expressions.Length; i++)
             {
                 string string_expression = string_expressions[i];
+                Console.WriteLine(string_expression);
                 string[] tokens = string_expression.Split(new char[4] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
                 switch (tokens[0])
                 {
@@ -68,9 +69,9 @@ namespace wolvm
 
         public static Value ParseExpression(string string_expression, Dictionary<string, Value> arguments)
         {
+            VirtualMachine.mainstack = VirtualMachine.mainstack + arguments;
             string[] tokens = string_expression.Split(new char[4] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
             string keyword = tokens[0];
-            Console.WriteLine(string_expression);
             if (keyword.StartsWith("@") || keyword.StartsWith("#") || keyword.StartsWith("$") 
                 || keyword.StartsWith("%") || keyword.StartsWith("<") || keyword.StartsWith("&"))
             {
@@ -88,6 +89,7 @@ namespace wolvm
                 Value[] values = new Value[argums.Length]; //array with arguments who converted to Value
                 for (int i = 0; i < argums.Length; i++)
                     values[i] = Value.GetValue(argums[i].TrimStart()); //convert string arguments to Value arguments
+                VirtualMachine.mainstack = VirtualMachine.mainstack - arguments;
                 return value.Call(values);
             }
             else if (keyword.StartsWith("^"))
@@ -98,6 +100,7 @@ namespace wolvm
                 Value[] values = new Value[argums.Length]; //array with arguments who converted to Value
                 for (int i = 0; i < argums.Length; i++)
                     values[i] = Value.GetValue(argums[i].TrimStart()); //convert string arguments to Value arguments
+                VirtualMachine.mainstack = VirtualMachine.mainstack - arguments;
                 return new Value(VirtualMachine.GetWolClass(toks[0]), toks[1], values);
             }
             else if (keyword.StartsWith("~"))
@@ -109,6 +112,7 @@ namespace wolvm
                     values[i] = Value.GetValue(argums[i].TrimStart()); //convert string arguments to Value arguments
                 string[] toks = keyword.Remove(0, 1).Split(':');
                 VirtualMachine.GetWolClass(toks[0]).CallDestructor(int.Parse(toks[1]), values);
+                VirtualMachine.mainstack = VirtualMachine.mainstack - arguments;
                 return Value.VoidValue;
             }
             else
@@ -133,6 +137,7 @@ namespace wolvm
                         for (int i = 0; i < argums.Length; i++)
                             values[i] = Value.GetValue(argums[i].TrimStart()); //convert string arguments to Value arguments
                         haveExpression = true;
+                        VirtualMachine.mainstack = VirtualMachine.mainstack - arguments;
                         return expression.Value.ParseExpression(values);
                     }
                     else
@@ -144,6 +149,7 @@ namespace wolvm
                 {
                     VirtualMachine.ThrowVMException($"VM Expression by name {keyword} not found and will cannot parse", VirtualMachine.position, ExceptionType.NotFoundException);
                 }
+                VirtualMachine.mainstack = VirtualMachine.mainstack - arguments;
                 return null;
             }
         }

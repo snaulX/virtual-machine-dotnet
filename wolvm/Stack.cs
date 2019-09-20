@@ -1640,5 +1640,14 @@ namespace wolvm
                 right.functions.Add(vari.Key, vari.Value);
             return right;
         }
+
+        public static Stack operator -(Stack right, Dictionary<string, Value> left)
+        {
+            foreach (string arg in left.Keys)
+            {
+                right.values.Remove(arg);
+            }
+            return right;
+        }
     }
 }

@@ -24,6 +24,16 @@ namespace wolvm
             value = func;
         }
 
-        public Value Call(params Value[] args) => Script.Parse(value.body); //will be fill soon
+        public Value Call(params Value[] args)
+        {
+            Dictionary<string, Value> arguments = new Dictionary<string, Value>();
+            int i = 0;
+            foreach (string name in value.arguments.Keys)
+            {
+                arguments.Add(name, args[i]);
+                i++;
+            }
+            return Script.Parse(value.body, arguments);
+        }
     }
 }
