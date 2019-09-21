@@ -75,6 +75,7 @@ namespace wolvm
         {
             Value value = VoidValue;
             val = val.Trim();
+            Console.WriteLine(val);
             if (val.StartsWith("<") && val.EndsWith(">")) //example of syntax - Loads : <System:string> ;
             {
                 if (parent != null)
@@ -224,7 +225,9 @@ namespace wolvm
                     }
                     else
                     {
-                        return new Value(new wolFunc(parent.GetMethod(val))); //return not static method of ParentValue by name
+                        if (val == "set") return new Value(new wolFunc(parent.setter));
+                        else if (val == "get") return new Value(new wolFunc(parent.getter));
+                        else return new Value(new wolFunc(parent.GetMethod(val))); //return not static method of ParentValue by name
                     }
                 }
                 else
@@ -250,6 +253,7 @@ namespace wolvm
             }
             else if (val.StartsWith("(")) //example of syntax - return (typeof : @this ) ;
             {
+                Console.WriteLine(val);
                 if (parent != null)
                 {
                     VirtualMachine.ThrowVMException("Expression cannot have parent value", VirtualMachine.position, ExceptionType.ValueException);

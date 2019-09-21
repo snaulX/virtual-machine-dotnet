@@ -16,8 +16,12 @@ namespace wolvm
             string[] string_expressions = script_code.Split(new char[1] { ';' }, StringSplitOptions.RemoveEmptyEntries); //split to lines
             for (int i = 0; i < string_expressions.Length; i++)
             {
-                string string_expression = string_expressions[i];
-                Console.WriteLine(string_expression);
+                string string_expression = string_expressions[i].Trim();
+                if (string_expression == "")
+                {
+                    if (i == string_expressions.Length - 1) break;
+                    else continue;
+                } 
                 string[] tokens = string_expression.Split(new char[4] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
                 switch (tokens[0])
                 {
