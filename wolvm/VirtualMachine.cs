@@ -23,7 +23,8 @@ namespace wolvm
             { "while", new WhileExpression() },
             { "run", new RunExpression() },
             { "ParseInt", new ParseIntExpression() },
-            { "set", new SetExpression() }
+            { "set", new SetExpression() },
+            { "ParseDouble", new ParseDoubleExpression() }
         };
 
         static void Main(string[] args)

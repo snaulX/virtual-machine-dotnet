@@ -12,7 +12,7 @@ stack {
 		],
 		var [
 			age = int PUBLIC set (_age: int) [
-				set : @this.&age , @_age ;
+				set : &@this?@age , @_age ;
 			]
 			PUBLIC get [
 				return @this.@age ;
@@ -73,6 +73,6 @@ main {
 	beep;
 	plus : <12:double>, <10:double>, <678:double>;
 	@sum.#set : ( plus : <12:double>, <13:double> ) ;
-	#print : ( ParseInt : @sum ) ;
+	#print : ( ParseDouble : @sum ) ;
 }
 end 

@@ -24,9 +24,16 @@ namespace wolvm
         {
             Address = link_name;
             LinkedValue = ParseLink(link_name);
-            if (LinkedValue.setter == null)
+            try
             {
-                HasSetter = false;
+                if (LinkedValue.setter == null)
+                {
+                    HasSetter = false;
+                }
+            }
+            catch (NullReferenceException)
+            {
+                HasSetter = false; //XD this will can to be
             }
         }
 
