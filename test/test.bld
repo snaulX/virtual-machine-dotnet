@@ -55,12 +55,12 @@ stack {
 		print = PRIVATE void (text: string) [
 			System.print : @text ;
 		],
-		+ = PRIVATE int (a: int, b: int) [
+		+ = PRIVATE double (a: int, b: int) [
 			return ( plus : @a , @b ) ;
 		]
 	};
 	var {
-		sum = int PRIVATE set (_sum: int) [
+		sum = double PRIVATE set (_sum: double) [
 			set : &sum , @_sum ;
 		]
 		PRIVATE get [
@@ -72,7 +72,7 @@ main {
 	#_loads : <System:string>;
 	beep;
 	plus : <12:double>, <10:double>, <678:double>;
-	@sum.#set : ( #+ : <12:int>, <13:int> ) ;
+	@sum.#set : ( plus : <12:double>, <13:double> ) ;
 	#print : ( ParseInt : @sum ) ;
 }
 end 

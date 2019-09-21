@@ -41,11 +41,11 @@ function print(string text) {
 	}
 } //if in body of function be block - all body of function transferred to block
 
-operator int +(left int a, right int b) {
+operator double +(left int a, right int b) {
 	Virtual {
 		plus : @a , @b ; 
 	}
 } //operators have left and right arguments
 
-var int sum = 12 + 13 ; //call sum.set(12 + 13) and in arguments call operator + 
+var double sum = 12 + 13 ; //call sum.set(12 + 13) and in arguments call operator + 
 print((string) sum); //call function print with arguments convertable variable sum

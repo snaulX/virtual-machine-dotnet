@@ -76,22 +76,86 @@ namespace wolvm
             VirtualMachine.mainstack = VirtualMachine.mainstack + arguments;
             string[] tokens = string_expression.Split(new char[4] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
             string keyword = tokens[0];
-            if (keyword.StartsWith("@") || keyword.StartsWith("#") || keyword.StartsWith("$") 
+            if (keyword.StartsWith("@") || keyword.StartsWith("#") || keyword.StartsWith("$")
                 || keyword.StartsWith("%") || keyword.StartsWith("<") || keyword.StartsWith("&"))
             {
-                wolFunc value = null;
+                wolFunc value = new wolFunc(); //create empty 'Func' instance for not throwing NullRefrenceException
                 try
                 {
-                    value = (wolFunc) Value.GetValue(keyword).type;
+                    value = (wolFunc)Value.GetValue(keyword).type;
                 }
                 catch (InvalidCastException)
                 {
                     VirtualMachine.ThrowVMException($"'{keyword}' haven`t type Func", VirtualMachine.position, ExceptionType.InvalidTypeException);
                 }
                 string args = string_expression.Substring(string_expression.IndexOf(':') + 1).Trim(); //code after name of function (string with arguments)
-                string[] argums = args.Split(','); //array with arguments of expression
-                Value[] values = new Value[argums.Length]; //array with arguments who converted to Value
-                for (int i = 0; i < argums.Length; i++)
+                List<string> argums = new List<string>(); //array with arguments of expression
+                int pos = 0;
+                char current = args[0];
+                StringBuilder buffer = new StringBuilder();
+                while (true)
+                {
+                    if (current == '(')
+                    {
+                        while (current != ')')
+                        {
+                            try
+                            {
+                                buffer.Append(current);
+                                current = args[++pos];
+                            }
+                            catch (IndexOutOfRangeException)
+                            {
+                                VirtualMachine.ThrowVMException("End of expression not found", VirtualMachine.position - args.Length + pos, ExceptionType.BLDSyntaxException);
+                            }
+                        }
+                    }
+                    else if (current == '<')
+                    {
+                        while (current != '>')
+                        {
+                            try
+                            {
+                                buffer.Append(current);
+                                current = args[++pos];
+                            }
+                            catch (IndexOutOfRangeException)
+                            {
+                                VirtualMachine.ThrowVMException("End of value not found", VirtualMachine.position - args.Length + pos, ExceptionType.BLDSyntaxException);
+                            }
+                        }
+                    }
+                    else if (current == ',')
+                    {
+                        Console.WriteLine(buffer.ToString());
+                        argums.Add(buffer.ToString());
+                        buffer.Clear();
+                        try
+                        {
+                            current = args[++pos];
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+                            break;
+                        }
+                    }
+                    else
+                    {
+                        try
+                        {
+                            buffer.Append(current);
+                            current = args[++pos];
+                        }
+                        catch (IndexOutOfRangeException)
+                        {
+                            Console.WriteLine(buffer.ToString());
+                            argums.Add(buffer.ToString());
+                            break;
+                        }
+                    }
+                }
+                Value[] values = new Value[argums.Count]; //array with arguments who converted to Value
+                for (int i = 0; i < argums.Count; i++)
                     values[i] = Value.GetValue(argums[i].TrimStart()); //convert string arguments to Value arguments
                 VirtualMachine.mainstack = VirtualMachine.mainstack - arguments;
                 return value.Call(values);

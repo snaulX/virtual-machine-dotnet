@@ -75,7 +75,6 @@ namespace wolvm
         {
             Value value = VoidValue;
             val = val.Trim();
-            Console.WriteLine(val);
             if (val.StartsWith("<") && val.EndsWith(">")) //example of syntax - Loads : <System:string> ;
             {
                 if (parent != null)
@@ -200,18 +199,12 @@ namespace wolvm
                 val = val.Remove(0, 1); //remove '&'
                 if (parent != null)
                 {
-                    if (parent.CheckType("Type"))
-                    {
-                        return ((wolType)parent.type).value.GetStaticField(val);
-                    }
-                    else
-                    {
-                        return parent.GetField(val);
-                    }
+                    VirtualMachine.ThrowVMException("Link cannot haven`t ParentValue. He can have only valid address", VirtualMachine.position, ExceptionType.ValueException);
+                    return new Value(new wolLink());
                 }
                 else
                 {
-                    return VirtualMachine.mainstack.values[val]; //one string!!!
+                    return new Value(new wolLink(val));
                 }
             }
             else if (val.StartsWith("#")) //example of syntax - set : &this, #sum ;
@@ -253,10 +246,9 @@ namespace wolvm
             }
             else if (val.StartsWith("(")) //example of syntax - return (typeof : @this ) ;
             {
-                Console.WriteLine(val);
                 if (parent != null)
                 {
-                    VirtualMachine.ThrowVMException("Expression cannot have parent value", VirtualMachine.position, ExceptionType.ValueException);
+                    VirtualMachine.ThrowVMException("Expression cannot have parent value", VirtualMachine.position - val.Length, ExceptionType.ValueException);
                 }
                 StringBuilder buffer = new StringBuilder();
                 char current = val[1]; //skip '('
@@ -277,7 +269,7 @@ namespace wolvm
             }
             else
             {
-                VirtualMachine.ThrowVMException("Value cannot find", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                VirtualMachine.ThrowVMException("Value cannot find", VirtualMachine.position - val.Length, ExceptionType.BLDSyntaxException);
                 return null;
             }
         }
