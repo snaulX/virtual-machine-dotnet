@@ -289,8 +289,15 @@ namespace wolvm
 
         public override string ToString()
         {
-            string str = ((wolString)type).value; //it`s a pass
-            return $"VALUE:{str}\nTYPE:{type.ToString()}";
+            try
+            {
+                string str = ((wolString)type).value; //it`s a pass
+                return $"VALUE:{str}\nTYPE:{type.ToString()}";
+            }
+            catch (InvalidCastException)
+            {
+                return type.ToString();
+            }
         }
 
         /// <summary>

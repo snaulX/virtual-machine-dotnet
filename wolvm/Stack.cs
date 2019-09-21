@@ -984,6 +984,7 @@ namespace wolvm
                                                     continue;
                                                 case "];":
                                                 case ";": //тоже костыли но без них никак :)
+                                                    buffer.Clear();
                                                     goto out_cycle; 
                                                 default:
                                                     VirtualMachine.ThrowVMException($"Unknown keyword {buffer.ToString()} in the class initilization", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);

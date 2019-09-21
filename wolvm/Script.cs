@@ -127,7 +127,6 @@ namespace wolvm
                     }
                     else if (current == ',')
                     {
-                        Console.WriteLine(buffer.ToString());
                         argums.Add(buffer.ToString());
                         buffer.Clear();
                         try
@@ -148,7 +147,6 @@ namespace wolvm
                         }
                         catch (IndexOutOfRangeException)
                         {
-                            Console.WriteLine(buffer.ToString());
                             argums.Add(buffer.ToString());
                             break;
                         }

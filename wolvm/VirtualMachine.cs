@@ -310,7 +310,7 @@ namespace wolvm
                 else if (buffer.ToString() == "end")
                 {
                     //test stack
-                    foreach (KeyValuePair<string, Value> keyValuePair in mainstack.values)
+                    /*foreach (KeyValuePair<string, Value> keyValuePair in mainstack.values)
                     {
                         Console.WriteLine(keyValuePair.Key + ' ' + keyValuePair.Value);
                     }
@@ -322,7 +322,7 @@ namespace wolvm
                     {
                         Console.WriteLine(keyValuePair.Key + ' ' + keyValuePair.Value);
                     }
-                    Console.WriteLine($"Time of program: {Environment.TickCount - time}");
+                    Console.WriteLine($"Time of program: {Environment.TickCount - time}");*/
                     return;
                 }
                 else if (buffer.ToString() == "}")

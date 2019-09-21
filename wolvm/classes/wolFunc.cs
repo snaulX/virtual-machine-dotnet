@@ -28,12 +28,20 @@ namespace wolvm
         {
             Dictionary<string, Value> arguments = new Dictionary<string, Value>();
             int i = 0;
-            foreach (string name in value.arguments.Keys)
+            try
             {
-                arguments.Add(name, args[i]);
-                i++;
+                foreach (string name in value.arguments.Keys)
+                {
+                    arguments.Add(name, args[i]);
+                    i++;
+                }
+                return Script.Parse(value.body, arguments);
             }
-            return Script.Parse(value.body, arguments);
+            catch (NullReferenceException)
+            {
+                VirtualMachine.ThrowVMException("Function not found in 'Func' structure", VirtualMachine.position, ExceptionType.NullRefrenceException);
+                return Value.VoidValue;
+            }
         }
     }
 }

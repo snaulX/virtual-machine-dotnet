@@ -14,7 +14,6 @@ namespace wolvm
                 wolDouble vald = (wolDouble) val.type;
                 sum += vald.value;
             }
-            Console.WriteLine(sum);
             return new Value(new wolDouble(sum));
         }
     }
