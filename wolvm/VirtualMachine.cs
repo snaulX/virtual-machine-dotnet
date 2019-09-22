@@ -27,6 +27,7 @@ namespace wolvm
             { "ParseDouble", new ParseDoubleExpression() },
             { "System.input", new InputExpression() }
         };
+        private static bool test = false;
 
         static void Main(string[] args)
         {
@@ -49,14 +50,18 @@ namespace wolvm
                         Console.WriteLine($"-help ; call World of Legends Virtual Machine v{version} Helper");
                         Console.WriteLine("-info ; print info about this vm");
                         Console.WriteLine("-encode <full file name> ; encode and run build-file");
+                        Console.WriteLine("-test <full file name> ; run build-file and in the end print main stack (last in the end) and time of program run");
                         Console.WriteLine("<full file name> ; run build-file");
                         break;
                     case "-encode":
                         Run(Encoding.UTF8.GetString(File.ReadAllBytes(args[1])));
                         break;
+                    case "-test":
+                        test = true;
+                        Run(new StreamReader(File.OpenRead(args[0])).ReadToEnd());
+                        break;
                     default:
-                        TextReader text_reader = new StreamReader(File.OpenRead(args[0]));
-                        Run(text_reader.ReadToEnd());
+                        Run(new StreamReader(File.OpenRead(args[0])).ReadToEnd());
                         break;
                 }
             }
@@ -310,20 +315,23 @@ namespace wolvm
                 }
                 else if (buffer.ToString() == "end")
                 {
-                    //test stack
-                    foreach (KeyValuePair<string, Value> keyValuePair in mainstack.values)
+                    if (test)
                     {
-                        Console.WriteLine(keyValuePair.Key + ' ' + keyValuePair.Value);
+                        //test stack
+                        foreach (KeyValuePair<string, Value> keyValuePair in mainstack.values)
+                        {
+                            Console.WriteLine(keyValuePair.Key + ' ' + keyValuePair.Value);
+                        }
+                        foreach (KeyValuePair<string, wolClass> keyValuePair in mainstack.classes)
+                        {
+                            Console.WriteLine(keyValuePair.Key + ' ' + keyValuePair.Value);
+                        }
+                        foreach (KeyValuePair<string, wolFunction> keyValuePair in mainstack.functions)
+                        {
+                            Console.WriteLine(keyValuePair.Key + ' ' + keyValuePair.Value);
+                        }
+                        Console.WriteLine($"Time of program: {Environment.TickCount - time}");
                     }
-                    foreach (KeyValuePair<string, wolClass> keyValuePair in mainstack.classes)
-                    {
-                        Console.WriteLine(keyValuePair.Key + ' ' + keyValuePair.Value);
-                    }
-                    foreach (KeyValuePair<string, wolFunction> keyValuePair in mainstack.functions)
-                    {
-                        Console.WriteLine(keyValuePair.Key + ' ' + keyValuePair.Value);
-                    }
-                    Console.WriteLine($"Time of program: {Environment.TickCount - time}");
                     return;
                 }
                 else if (buffer.ToString() == "}")
