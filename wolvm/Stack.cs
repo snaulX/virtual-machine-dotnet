@@ -1188,6 +1188,7 @@ namespace wolvm
                                         func.body = buffer.ToString();
                                         stack.functions.Add(func_name, func);
                                         current = stack_code[++position]; //skip ']' (peek next char)
+                                        buffer.Clear();
                                         if (current == ',')
                                         {
                                             current = stack_code[++position]; //skip ','
@@ -1216,7 +1217,6 @@ namespace wolvm
                         {
                             VirtualMachine.ThrowVMException("Functions`s start not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                         }
-                        buffer.Clear();
                     }
                     else if (buffer.ToString() == "var")
                     {
@@ -1597,21 +1597,20 @@ namespace wolvm
 
         public override string ToString()
         {
-            string classes_str = "", func_str = "", var_str = "";
-            if (classes.Count != 0)
+            string str = "";
+            foreach (KeyValuePair<string, Value> keyValuePair in values)
             {
-                classes_str += "class {\n\t";
-                classes_str += "}";
+                str += keyValuePair.Key + ' ' + keyValuePair.Value + '\n';
             }
-            if (functions.Count != 0)
+            foreach (KeyValuePair<string, wolClass> keyValuePair in classes)
             {
-                func_str += "func {\n";
+                str += keyValuePair.Key + ' ' + keyValuePair.Value + '\n';
             }
-            if (values.Count != 0)
+            foreach (KeyValuePair<string, wolFunction> keyValuePair in functions)
             {
-                var_str += "var {\n";
+                str += keyValuePair.Key + ' ' + keyValuePair.Value + '\n';
             }
-            return " {\n\t" + classes_str + func_str + var_str + "\n};";
+            return str;
         }
 
         public static Stack operator +(Stack right, Stack left)

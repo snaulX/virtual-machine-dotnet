@@ -318,18 +318,8 @@ namespace wolvm
                     if (test)
                     {
                         //test stack
-                        foreach (KeyValuePair<string, Value> keyValuePair in mainstack.values)
-                        {
-                            Console.WriteLine(keyValuePair.Key + ' ' + keyValuePair.Value);
-                        }
-                        foreach (KeyValuePair<string, wolClass> keyValuePair in mainstack.classes)
-                        {
-                            Console.WriteLine(keyValuePair.Key + ' ' + keyValuePair.Value);
-                        }
-                        foreach (KeyValuePair<string, wolFunction> keyValuePair in mainstack.functions)
-                        {
-                            Console.WriteLine(keyValuePair.Key + ' ' + keyValuePair.Value);
-                        }
+                        Console.WriteLine("Info about program in the end.\nMain stack:");
+                        Console.Write(mainstack.ToString());
                         Console.WriteLine($"Time of program: {Environment.TickCount - time}");
                     }
                     return;
