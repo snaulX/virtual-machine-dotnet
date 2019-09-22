@@ -25,7 +25,8 @@ namespace wolvm
             { "ParseInt", new ParseIntExpression() },
             { "set", new SetExpression() },
             { "ParseDouble", new ParseDoubleExpression() },
-            { "System.input", new InputExpression() }
+            { "System.input", new InputExpression() },
+            { "toString", new ToStringExpression() }
         };
         private static bool test = false;
 

@@ -69,7 +69,7 @@ namespace wolvm
             }
         }
 
-        public bool CheckType(string name) => VirtualMachine.GetWolClass(name) == type ? true : false; //thanks C# for one-string functions))
+        public bool CheckType(string name) => name == type.strtype ? true : false; //thanks C# for one-string functions))
 
         public static Value GetSmallValue(string val, Value parent = null)
         {

@@ -74,6 +74,6 @@ main {
 	plus : <12:double>, <10:double>, <678:double>;
 	@sum.#set : ( plus : <12:double>, <13:double> ) ;
 	System.print : <Hello World!:string> ;
-	#print : ( ParseDouble : @sum ) ;
+	#print : ( toString : @sum ) ;
 }
 end 
