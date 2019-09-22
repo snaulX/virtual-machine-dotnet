@@ -64,123 +64,116 @@ namespace wolvm
 
         public void SetValue(Value value)
         {
-            if (HasSetter)
+            string[] small_vals = Address.Split('?'); //get parts of address
+            Value parent = null; //it`s parent value
+            for (int i = 0; i < small_vals.Length; i++)
             {
-                string[] small_vals = Address.Split('?'); //get parts of address
-                Value parent = null; //it`s parent value
-                for (int i = 0; i < small_vals.Length; i++)
+                bool end = false;
+                string val = small_vals[i];
+                if (i == small_vals.Length - 1) end = true;
+                if (val.StartsWith("@")) //example of syntax - plus : @a, @b ;
                 {
-                    bool end = false;
-                    string val = small_vals[i];
-                    if (i == small_vals.Length - 1) end = true;
-                    if (val.StartsWith("@")) //example of syntax - plus : @a, @b ;
+                    val = val.Remove(0, 1);
+                    if (parent != null)
                     {
-                        val = val.Remove(0, 1);
-                        if (parent != null)
+                        if (parent.CheckType("Type"))
                         {
-                            if (parent.CheckType("Type"))
-                            {
-                                if (!end) parent = ((wolType)parent.type).value.GetStaticField(val);
-                                else ((wolType)parent.type).value.static_fields[val] = value;
-                            }
-                            else
-                            {
-                                if (!end) parent = parent.GetField(val);
-                                else parent.type.fields[val] = value;
-                            }
+                            if (!end) parent = ((wolType)parent.type).value.GetStaticField(val);
+                            else ((wolType)parent.type).value.static_fields[val] = value;
                         }
                         else
                         {
-                            try
-                            {
-                                if (!end) parent = VirtualMachine.mainstack.values[val];
-                                else VirtualMachine.mainstack.values[val] = value;
-                            }
-                            catch (KeyNotFoundException)
-                            {
-                                VirtualMachine.ThrowVMException($"Variable by name '{val}' not found in main stack", VirtualMachine.position, ExceptionType.NotFoundException);
-                            }
-                        }
-                    }
-                    else if (val.StartsWith("&")) //example of syntax - set : &this, <null:void> ;
-                    {
-                        val = val.Remove(0, 1);
-                        if (parent != null)
-                        {
-                            if (parent.CheckType("Type"))
-                            {
-                                if (!end) parent = ((wolType)parent.type).value.GetStaticField(val);
-                                else ((wolType)parent.type).value.static_fields[val] = value;
-                            }
-                            else
-                            {
-                                if (!end) parent = parent.GetField(val);
-                                else parent.type.fields[val] = value;
-                            }
-                        }
-                        else
-                        {
-                            if (!end) parent = VirtualMachine.mainstack.values[val];
-                            else VirtualMachine.mainstack.values[val] = value;
-                        }
-                    }
-                    else if (val.StartsWith("#")) //example of syntax - set : &this, #sum ;
-                    {
-                        val = val.Remove(0, 1); //remove '#'
-                        if (parent != null)
-                        {
-                            if (parent.CheckType("Type"))
-                            {
-                                ((wolType)parent.type).value.static_fields[val] = value;
-                            }
-                            else
-                            {
-                                parent.type.methods[val] = ((wolFunc)value.type).value; //return not static method of ParentValue by name
-                            }
-                        }
-                        else
-                        {
-                            VirtualMachine.mainstack.functions[val] = ((wolFunc)value.type).value;
-                        }
-                    }
-                    else if (val.StartsWith("$")) //example of syntax - equals : $void, (typeof : <null:void>) ;
-                    {
-                        if (parent != null)
-                        {
-                            VirtualMachine.ThrowVMException("Class (Type) cannot have parent value", VirtualMachine.position, ExceptionType.ValueException);
-                        }
-                        if (!end) parent = new Value(new wolType(val.Remove(0, 1)));
-                        else VirtualMachine.mainstack.classes[val.Remove(0, 1)] = ((wolType)value.type).value;
-                    }
-                    else if (val.StartsWith("%")) //example of syntax - if : ( equals : $void, (typeof : <null:void>) ), %if_block1 ;
-                    {
-                        if (parent != null)
-                        {
-                            VirtualMachine.ThrowVMException("Block cannot have parent value", VirtualMachine.position, ExceptionType.ValueException);
-                        }
-                        val = val.Remove(0, 1);
-                        if (!end)
-                        {
-                            parent = VirtualMachine.FindBlock(val);
-                        }
-                        else
-                        {
-                            if (!VirtualMachine.mainstack.values[val].CheckType("Block"))
-                                VirtualMachine.ThrowVMException($"Variable by name {val} not found", VirtualMachine.position, ExceptionType.NotFoundException);
-                            else
-                                VirtualMachine.mainstack.values[val] = value;
-
+                            if (!end) parent = parent.GetField(val);
+                            else parent.type.fields[val] = value;
                         }
                     }
                     else
                     {
-                        VirtualMachine.ThrowVMException("Invalid syntax of linked value", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                        try
+                        {
+                            if (!end) parent = VirtualMachine.mainstack.values[val];
+                            else VirtualMachine.mainstack.values[val] = value;
+                        }
+                        catch (KeyNotFoundException)
+                        {
+                            VirtualMachine.ThrowVMException($"Variable by name '{val}' not found in main stack", VirtualMachine.position, ExceptionType.NotFoundException);
+                        }
                     }
                 }
-            }
-            else
-            {
-                VirtualMachine.ThrowVMException("Value on this Link haven`t setter", VirtualMachine.position, ExceptionType.NotFoundException);
+                else if (val.StartsWith("&")) //example of syntax - set : &this, <null:void> ;
+                {
+                    val = val.Remove(0, 1);
+                    if (parent != null)
+                    {
+                        if (parent.CheckType("Type"))
+                        {
+                            if (!end) parent = ((wolType)parent.type).value.GetStaticField(val);
+                            else ((wolType)parent.type).value.static_fields[val] = value;
+                        }
+                        else
+                        {
+                            if (!end) parent = parent.GetField(val);
+                            else parent.type.fields[val] = value;
+                        }
+                    }
+                    else
+                    {
+                        if (!end) parent = VirtualMachine.mainstack.values[val];
+                        else VirtualMachine.mainstack.values[val] = value;
+                    }
+                }
+                else if (val.StartsWith("#")) //example of syntax - set : &this, #sum ;
+                {
+                    val = val.Remove(0, 1); //remove '#'
+                    if (parent != null)
+                    {
+                        if (parent.CheckType("Type"))
+                        {
+                            ((wolType)parent.type).value.static_fields[val] = value;
+                        }
+                        else
+                        {
+                            parent.type.methods[val] = ((wolFunc)value.type).value; //return not static method of ParentValue by name
+                        }
+                    }
+                    else
+                    {
+                        VirtualMachine.mainstack.functions[val] = ((wolFunc)value.type).value;
+                    }
+                }
+                else if (val.StartsWith("$")) //example of syntax - equals : $void, (typeof : <null:void>) ;
+                {
+                    if (parent != null)
+                    {
+                        VirtualMachine.ThrowVMException("Class (Type) cannot have parent value", VirtualMachine.position, ExceptionType.ValueException);
+                    }
+                    if (!end) parent = new Value(new wolType(val.Remove(0, 1)));
+                    else VirtualMachine.mainstack.classes[val.Remove(0, 1)] = ((wolType)value.type).value;
+                }
+                else if (val.StartsWith("%")) //example of syntax - if : ( equals : $void, (typeof : <null:void>) ), %if_block1 ;
+                {
+                    if (parent != null)
+                    {
+                        VirtualMachine.ThrowVMException("Block cannot have parent value", VirtualMachine.position, ExceptionType.ValueException);
+                    }
+                    val = val.Remove(0, 1);
+                    if (!end)
+                    {
+                        parent = VirtualMachine.FindBlock(val);
+                    }
+                    else
+                    {
+                        if (!VirtualMachine.mainstack.values[val].CheckType("Block"))
+                            VirtualMachine.ThrowVMException($"Variable by name {val} not found", VirtualMachine.position, ExceptionType.NotFoundException);
+                        else
+                            VirtualMachine.mainstack.values[val] = value;
+
+                    }
+                }
+                else
+                {
+                    VirtualMachine.ThrowVMException("Invalid syntax of linked value", VirtualMachine.position, ExceptionType.BLDSyntaxException);
+                }
             }
         }
     }
