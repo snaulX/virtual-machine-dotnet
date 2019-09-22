@@ -58,7 +58,7 @@ namespace wolvm
                         break;
                     case "-test":
                         test = true;
-                        Run(new StreamReader(File.OpenRead(args[0])).ReadToEnd());
+                        Run(new StreamReader(File.OpenRead(args[1])).ReadToEnd());
                         break;
                     default:
                         Run(new StreamReader(File.OpenRead(args[0])).ReadToEnd());
