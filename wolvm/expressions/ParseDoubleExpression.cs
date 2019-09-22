@@ -8,7 +8,9 @@ namespace wolvm
     {
         public Value ParseExpression(params Value[] args)
         {
-            return new Value(new wolString(((wolDouble)args[0].type).value.ToString()));
+            wolDouble type = new wolDouble();
+            type.ParseDouble(((wolString)args[0].type).value);
+            return new Value(type);
         }
     }
 }
