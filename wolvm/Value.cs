@@ -269,7 +269,7 @@ namespace wolvm
             }
             else
             {
-                VirtualMachine.ThrowVMException("Value cannot find", VirtualMachine.position - val.Length, ExceptionType.BLDSyntaxException);
+                VirtualMachine.ThrowVMException($"Value {val} cannot find", VirtualMachine.position - val.Length, ExceptionType.BLDSyntaxException);
                 return null;
             }
         }

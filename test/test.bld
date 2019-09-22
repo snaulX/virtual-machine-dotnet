@@ -18,7 +18,7 @@ stack {
 				return @this.@age ;
 			], 
 			name = string PUBLIC set (name: string) [
-				set : @this.&name , @name ;
+				set : &@this?@name , @name ;
 				System.print : <Your new name is :string>,  @this.@name ;
 			]
 			PUBLIC get [
@@ -61,7 +61,7 @@ stack {
 	};
 	var {
 		sum = double PRIVATE set (_sum: double) [
-			set : &sum , @_sum ;
+			set : &@sum , @_sum ;
 		]
 		PRIVATE get [
 			return @sum ;
