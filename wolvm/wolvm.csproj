@@ -11,6 +11,8 @@
     <Platforms>AnyCPU;x64;x86</Platforms>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Version>0.8.0</Version>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>key.pfx</AssemblyOriginatorKeyFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
