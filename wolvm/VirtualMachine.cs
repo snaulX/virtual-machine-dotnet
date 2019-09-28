@@ -213,13 +213,14 @@ namespace wolvm
                         foreach (string dllName in dllNames)
                         {
                             Assembly assembly = null;
+                            string full_path = Path.GetFullPath("wolvm/bin/netcoreapp2.0/" + dllName.Trim() + ".dll");
                             try
                             {
-                                assembly = Assembly.Load(new AssemblyName(dllName.Trim() + ".dll"));
+                                assembly = Assembly.LoadFrom(full_path);
                             } 
                             catch (Exception ex)
                             {
-                                ThrowVMException($"Library with info {dllName.Trim()} not found {ex.GetType()}", position, ExceptionType.FileNotFoundException);
+                                ThrowVMException($"Library with info {full_path} not found.\n{ex.Message}", position, ExceptionType.FileNotFoundException);
                                 break;
                             }
                             Type mainClass = assembly.GetTypes().FirstOrDefault(t => t != mainType && mainType.IsAssignableFrom(t));

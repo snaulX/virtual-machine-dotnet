@@ -1,5 +1,5 @@
 _loads {
-	System
+	Thread
 }
 stack {
 	class {
