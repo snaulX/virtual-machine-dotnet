@@ -356,10 +356,13 @@ namespace wolvm
     public abstract class VMLibrary
     {
         public Stack stack = new Stack();
-        Dictionary<string, VMExpression> expressions = new Dictionary<string, VMExpression>();
+        public Dictionary<string, VMExpression> expressions = new Dictionary<string, VMExpression>();
         public void Load()
         {
-            VirtualMachine.expressions = expressions;
+            foreach (KeyValuePair<string, VMExpression> pair in expressions)
+            {
+                VirtualMachine.expressions.Add(pair.Key, pair.Value);
+            }
             VirtualMachine.mainstack.Add(stack);
         }
     }
