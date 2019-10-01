@@ -13,19 +13,16 @@ namespace wolvm
         public static int position = 0;
         public static Dictionary<string, VMExpression> expressions = new Dictionary<string, VMExpression>
         {
-            { "beep",  new BeepExpression() },
             { "plus", new PlusExpression() },
             { "_loads", new LoadsExpression() },
             { "typeof", new TypeofExpression() },
             { "AddString", new AddStringExpression() },
-            { "System.print", new PrintExpression() },
             { "ifelse", new IfExpression() },
             { "while", new WhileExpression() },
             { "run", new RunExpression() },
             { "ParseInt", new ParseIntExpression() },
             { "set", new SetExpression() },
             { "ParseDouble", new ParseDoubleExpression() },
-            { "System.input", new InputExpression() },
             { "toString", new ToStringExpression() }
         };
         private static bool test = false;

@@ -19,10 +19,10 @@ stack {
 			], 
 			name = string PUBLIC set (name: string) [
 				set : &@this?@name , @name ;
-				System.print : <Your new name is :string>,  @this.@name ;
+				print : <Your new name is :string>,  @this.@name ;
 			]
 			PUBLIC get [
-				System.print : <Your name is\u003A:string>, @this.@name ;
+				print : <Your name is\u003A:string>, @this.@name ;
 				return @this.@name ;
 			]
 		],
@@ -53,7 +53,7 @@ stack {
 			_loads : @fwname ;
 		],
 		print = PRIVATE void (text: string) [
-			System.print : @text ;
+			print : @text ;
 		],
 		+ = PRIVATE double (a: int, b: int) [
 			return ( plus : @a , @b ) ;
@@ -70,10 +70,9 @@ stack {
 }
 main {
 	#_loads : <System:string>;
-	beep;
 	plus : <12:double>, <10:double>, <678:double>;
 	@sum.#set : ( plus : <12:double>, <13:double> ) ;
-	System.print : <Hello World!:string> ;
+	print : <Hello World!:string> ;
 	#print : ( toString : @sum ) ;
 }
 end 
