@@ -33,6 +33,7 @@ namespace wolvm
             if (args.Length == 0)
             {
                 Console.Write("World of Legends Virtual Machine v{0}\nCopyright snaulX 2019\nType \"-help\" to get helper", version);
+                Console.ReadKey();
             }
             else
             {

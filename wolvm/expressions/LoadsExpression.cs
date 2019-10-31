@@ -15,7 +15,7 @@ namespace wolvm
             {
                 string dllName = ((wolString)arg.type).value;
                 Assembly assembly = null;
-                string full_path = System.IO.Path.GetFullPath("wolvm/bin/netcoreapp2.0/" + dllName.Trim() + ".dll");
+                string full_path = System.IO.Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory + dllName.Trim() + ".dll");
                 try
                 {
                     assembly = Assembly.LoadFrom(full_path);
