@@ -222,6 +222,12 @@ namespace wolvm
                                 break;
                             }
                             Type mainClass = assembly.GetTypes().FirstOrDefault(t => t != mainType && mainType.IsAssignableFrom(t));
+                            if (test)
+                            {
+                                Console.WriteLine("Test loads:");
+                                Console.WriteLine(assembly);
+                                Console.WriteLine(string.Join<Type>(' ', assembly.GetTypes())); //debug)
+                            }
                             if (mainClass != null)
                             {
                                 if (Activator.CreateInstance(mainClass) is VMLibrary mainObj) mainObj.Load();
