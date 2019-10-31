@@ -1,5 +1,5 @@
 _loads {
-	Thread
+    System
 }
 stack {
 	class {
@@ -69,7 +69,6 @@ stack {
 	};
 }
 main {
-	#_loads : <System:string>;
 	plus : <12:double>, <10:double>, <678:double>;
 	@sum.#set : ( plus : <12:double>, <13:double> ) ;
 	print : <Hello World!:string> ;

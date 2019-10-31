@@ -318,7 +318,12 @@ namespace wolvm
                     {
                         //test stack
                         Console.WriteLine("Info about program in the end.\nMain stack:");
-                        Console.Write(mainstack.ToString());
+                        Console.WriteLine(mainstack.ToString());
+                        Console.WriteLine("Expressions:");
+                        foreach (string expr_name in expressions.Keys)
+                        {
+                            Console.WriteLine(expr_name);
+                        }
                         Console.WriteLine($"Time of program: {Environment.TickCount - time}");
                     }
                     return;
