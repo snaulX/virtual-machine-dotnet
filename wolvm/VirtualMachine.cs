@@ -211,7 +211,7 @@ namespace wolvm
                         foreach (string dllName in dllNames)
                         {
                             Assembly assembly = null;
-                            string full_path = Path.GetFullPath("wolvm/bin/netcoreapp2.0/" + dllName.Trim() + ".dll");
+                            string full_path = AppDomain.CurrentDomain.BaseDirectory + dllName.Trim() + ".dll";
                             try
                             {
                                 assembly = Assembly.LoadFrom(full_path);
