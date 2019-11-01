@@ -12,13 +12,10 @@ namespace wolvm
         {
             value = true;
             strtype = "bool";
-            wolInt False = new wolInt(), True = new wolInt();
-            False.ParseInt("0");
-            True.ParseInt("1");
             constants = new Dictionary<string, Value>
             {
-                { "false", new Value(False) },
-                { "true", new Value(True) }
+                { "false", new Value(new wolInt(0)) },
+                { "true", new Value(new wolInt(1)) }
             };
             parents = new Dictionary<string, wolClass>
                     {
@@ -28,6 +25,11 @@ namespace wolvm
                     {
                         { "bool", wolFunction.NewDefaultConstructor(this) }
                     };
+        }
+
+        public wolBool(bool val): this()
+        {
+            value = val;
         }
 
         public void ParseBool(string val)

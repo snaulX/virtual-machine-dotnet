@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using wolvm.expressions;
 
 namespace wolvm
 {
@@ -23,7 +24,8 @@ namespace wolvm
             { "ParseInt", new ParseIntExpression() },
             { "set", new SetExpression() },
             { "ParseDouble", new ParseDoubleExpression() },
-            { "toString", new ToStringExpression() }
+            { "toString", new ToStringExpression() },
+            { "ls", new LessSignExpression() }
         };
         private static bool test = false;
 
@@ -224,7 +226,6 @@ namespace wolvm
                             Type mainClass = assembly.GetTypes().FirstOrDefault(t => t != mainType && mainType.IsAssignableFrom(t));
                             if (test)
                             {
-                                Console.WriteLine("Test loads:");
                                 Console.WriteLine("Framework Info: " + assembly);
                                 Console.WriteLine("Full path to framework: " + full_path);
                                 Console.WriteLine(string.Join<Type>(' ', assembly.GetTypes()));

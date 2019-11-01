@@ -1,4 +1,4 @@
-﻿namespace wolvm
+﻿namespace wolvm.expressions
 {
     public class ToStringExpression : VMExpression
     {

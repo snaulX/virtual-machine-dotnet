@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace wolvm
+namespace wolvm.expressions
 {
     public class IfExpression : VMExpression
     {

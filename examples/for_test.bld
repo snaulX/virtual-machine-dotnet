@@ -1,0 +1,21 @@
+_loads {
+	wolSystem
+}
+stack {
+	var {
+		i = int PUBLIC set (_i: int) [
+			set : &@i, @_i ;
+		]
+		PUBLIC get [
+			return @i ;
+		]
+	}
+}
+main {
+	@i.#set : <0:int> ;
+	block a;
+		print : @i ;
+	end;
+	while : (ls : @i, <10:int> ), %a ;
+}
+end 
