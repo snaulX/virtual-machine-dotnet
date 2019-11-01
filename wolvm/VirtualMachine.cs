@@ -225,8 +225,9 @@ namespace wolvm
                             if (test)
                             {
                                 Console.WriteLine("Test loads:");
-                                Console.WriteLine(assembly);
-                                Console.WriteLine(string.Join<Type>(' ', assembly.GetTypes())); //debug)
+                                Console.WriteLine("Framework Info: " + assembly);
+                                Console.WriteLine("Full path to framework: " + full_path);
+                                Console.WriteLine(string.Join<Type>(' ', assembly.GetTypes()));
                             }
                             if (mainClass != null)
                             {
