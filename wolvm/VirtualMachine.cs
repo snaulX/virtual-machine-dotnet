@@ -17,15 +17,18 @@ namespace wolvm
             { "plus", new PlusExpression() },
             { "_loads", new LoadsExpression() },
             { "typeof", new TypeofExpression() },
-            { "AddString", new AddStringExpression() },
+            { "addString", new AddStringExpression() },
             { "ifelse", new IfExpression() },
             { "while", new WhileExpression() },
             { "run", new RunExpression() },
-            { "ParseInt", new ParseIntExpression() },
+            { "parseInt", new ParseIntExpression() },
             { "set", new SetExpression() },
-            { "ParseDouble", new ParseDoubleExpression() },
+            { "parseDouble", new ParseDoubleExpression() },
             { "toString", new ToStringExpression() },
-            { "ls", new LessSignExpression() }
+            { "ls", new LessSignExpression() },
+            { "ms", new MoreSignExpression() },
+            { "equals", new EqualsExpression() },
+            { "not", new InversionExpression() }
         };
         private static bool test = false;
 

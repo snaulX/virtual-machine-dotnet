@@ -31,7 +31,7 @@ stack {
 				return <Tuzik:string>;
 			],
 			greet = PUBLIC void (text: string) [
-				#print :(AddString : <Hello, :string>, @text );
+				#print :(addString : <Hello, :string>, @text );
 			]
 		];
 		BaseType = ENUM PUBLIC (int): 
