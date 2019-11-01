@@ -9,13 +9,14 @@ stack {
 		PUBLIC get [
 			return @i ;
 		]
-	}
+	};
 }
 main {
 	@i.#set : <0:int> ;
 	block a;
 		print : @i ;
-	end;
-	while : (ls : @i, <10:int> ), %a ;
+	end ;
+	run : %a ;
 }
-end 
+end
+it the end
