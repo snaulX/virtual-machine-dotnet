@@ -17,7 +17,6 @@ namespace wolvm
             { "plus", new PlusExpression() },
             { "_loads", new LoadsExpression() },
             { "typeof", new TypeofExpression() },
-            { "addString", new AddStringExpression() },
             { "ifelse", new IfExpression() },
             { "while", new WhileExpression() },
             { "run", new RunExpression() },
@@ -28,7 +27,8 @@ namespace wolvm
             { "ls", new LessSignExpression() },
             { "ms", new MoreSignExpression() },
             { "equals", new EqualsExpression() },
-            { "not", new InversionExpression() }
+            { "not", new InversionExpression() },
+            { "length", new LengthExpression() }
         };
         private static bool test = false;
 
@@ -37,7 +37,8 @@ namespace wolvm
             Version version = Assembly.GetEntryAssembly().GetName().Version;
             if (args.Length == 0)
             {
-                Console.Write("World of Legends Virtual Machine v{0}\nCopyright snaulX 2019\nType \"-help\" to get helper", version);
+                Console.Write("World of Legends Virtual Machine v{0}\nCopyright snaulX 2019\nType \"dotnet wolvm.dll -help\" in command line to get helper",
+                    version);
                 Console.ReadKey();
             }
             else

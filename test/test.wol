@@ -1,5 +1,5 @@
 import std; //link platform std
-_loads("System"); //load library of vm (framework) System used встренную function from platform std
+_loads("wolSystem"); //load library of vm (framework) wolSystem used встренную function from platform std
 Virtual {
 	plus : <12:double>, <10:double>, <678:double>;
 } //write script with operator Virtual

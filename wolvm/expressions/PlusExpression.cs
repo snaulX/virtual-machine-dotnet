@@ -8,13 +8,32 @@ namespace wolvm.expressions
     {
         public Value ParseExpression(params Value[] args)
         {
-            double sum = 0.0;
-            foreach (Value val in args)
+            wolClass type = args[0].type;
+            if (type is wolDouble)
             {
-                wolDouble vald = (wolDouble) val.type;
-                sum += vald.value;
+                double sum = 0.0;
+                foreach (Value val in args)
+                {
+                    wolDouble vald = (wolDouble)val.type;
+                    sum += vald.value;
+                }
+                return new Value(new wolDouble(sum));
             }
-            return new Value(new wolDouble(sum));
+            else if (type is wolString)
+            {
+                string result = "";
+                foreach (Value val in args)
+                {
+                    wolString vald = (wolString)val.type;
+                    result += vald.value;
+                }
+                return new Value(new wolString(result));
+            }
+            else
+            {
+                VirtualMachine.ThrowVMException($"Value with type {type.strtype} not support plus", VirtualMachine.position, ExceptionType.TypeNotSupportedException);
+                return Value.VoidValue;
+            }
         }
     }
 }
