@@ -50,7 +50,7 @@ namespace wolvm
                         return Value.GetValue(tokens[1]);
                     case "block":
                         string body = "";
-                        for (int j = i; j < string_expressions.Length; j++)
+                        for (int j = ++i; j < string_expressions.Length; j++)
                         {
                             i = j;
                             if (string_expressions[j].Trim() == "end")
@@ -58,6 +58,7 @@ namespace wolvm
                             body += string_expressions[j];
                         }
                         VirtualMachine.mainstack.values.Add(tokens[1], new Value(new wolBlock(body)));
+                        if (VirtualMachine.test) Console.WriteLine("Body of " + tokens[1] + '\n' + body);
                         break;
                     default:
                         ParseExpression(string_expression, args);
@@ -188,19 +189,44 @@ namespace wolvm
                 {
                     if (expression.Key == keyword)
                     {
-                        string[] argums = new string[0];
+                        List<string> argums = new List<string>();
                         if (string_expression.Contains(":"))
                         {
                             string args = string_expression.Substring(string_expression.IndexOf(':') + 1).Trim(); //code after name of expression (string with arguments)
-                            argums = args.Split(','); //array with arguments of expression
+                            StringBuilder buffer = new StringBuilder();
+                            bool expr = false;
+                            for (int i = 0; i < args.Length; i++)
+                            {
+                                char cur = args[i];
+                                if (cur == ',' && !expr)
+                                {
+                                    argums.Add(buffer.ToString());
+                                    buffer.Clear();
+                                }
+                                else if (cur == ')' && expr)
+                                {
+                                    buffer.Append(cur);
+                                    expr = false;
+                                }
+                                else if (cur == '(' && !expr)
+                                {
+                                    buffer.Append(cur);
+                                    expr = true;
+                                }
+                                else
+                                {
+                                    buffer.Append(cur);
+                                }
+                            }
+                            argums.Add(buffer.ToString());
                         }
                         else
                         {
                             haveExpression = true;
                             return expression.Value.ParseExpression();
                         }
-                        Value[] values = new Value[argums.Length]; //array with arguments who converted to Value
-                        for (int i = 0; i < argums.Length; i++)
+                        Value[] values = new Value[argums.Count]; //array with arguments who converted to Value
+                        for (int i = 0; i < argums.Count; i++)
                             values[i] = Value.GetValue(argums[i].TrimStart()); //convert string arguments to Value arguments
                         haveExpression = true;
                         VirtualMachine.mainstack = VirtualMachine.mainstack - arguments;

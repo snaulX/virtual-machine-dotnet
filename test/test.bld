@@ -69,6 +69,7 @@ stack {
 	};
 }
 main {
+	delete class Tuzik;
 	plus : <12:double>, <10:double>, <678:double>;
 	@sum.#set : ( plus : <12:double>, <13:double> ) ;
 	print : <Hello World!:string> ;

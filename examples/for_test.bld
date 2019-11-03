@@ -14,9 +14,9 @@ stack {
 main {
 	@i.#set : <0:int> ;
 	block a;
-		print : @i ;
+		print : @i, <\n:string> ;
 	end ;
-	run : %a ;
+	while : (ls : @i, <7:int> ), %a ;
 }
 end
 it the end
