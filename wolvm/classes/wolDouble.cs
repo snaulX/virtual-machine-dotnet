@@ -26,5 +26,10 @@ namespace wolvm
                 VirtualMachine.ThrowVMException($"'{val}' cannot parsing to double", VirtualMachine.position, ExceptionType.NumberFormatException);
             }
         }
+
+        public override string ToString()
+        {
+            return value.ToString();
+        }
     }
 }

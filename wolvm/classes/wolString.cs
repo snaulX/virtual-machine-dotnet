@@ -14,5 +14,10 @@ namespace wolvm
         }
 
         public wolString(string val) : this() => value = val;
+
+        public override string ToString()
+        {
+            return value;
+        }
     }
 }

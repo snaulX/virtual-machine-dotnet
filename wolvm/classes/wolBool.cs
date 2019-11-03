@@ -37,5 +37,10 @@ namespace wolvm
             if (!bool.TryParse(val, out value))
                 VirtualMachine.ThrowVMException($"'{val}' is not bool", VirtualMachine.position, ExceptionType.FormatException);
         }
+
+        public override string ToString()
+        {
+            return value.ToString();
+        }
     }
 }

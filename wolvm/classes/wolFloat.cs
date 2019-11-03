@@ -24,5 +24,10 @@ namespace wolvm
             if (!float.TryParse(val, out value))
                 VirtualMachine.ThrowVMException($"'{val}' is not float", VirtualMachine.position, ExceptionType.NumberFormatException);
         }
+
+        public override string ToString()
+        {
+            return value.ToString();
+        }
     }
 }

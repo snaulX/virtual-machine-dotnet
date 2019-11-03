@@ -87,7 +87,7 @@ namespace wolvm
             }
         }
 
-        public override string ToString() => strtype;
+        public override string ToString() => "wolvm::mainstack::" + strtype;
 
         /// <summary>
         /// Implement all parents

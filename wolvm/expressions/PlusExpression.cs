@@ -19,6 +19,16 @@ namespace wolvm.expressions
                 }
                 return new Value(new wolDouble(sum));
             }
+            else if (type is wolInt)
+            {
+                int sum = 0;
+                foreach (Value val in args)
+                {
+                    wolInt vald = (wolInt)val.type;
+                    sum += vald.value;
+                }
+                return new Value(new wolInt(sum));
+            }
             else if (type is wolString)
             {
                 string result = "";

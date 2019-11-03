@@ -219,6 +219,7 @@ namespace wolvm
                                 }
                             }
                             argums.Add(buffer.ToString());
+                            Console.WriteLine(System.Text.RegularExpressions.Regex.Escape(string.Join(' ', argums) + '\t' + argums.Count));
                         }
                         else
                         {

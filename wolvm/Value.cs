@@ -17,7 +17,7 @@ namespace wolvm
             if (!isConstant)
             {
                 setter = new wolFunction(modifer);
-                setter.body = "set : &this ;";
+                setter.body = "set : &@this ;";
             }
             getter.body = "return @this ;";
         }
@@ -75,7 +75,7 @@ namespace wolvm
         {
             Value value = VoidValue;
             val = val.Trim();
-            if (val.StartsWith("<") && val.EndsWith(">")) //example of syntax - Loads : <System:string> ;
+            if (val.StartsWith("<") && val.EndsWith(">")) //example of syntax - _loads : <wolSystem:string> ;
             {
                 if (parent != null)
                 {
@@ -194,7 +194,7 @@ namespace wolvm
                     return value;
                 }
             }
-            else if (val.StartsWith("&")) //example of syntax - set : &this, <null:void> ;
+            else if (val.StartsWith("&")) //example of syntax - set : &@this, <null:void> ;
             {
                 val = val.Remove(0, 1); //remove '&'
                 if (parent != null)
@@ -207,7 +207,7 @@ namespace wolvm
                     return new Value(new wolLink(val));
                 }
             }
-            else if (val.StartsWith("#")) //example of syntax - set : &this, #sum ;
+            else if (val.StartsWith("#")) //example of syntax - set : &@this, #sum ;
             {
                 val = val.Remove(0, 1); //remove '#'
                 if (parent != null)

@@ -29,5 +29,10 @@ namespace wolvm
                 VirtualMachine.ThrowVMException($"'{val}' cannot convert to int", VirtualMachine.position, ExceptionType.NumberFormatException);
             }
         }
+
+        public override string ToString()
+        {
+            return value.ToString();
+        }
     }
 }

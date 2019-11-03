@@ -24,5 +24,10 @@ namespace wolvm
             if (!char.TryParse(val, out value))
                 VirtualMachine.ThrowVMException($"'{val}' is not char", VirtualMachine.position, ExceptionType.FormatException);
         }
+
+        public override string ToString()
+        {
+            return value.ToString();
+        }
     }
 }

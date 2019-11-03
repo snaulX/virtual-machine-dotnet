@@ -8,6 +8,7 @@ namespace wolvm
     {
         public Void()
         {
+            classType = wolClassType.STRUCT;
             strtype = "void";
             methods = new Dictionary<string, wolFunction>();
             constants = new Dictionary<string, Value>();
@@ -16,5 +17,7 @@ namespace wolvm
             parents = new Dictionary<string, wolClass>();
             destructors = new List<wolFunction>();
         }
+
+        public override string ToString() => string.Empty;
     }
 }

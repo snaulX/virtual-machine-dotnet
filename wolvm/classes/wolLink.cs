@@ -176,5 +176,10 @@ namespace wolvm
                 }
             }
         }
+
+        public override string ToString()
+        {
+            return "wolvm::mainstack::Link:" + Address;
+        }
     }
 }
