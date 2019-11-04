@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace wolvm
@@ -17,7 +18,7 @@ namespace wolvm
             for (int i = 0; i < string_expressions.Length; i++)
             {
                 string string_expression = string_expressions[i].Trim();
-                if (string_expression == "")
+                if (string_expression == string.Empty)
                 {
                     if (i == string_expressions.Length - 1) break;
                     else continue;
@@ -26,7 +27,7 @@ namespace wolvm
                 switch (tokens[0])
                 {
                     case "push-local":
-                        args.Add(tokens[1], Value.GetValue(tokens[2]));
+                        args.Add(tokens[1], Value.GetValue( string.Join(' ', tokens.TakeLast(tokens.Length - 2)) ));
                         break;
                     case "delete":
                         if (tokens[1] == "local")
@@ -55,7 +56,7 @@ namespace wolvm
                             i = j;
                             if (string_expressions[j].Trim() == "end")
                                 break;
-                            body += string_expressions[j];
+                            body += string_expressions[j] + ';';
                         }
                         VirtualMachine.mainstack.values.Add(tokens[1], new Value(new wolBlock(body)));
                         if (VirtualMachine.test) Console.WriteLine("Body of " + tokens[1] + '\n' + body);
@@ -74,6 +75,7 @@ namespace wolvm
 
         public static Value ParseExpression(string string_expression, Dictionary<string, Value> arguments)
         {
+            //Console.WriteLine("String expression: " + string_expression);
             VirtualMachine.mainstack = VirtualMachine.mainstack + arguments;
             string[] tokens = string_expression.Split(new char[4] { ' ', '\t', '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
             string keyword = tokens[0];
@@ -194,24 +196,26 @@ namespace wolvm
                         {
                             string args = string_expression.Substring(string_expression.IndexOf(':') + 1).Trim(); //code after name of expression (string with arguments)
                             StringBuilder buffer = new StringBuilder();
-                            bool expr = false;
+                            byte expr = 0; //priority of expressions
                             for (int i = 0; i < args.Length; i++)
                             {
                                 char cur = args[i];
-                                if (cur == ',' && !expr)
+                                if (cur == ',' && expr == 0)
                                 {
                                     argums.Add(buffer.ToString());
                                     buffer.Clear();
                                 }
-                                else if (cur == ')' && expr)
+                                else if (cur == ')' && expr > 0)
                                 {
                                     buffer.Append(cur);
-                                    expr = false;
+                                    expr--;
+                                    //Console.WriteLine("Priority ): " + expr);
                                 }
-                                else if (cur == '(' && !expr)
+                                else if (cur == '(' && expr >= 0)
                                 {
                                     buffer.Append(cur);
-                                    expr = true;
+                                    expr++;
+                                    //Console.WriteLine("Priority (: " + expr);
                                 }
                                 else
                                 {
@@ -219,7 +223,7 @@ namespace wolvm
                                 }
                             }
                             argums.Add(buffer.ToString());
-                            Console.WriteLine(System.Text.RegularExpressions.Regex.Escape(string.Join(' ', argums) + '\t' + argums.Count));
+                            //Console.WriteLine(string.Join(' ', argums) + '\t' + argums.Count);
                         }
                         else
                         {

@@ -1504,6 +1504,8 @@ namespace wolvm
                                     {
                                         VirtualMachine.ThrowVMException("Start of getter block not found", VirtualMachine.position - stack_code.Length + position, ExceptionType.BLDSyntaxException);
                                     }
+                                    //Console.WriteLine("Var name: " + var_name);
+                                    //Console.WriteLine("Setter: " + thisVar.setter.body);
                                     stack.values.Add(var_name, thisVar);
                                     current = stack_code[++position]; //skip ']'
                                     if (current == ',')

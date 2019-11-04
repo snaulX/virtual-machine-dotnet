@@ -49,7 +49,7 @@ namespace wolvm
             for (int i = 0; i < args.Length; i++)
             {
                 constr.arguments.Add(args[i].Key, args[i].Value); //да я знаю про foreach, но for быстрее
-                constr.body += "&this." + args[i].Key + "#set : <null:void>;\n";
+                constr.body += "&@this." + args[i].Key + ".#set : <null:void>;\n";
             }
             return constr;
         }

@@ -10,16 +10,22 @@ namespace wolvm
         public wolClass type;
         public wolFunction getter, setter;
 
+        /// <summary>
+        /// Create default value with type, security modifer and flag which ask of generator of setter
+        /// </summary>
+        /// <param name="wolclass">Type of generated value</param>
+        /// <param name="modifer">Security modifer of generated value</param>
+        /// <param name="isConstant">Flag which ask of generator of setter</param>
         public Value(wolClass wolclass, SecurityModifer modifer = SecurityModifer.PRIVATE, bool isConstant = false)
         {
             type = wolclass;
-            getter = new wolFunction(modifer);
+            getter = new wolFunction(modifer, "return @this;");
             if (!isConstant)
-            {
-                setter = new wolFunction(modifer);
-                setter.body = "set : &@this ;";
-            }
-            getter.body = "return @this ;";
+                setter = new wolFunction(SecurityModifer.PRIVATE, "set : &@this, @_this ;");
+                /*{
+                    security = SecurityModifer.PRIVATE, body = "set : &@this, @_this ;",
+                    arguments = new Dictionary<string, wolClass> { { "_this", wolclass } }
+                };*/
         }
 
         public Value(wolClass wolclass, string constr_name, params Value[] arguments) : this(wolclass, SecurityModifer.PUBLIC)
@@ -56,6 +62,11 @@ namespace wolvm
             }
         }
 
+        /// <summary>
+        /// Get field from type of this value
+        /// </summary>
+        /// <param name="name">Name of field</param>
+        /// <returns></returns>
         public Value GetField(string name)
         {
             try
@@ -73,6 +84,7 @@ namespace wolvm
 
         public static Value GetSmallValue(string val, Value parent = null)
         {
+            //Console.WriteLine("Value is " + val);
             Value value = VoidValue;
             val = val.Trim();
             if (val.StartsWith("<") && val.EndsWith(">")) //example of syntax - _loads : <wolSystem:string> ;
@@ -169,6 +181,7 @@ namespace wolvm
             }
             else if (val.StartsWith("@")) //example of syntax - plus : @a, @b ;
             {
+                //Console.WriteLine(val);
                 val = val.Remove(0, 1); //skip '@'
                 if (parent != null)
                 {
@@ -253,8 +266,15 @@ namespace wolvm
                 StringBuilder buffer = new StringBuilder();
                 char current = val[1]; //skip '('
                 int pos = 1; //skip '('
-                while (current != ')') //add body of expression
+                byte priority = 0;
+                while (true) //add body of expression
                 {
+                    if (current == '(') priority++;
+                    else if (current == ')')
+                    {
+                        if (priority == 0) break;
+                        else priority--;
+                    }
                     try
                     {
                         buffer.Append(current);
@@ -262,7 +282,7 @@ namespace wolvm
                     }
                     catch (IndexOutOfRangeException)
                     {
-                        VirtualMachine.ThrowVMException("End of string expression not found", VirtualMachine.position - val.Length + pos, ExceptionType.BLDSyntaxException);
+                        VirtualMachine.ThrowVMException($"End of string expression ('{val}') not found", VirtualMachine.position - val.Length + pos, ExceptionType.BLDSyntaxException);
                     }
                 }
                 return Script.ParseExpression(buffer.ToString());
@@ -285,6 +305,9 @@ namespace wolvm
             return parent;
         }
 
+        /// <summary>
+        /// Return default value - null - nothing
+        /// </summary>
         public static Value VoidValue => new Value(VirtualMachine.GetWolClass("void"));
 
         public override string ToString()

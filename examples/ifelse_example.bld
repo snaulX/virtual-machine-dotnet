@@ -1,0 +1,15 @@
+_loads {
+	wolSystem
+}
+main {
+	push-local i (parseInt : (input));
+	block a;
+		print : <i smaller then 7:string>;
+	end ;
+	block b;
+		print : <i bigger then 7 or equals 7:string>;
+	end ;
+	ifelse : (ls : @i, <7:int> ), %a, %b ;
+}
+end
+it the end

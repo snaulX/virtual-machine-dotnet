@@ -23,7 +23,7 @@ namespace wolvm
 
         public override string ToString()
         {
-            return "wolvm::mainstack::Block:" + System.Text.RegularExpressions.Regex.Escape(body);
+            return "wolvm::mainstack::Block:" + body + ":end";
         }
     }
 }

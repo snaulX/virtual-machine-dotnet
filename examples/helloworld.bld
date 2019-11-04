@@ -1,0 +1,7 @@
+_loads {
+	wolSystem
+}
+main {
+	print : <Hello World\n:string>;
+}
+end 

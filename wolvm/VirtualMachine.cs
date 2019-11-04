@@ -30,7 +30,7 @@ namespace wolvm
             { "not", new InversionExpression() },
             { "length", new LengthExpression() }
         };
-        public static bool test = false;
+        public static bool test = false;    
 
         static void Main(string[] args)
         {
