@@ -1,0 +1,13 @@
+_loads {
+	wolSystem
+}
+main {
+	push-local a (parseInt : (input)) ;
+	block b;
+		print : @a , <\n:string> ;
+		set : &@a, (parseInt : (input));
+	end ;
+	while : (ls : @a, <50:int> ), %b ;
+}
+end
+it the end
