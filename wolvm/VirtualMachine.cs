@@ -27,7 +27,8 @@ namespace wolvm
             { "ms", new MoreSignExpression() },
             { "equals", new EqualsExpression() },
             { "not", new InversionExpression() },
-            { "length", new LengthExpression() }
+            { "length", new LengthExpression() },
+            { "minus", new MinusExpression() }
         };
         public static bool test = false;    
 

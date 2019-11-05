@@ -4,7 +4,7 @@ using System.Text;
 
 namespace wolvm.expressions
 {
-    public class PlusExpression : VMExpression
+    public class MinusExpression : VMExpression
     {
         public Value ParseExpression(params Value[] args)
         {
@@ -15,7 +15,7 @@ namespace wolvm.expressions
                 foreach (Value val in args)
                 {
                     wolByte vald = (wolByte)val.type;
-                    sum += vald.value;
+                    sum -= vald.value;
                 }
                 return new Value(new wolByte(sum));
             }
@@ -25,7 +25,7 @@ namespace wolvm.expressions
                 foreach (Value val in args)
                 {
                     wolShort vald = (wolShort)val.type;
-                    sum += vald.value;
+                    sum -= vald.value;
                 }
                 return new Value(new wolShort(sum));
             }
@@ -35,7 +35,7 @@ namespace wolvm.expressions
                 foreach (Value val in args)
                 {
                     wolInt vald = (wolInt)val.type;
-                    sum += vald.value;
+                    sum -= vald.value;
                 }
                 return new Value(new wolInt(sum));
             }
@@ -45,7 +45,7 @@ namespace wolvm.expressions
                 foreach (Value val in args)
                 {
                     wolFloat vald = (wolFloat)val.type;
-                    sum += vald.value;
+                    sum -= vald.value;
                 }
                 return new Value(new wolFloat(sum));
             }
@@ -55,7 +55,7 @@ namespace wolvm.expressions
                 foreach (Value val in args)
                 {
                     wolLong vald = (wolLong)val.type;
-                    sum += vald.value;
+                    sum -= vald.value;
                 }
                 return new Value(new wolLong(sum));
             }
@@ -65,7 +65,7 @@ namespace wolvm.expressions
                 foreach (Value val in args)
                 {
                     wolDouble vald = (wolDouble)val.type;
-                    sum += vald.value;
+                    sum -= vald.value;
                 }
                 return new Value(new wolDouble(sum));
             }
@@ -75,23 +75,13 @@ namespace wolvm.expressions
                 foreach (Value val in args)
                 {
                     wolChar valc = (wolChar)val.type;
-                    result += valc.value;
+                    result -= valc.value;
                 }
                 return new Value(new wolChar(result));
             }
-            else if (type is wolString)
-            {
-                string result = "";
-                foreach (Value val in args)
-                {
-                    wolString vald = (wolString)val.type;
-                    result += vald.value;
-                }
-                return new Value(new wolString(result));
-            }
             else
             {
-                VirtualMachine.ThrowVMException($"Value with type {type.strtype} not support plus", VirtualMachine.position, ExceptionType.TypeNotSupportedException);
+                VirtualMachine.ThrowVMException($"Value with type {type.strtype} not support minus", VirtualMachine.position, ExceptionType.TypeNotSupportedException);
                 return Value.VoidValue;
             }
         }
