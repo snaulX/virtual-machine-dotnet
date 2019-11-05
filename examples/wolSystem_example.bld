@@ -1,0 +1,24 @@
+_loads {
+	wolSystem
+}
+main {
+	consolebg : <0:int>;
+	print : <Enter your name\u003A:string>;
+	print : <Hello :string>, (input);
+	print : <\nOkay\u002E Now enter the name of console\u003A:string>;
+	consoletitle : (input);
+	print : <\nNow You enter the key\u003A:string>, (readkey : <true:bool>);
+	print : <\nDo you want clear console? :string>;
+	block a;
+		clear;
+	end;
+	ifelse : (equals : (input), <yes:string>), %a;
+	print : <Input number of a color for console background (until 15)\u003A :string>;
+	consolebg : (parseInt : (input));
+	print : <Enter milliseconds which on this program will pause (sleep)\u003A :string>;
+	sleep : (parseInt : (input));
+	print : <Enter exit code of program :string>;
+	exit : (parseInt : (input));
+}
+end
+it the end
