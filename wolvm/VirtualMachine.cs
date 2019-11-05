@@ -18,7 +18,6 @@ namespace wolvm
             { "_loads", new LoadsExpression() },
             { "typeof", new TypeofExpression() },
             { "ifelse", new IfExpression() },
-            { "while", new WhileExpression() },
             { "run", new RunExpression() },
             { "parseInt", new ParseIntExpression() },
             { "set", new SetExpression() },
@@ -150,6 +149,7 @@ namespace wolvm
             mainstack.classes.Add("Collection", new wolCollection()); //void
             mainstack.classes.Add("Array", new wolArray()); //Collection
             mainstack.classes.Add("Link", new wolLink()); //void
+            mainstack.classes.Add("bool", new wolBool()); //void
 
             //main cycle
             position = 0;

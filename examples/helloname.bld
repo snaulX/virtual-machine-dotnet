@@ -1,0 +1,20 @@
+_loads {
+	wolSystem
+}
+stack {
+	var {
+		a = string PUBLIC set (_a: string) [
+			set : &@a, @_a ;
+		]
+		PUBLIC get [
+			return @a ;
+		]
+	};
+}
+main {
+	print : <Enter your name\u003A:string>;
+	set : &@a, (input);
+	print : <Hello :string>, @a;
+}
+end
+it the end

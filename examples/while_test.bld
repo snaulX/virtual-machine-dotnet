@@ -1,13 +1,23 @@
 _loads {
 	wolSystem
 }
+stack {
+	var {
+		a = int PUBLIC set (_a: int) [
+			set : &@a, @_a ;
+		]
+		PUBLIC get [
+			return @a ;
+		]
+	};
+}
 main {
-	push-local a (parseInt : (input)) ;
+	set : &@a, (parseInt : (input));
 	block b;
 		print : @a , <\n:string> ;
 		set : &@a, (parseInt : (input));
 	end ;
-	while : (ls : @a, <50:int> ), %b ;
+	while b (ls : @a, <50:int> );
 }
 end
 it the end

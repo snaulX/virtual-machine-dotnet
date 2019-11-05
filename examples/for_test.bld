@@ -1,13 +1,23 @@
 _loads {
 	wolSystem
 }
+stack {
+	var {
+		i = int PUBLIC set (_i: int) [
+			set : &@i, @_i ;
+		]
+		PUBLIC get [
+			return @i ;
+		]
+	};
+}
 main {
-	push-local i <0:int>;
+	set : &@i, <0:int>;
 	block a;
-		print : @i , <\n:string> ;
+		print : (toString : @i) , <\n:string> ;
 		set : &@i, (plus : @i, <1:int> );
 	end ;
-	while : (ls : @i, <7:int> ), %a ;
+	while a  (ls : @i, <7:int> );
 }
 end
 it the end

@@ -47,6 +47,12 @@ namespace wolvm
                             VirtualMachine.mainstack.values.Remove(tokens[1]);
                         }
                         break;
+                    case "while":
+                        while (((wolBool)Value.GetValue(string.Join(' ', tokens.TakeLast(tokens.Length - 2))).type).value)
+                        {
+                            ((wolBlock)VirtualMachine.FindBlock(tokens[1]).type).Run();
+                        }
+                        break;
                     case "return":
                         return Value.GetValue(tokens[1]);
                     case "block":

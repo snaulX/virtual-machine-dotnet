@@ -125,6 +125,7 @@ namespace wolvm
                     else if (type_word == "bool")
                     {
                         wolBool type = new wolBool();
+                        type.ParseBool(val_word);
                         value = new Value(type);
                     }
                     else if (type_word == "void")
