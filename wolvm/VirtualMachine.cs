@@ -28,7 +28,10 @@ namespace wolvm
             { "equals", new EqualsExpression() },
             { "not", new InversionExpression() },
             { "length", new LengthExpression() },
-            { "minus", new MinusExpression() }
+            { "minus", new MinusExpression() },
+            { "multiply", new MultiplyExpression() },
+            { "div", new DivExpression() },
+            { "mod", new ModExpression() }
         };
         public static bool test = false;    
 
