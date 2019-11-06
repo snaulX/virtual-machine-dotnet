@@ -31,7 +31,9 @@ namespace wolvm
             { "minus", new MinusExpression() },
             { "multiply", new MultiplyExpression() },
             { "div", new DivExpression() },
-            { "mod", new ModExpression() }
+            { "mod", new ModExpression() },
+            { "and", new AndExpression() },
+            { "or", new OrExpression() }
         };
         public static bool test = false;    
 
