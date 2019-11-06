@@ -7,6 +7,7 @@ main {
 	print : <Hello :string>, (input);
 	print : <\nOkay\u002E Now enter the name of console\u003A:string>;
 	consoletitle : (input);
+	print : <Press any key\n:string>;
 	print : <\nNow You enter the key\u003A:string>, (readkey : <true:bool>);
 	print : <\nDo you want clear console? :string>;
 	block a;
@@ -22,3 +23,4 @@ main {
 }
 end
 it the end
+All sources have on GitHub

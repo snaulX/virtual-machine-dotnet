@@ -33,7 +33,8 @@ namespace wolvm
             { "div", new DivExpression() },
             { "mod", new ModExpression() },
             { "and", new AndExpression() },
-            { "or", new OrExpression() }
+            { "or", new OrExpression() },
+            { "getByIndex", new GetElementExpression() }
         };
         public static bool test = false;    
 
