@@ -34,7 +34,9 @@ namespace wolvm
             { "mod", new ModExpression() },
             { "and", new AndExpression() },
             { "or", new OrExpression() },
-            { "getByIndex", new GetElementExpression() }
+            { "getByIndex", new GetElementExpression() },
+            { "newArray", new NewArrayExpression() },
+            { "setElem", new SetElementExpression() }
         };
         public static bool test = false;    
 
@@ -142,8 +144,8 @@ namespace wolvm
             //add base classes to stack                 parents:
             mainstack.classes.Add("void", new Void()); //no
             mainstack.classes.Add("byte", new wolByte()); //void
-            mainstack.classes.Add("short", new wolShort()); //byte
             mainstack.classes.Add("string", new wolString()); //void
+            mainstack.classes.Add("short", new wolShort()); //byte
             mainstack.classes.Add("int", new wolInt()); //short
             mainstack.classes.Add("float", new wolFloat()); //int
             mainstack.classes.Add("long", new wolLong()); //int
@@ -153,8 +155,7 @@ namespace wolvm
             mainstack.classes.Add("Enum", new wolEnum()); //void
             mainstack.classes.Add("char", new wolChar()); //void
             mainstack.classes.Add("Block", new wolBlock()); //void
-            mainstack.classes.Add("Collection", new wolCollection()); //void
-            mainstack.classes.Add("Array", new wolArray()); //Collection
+            mainstack.classes.Add("Array", new wolArray()); //void
             mainstack.classes.Add("Link", new wolLink()); //void
             mainstack.classes.Add("bool", new wolBool()); //void
 

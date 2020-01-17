@@ -1,0 +1,13 @@
+_loads {
+	wolSystem
+}
+main {
+	push-local arr (newArray : <3:int>);
+	print : (length : @arr ), <\n:string> ;
+	setElem : @arr, <Tom:string>, <0:int>;
+	setElem : @arr, <Sam:string>, <1:int>;
+	setElem : @arr, <Mike:string>, <2:int>;
+	print : @arr, <\n:string> ;
+	print : <First element is :string>, (getByIndex : @arr, <0:int>) ;
+}
+end 

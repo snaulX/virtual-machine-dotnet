@@ -1,0 +1,21 @@
+_loads {
+	wolSystem
+}
+stack {
+	var {
+		str = StreamReader PUBLIC set (_str: StreamReader) [
+			set : &@str, @_str ;
+		]
+		PUBLIC get [
+			return @str ;
+		]
+	};
+}
+main {
+	set : &@str, (openread : <file_read.txt:string>);
+	print : <Open file_read.txt\n:string>;
+	consoletitle : (readline : @str );
+	closeread : @str ;
+	readkey;
+}
+end 

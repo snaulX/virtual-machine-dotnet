@@ -6,7 +6,7 @@ namespace wolvm
 {
     public class wolType : Void
     {
-        public wolClass value;
+        public new wolClass value;
 
         public wolType() : base()
         {
@@ -19,7 +19,7 @@ namespace wolvm
                         {
                             { "name", new wolString() }
                         },
-                        body = "set : &this.name, @name ;",
+                        body = "set : &@this.@name, @name ;",
                         security = SecurityModifer.PUBLIC
                     }
                 );

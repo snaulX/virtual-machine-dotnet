@@ -6,7 +6,7 @@ namespace wolvm
 {
     public class wolFunc : Void
     {
-        public wolFunction value;
+        public new wolFunction value;
 
         public wolFunc() : base()
         {

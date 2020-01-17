@@ -18,6 +18,11 @@ namespace wolvm
             destructors = new List<wolFunction>();
         }
 
-        public override string ToString() => string.Empty;
+        public Void(object val) : this()
+        {
+            value = val;
+        }
+
+        public override string ToString() => "null";
     }
 }

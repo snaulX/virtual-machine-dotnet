@@ -6,6 +6,6 @@ namespace wolvm.expressions
 {
     public class TypeofExpression : VMExpression
     {
-        public Value ParseExpression(params Value[] args) => new Value(new wolType(), "Type", Value.GetValue($"<{args[0].type.ToString()}:string>"));
+        public Value ParseExpression(params Value[] args) => new Value(new wolType(((wolString)args[0].type).value));
     }
 }

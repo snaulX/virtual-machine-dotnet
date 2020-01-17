@@ -7,7 +7,8 @@ namespace wolvm
 {
     public class wolChar : Void
     {
-        public char value;
+        public new char value;
+
         public wolChar() : base()
         {
             strtype = "char";

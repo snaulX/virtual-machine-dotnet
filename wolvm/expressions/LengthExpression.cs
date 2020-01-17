@@ -8,7 +8,14 @@ namespace wolvm.expressions
     {
         public Value ParseExpression(params Value[] args)
         {
-            return new Value(new wolInt(((wolString)args[0].type).value.Length));
+            wolClass type = args[0].type;
+            if (type is wolString t)  return new Value(new wolInt(t.value.Length));
+            else if (type is wolArray ty) return new Value(new wolInt(ty.value.Length));
+            else
+            {
+                VirtualMachine.ThrowVMException("Type of argument in length can be only Array or string", VirtualMachine.position, ExceptionType.InvalidTypeException);
+                return Value.VoidValue;
+            }
         }
     }
 }

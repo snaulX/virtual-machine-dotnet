@@ -10,8 +10,14 @@ namespace wolvm.expressions
         {
             //this is a temporary version
             wolClass type = args[0].type;
-            if (type is wolString) return new Value(new wolChar(((wolString)type).value[((wolInt)type).value]));
-            else return Value.VoidValue;
+            int index = ((wolInt)args[1].type).value;
+            if (type is wolString t) return new Value(new wolChar(t.value[index]));
+            else if (type is wolArray ty) return new Value(new Void(ty.value.GetValue(index)));
+            else
+            {
+                VirtualMachine.ThrowVMException("Type of argument in getByIndex can be only Array or string", VirtualMachine.position, ExceptionType.InvalidTypeException);
+                return Value.VoidValue;
+            }
         }
     }
 }

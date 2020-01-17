@@ -1,0 +1,24 @@
+_loads {
+	wolSystem
+}
+main {
+	consoletitle : <Console Rainbow:string>;
+	consolebg : <4:int> ;
+	print : <Dark Red\n:string>;
+	consolebg : <12:int> ;
+	print : <Red\n:string>;
+	consolebg : <14:int> ;
+	print : <Yellow\n:string>;
+	consolebg : <10:int> ;
+	print : <Green\n:string>;
+	consolebg : <9:int> ;
+	print : <Blue\n:string>;
+	consolebg : <1:int> ;
+	print : <Dark Blue\n:string>;
+	consolebg : <13:int> ;
+	print : <Magenta\n:string>;
+	consolebg : <0:int>;
+	readkey;
+}
+end
+it the end

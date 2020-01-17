@@ -6,7 +6,7 @@ namespace wolvm
 {
     public class wolBool : Void
     {
-        public bool value;
+        public new bool value;
 
         public wolBool() : base()
         {

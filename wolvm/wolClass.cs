@@ -13,6 +13,7 @@ namespace wolvm
         public SecurityModifer security;
         public wolClassType classType;
         public string strtype;
+        public object value;
 
         public wolClass()
         {

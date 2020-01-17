@@ -6,7 +6,7 @@ namespace wolvm
 {
     public class wolByte : Void
     {
-        public byte value;
+        public new byte value;
 
         public wolByte() : base()
         {
