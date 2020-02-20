@@ -12,10 +12,10 @@ stack {
 	};
 }
 main {
-	set : &@str, (openread : <file_read.txt:string>);
-	print : <Open file_read.txt\n:string>;
+	set : &@str, (openread : <wolSystem\\file_read\u002Etxt:string>);
+	print : <Look at title\n\n:string>;
 	consoletitle : (readline : @str );
+	print : (readtoend : @str );
 	closeread : @str ;
-	readkey;
 }
 end 

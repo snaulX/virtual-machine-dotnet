@@ -1,0 +1,25 @@
+_loads {
+	wolSystem
+}
+stack {
+	var {
+		str = StreamWriter PUBLIC set (_str: StreamWriter) [
+			set : &@str, @_str ;
+		]
+		PUBLIC get [
+			return @str ;
+		]
+	};
+}
+main {
+	print : <Write strings while not inputing 'end'\u002EThis text will be write to file\u003A wolSystem\\file_write\u002Etxt\n:string>;
+	set : &@str, (openwrite : <wolSystem\\file_write\u002Etxt:string>);
+	push-local inp (input) ;
+	block a;
+		writefile : @str, @inp ;
+		@inp.#set : (input) ;
+	end ;
+	while a (not : (equals : @inp, <end:string>)) ;
+	closewrite : @str ;
+}
+end 

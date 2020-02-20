@@ -14,6 +14,7 @@ main {
 		clear;
 	end;
 	ifelse : (equals : (input), <yes:string>), %a;
+	print : <Current time\u003A :string>, (datetimenow), <\n:string> ;
 	print : <Input number of a color for console background (until 15)\u003A :string>;
 	consolebg : (parseInt : (input));
 	print : <Enter milliseconds which on this program will pause (sleep)\u003A :string>;

@@ -4,8 +4,8 @@ Virtual {
 	plus : <12:double>, <10:double>, <678:double>;
 } //write script with operator Virtual
 class public Tuzik {
-	function public string toString() => "Tuzik"; //operator => return value. After value always ставится ;
-	function public greet(string text) -> print("Hello, " + text); //operator -> just run expression. After expression always ставится ;
+	fun public string toString() => "Tuzik"; //operator => return value. After value always ставится ;
+	fun public greet(string text) -> print("Hello, " + text); //operator -> just run expression. After expression always ставится ;
 	var public int age; //create new variable with default getter and setter
 	var public string name = set (string name) {
 		Virtual {
@@ -34,7 +34,7 @@ enum public BaseType {
 	SHORT = 12 //set value to constant of enumeration
 }
 
-function print(string text) { 
+fun print(string text) { 
 	Virtual {
 		print : @text ; 
 	}
